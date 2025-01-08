@@ -1,0 +1,44 @@
+<?php $this->layout("layouts/default", ["title" => CONGNGHE]) ?>
+
+<?php $this->start("page") ?>
+
+<main>
+  <?php if (!empty($messages)): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <?= $this->e($messages['success']) ?>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <?php endif; ?>
+  <div class="container text-center mt-5 bg-light rounded w-50">
+    <form action="/login" method="POST" class="row g-3 w-75 m-auto">
+      <h1 class="text-center">ĐĂNG NHẬP</h1>
+      <div class="col-md-12 col-sm-12">
+        <input placeholder="Địa chỉ Email" id="email" type="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>" name="email" value="<?= isset($old['email']) ? $this->e($old['email']) : '' ?>" required autofocus>
+        <?php if (isset($errors['email'])) : ?>
+          <span class="invalid-feedback">
+            <strong><?= $this->e($errors['email']) ?></strong>
+          </span>
+        <?php endif ?>
+      </div>
+      <div class="col-md-12 col-sm-12">
+        <input placeholder="Mật khẩu" id="password" type="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>" name="password" required>
+
+        <?php if (isset($errors['password'])) : ?>
+          <span class="invalid-feedback">
+            <strong><?= $this->e($errors['password']) ?></strong>
+          </span>
+        <?php endif ?>
+      </div>
+
+      <button style="font-weight: bold;" type="submit" class="btn btn-success" name="DangNhap">Đăng Nhập</button>
+      <div class="col-12 text">
+        <p>Chưa có tài khoản? <a href="/register">Đăng Ký</a>/ <a href="/registerVIP">Đăng ký VIP</a></p>
+        <p>Chưa có tài khoản? <a href="/loginFP">Quân mật khẩu</a></p>
+      </div>
+
+  </div>
+  </form>
+  </div>
+  </div>
+</main>
+<?php $this->stop() ?>
