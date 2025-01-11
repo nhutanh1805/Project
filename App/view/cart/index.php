@@ -19,24 +19,39 @@
                         <th>Số lượng</th>
                         <th>Giá</th>
                         <th>Tổng</th>
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($cart as $item): ?>
+                    <?php foreach ($cart as $productId => $item): ?>
                         <tr>
                             <td><?= htmlspecialchars($item['name']) ?></td>
-                            <td><?= $item['quantity'] ?></td>
+                            <td>
+                                <!-- Form cập nhật số lượng -->
+                                <form action="/cart/update/<?= $productId ?>" method="POST">
+                                    <input type="number" name="quantity" value="<?= $item['quantity'] ?>" min="1" required>
+                                    <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
+                                </form>
+                            </td>
                             <td><?= number_format($item['price'], 0, ',', '.') ?> VNĐ</td>
                             <td><?= number_format($item['price'] * $item['quantity'], 0, ',', '.') ?> VNĐ</td>
+                            <td>
+                                <!-- Form xóa sản phẩm -->
+                                <form action="/cart/remove/<?= $productId ?>" method="POST" onsubmit="return confirm('Bạn chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?');">
+                                    <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                     <tr>
                         <td colspan="3" class="text-right"><strong>Tổng tiền:</strong></td>
-                        <td><strong><?= number_format($totalAmount ?? 0, 0, ',', '.') ?> VNĐ</strong></td>
+                        <td><strong><?= number_format($total, 0, ',', '.') ?> VNĐ</strong></td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
 
+            <!-- Link đến trang thanh toán -->
             <a href="/checkout" class="btn btn-success">Thanh toán</a>
         <?php endif; ?>
     </div>

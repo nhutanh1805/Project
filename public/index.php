@@ -25,7 +25,6 @@ $router->post('/loginFP', '\App\Controllers\Auth\LoginController@storeFP');
 $router->get('/registerVIP', '\App\Controllers\Auth\RegisterVIPController@create'); 
 $router->post('/registerVIP', '\App\Controllers\Auth\RegisterVIPController@store'); 
 
-
 // Contact routes
 $router->get('/', '\App\Controllers\HomeController@index');
 $router->get('/home', '\App\Controllers\HomeController@index');
@@ -38,22 +37,27 @@ $router->post('/contacts/(\d+)','\App\Controllers\HomeController@update');
 $router->post('/contacts/delete/(\d+)','\App\Controllers\HomeController@destroy');
 $router->set404('\App\Controllers\Controller@sendNotFound');
 
-
+// Cart routes
 use App\Controllers\CartController;
-$router->get('/cart/add/{productId}', function($productId) {
-    $cartController = new CartController();
-    $cartController->add($productId);
-});
-
-
 $router->get('/cart', '\App\Controllers\CartController@index');
-$router->post('/cart/add/{productId}', [CartController::class, 'add']);
-$router->get('/cart/remove/{productId}', [CartController::class, 'remove']);
-$router->post('/cart/update/{productId}', [CartController::class, 'update']);
+$router->post('/cart/add/{productId}', '\App\Controllers\CartController@add');
+$router->get('/cart/remove/{productId}', '\App\Controllers\CartController@remove');
+$router->post('/cart/update/{productId}', '\App\Controllers\CartController@update');
 
+// Checkout routes
+use App\Controllers\CheckoutController;
 
+// Hiển thị trang thanh toán
+$router->get('/checkout', '\App\Controllers\CheckoutController@index');
+
+// Xử lý thanh toán
+$router->post('/checkout/process', '\App\Controllers\CheckoutController@process');
+
+// Trang cảm ơn
+$router->get('/thank-you', '\App\Controllers\CheckoutController@thankYou');
+
+// Search routes
 $router->get('/search', '\App\Controllers\SearchController@index'); 
 
-
-
+// Run the router
 $router->run();

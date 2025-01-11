@@ -6,24 +6,25 @@ use App\Models\Search;
 
 class SearchController extends Controller
 {
+    // Phương thức hiển thị trang kết quả tìm kiếm
     public function index()
     {
-        // Lấy giá trị tìm kiếm từ URL
-        $query = isset($_GET['query']) ? $_GET['query'] : '';
+        // Lấy giá trị tìm kiếm từ URL bằng phương thức GET
+        $query = isset($_GET['query']) ? $_GET['query'] : '';  // Kiểm tra nếu có 'query' trong URL
 
-        $results = [];
+        $results = [];  // Khởi tạo mảng kết quả tìm kiếm rỗng
 
-        // Nếu có từ khóa tìm kiếm
+        // Nếu có từ khóa tìm kiếm (query không rỗng)
         if ($query) {
-            // Tạo đối tượng Search và tìm kiếm sản phẩm
+            // Tạo đối tượng Search từ model Search và thực hiện tìm kiếm sản phẩm
             $search = new Search(PDO());
-            $results = $search->searchProducts($query);
+            $results = $search->searchProducts($query);  // Gọi phương thức searchProducts() trong model
         }
 
-        // Gửi kết quả đến view
+        // Gửi kết quả tìm kiếm đến view search/index và truyền dữ liệu vào view
         $this->sendPage('search/index', [
-            'results' => $results,
-            'query' => $query
+            'results' => $results,  // Dữ liệu kết quả tìm kiếm
+            'query' => $query  // Từ khóa tìm kiếm để hiển thị lại trong form tìm kiếm
         ]);
     }
 }
