@@ -39,22 +39,52 @@ $router->set404('\App\Controllers\Controller@sendNotFound');
 
 // Cart routes
 use App\Controllers\CartController;
-$router->get('/cart', '\App\Controllers\CartController@index');
-$router->post('/cart/add/{productId}', '\App\Controllers\CartController@add');
-$router->get('/cart/remove/{productId}', '\App\Controllers\CartController@remove');
-$router->post('/cart/update/{productId}', '\App\Controllers\CartController@update');
+
+// Hiển thị giỏ hàng
+$router->get('/cart', function() {
+    $cartController = new CartController();
+    $cartController->index();  // Hiển thị giỏ hàng
+});
+
+// Thêm sản phẩm vào giỏ hàng
+$router->get('/cart/add/{productId}', function($productId) {
+    $cartController = new CartController();
+    $cartController->add($productId);  // Thêm sản phẩm vào giỏ hàng
+});
+
+// Cập nhật số lượng sản phẩm trong giỏ hàng
+$router->post('/cart/update/{productId}', function($productId) {
+    $quantity = $_POST['quantity'] ?? 1;  // Lấy số lượng từ form
+    $cartController = new CartController();
+    $cartController->update($productId, $quantity);  // Cập nhật số lượng sản phẩm
+});
+
+// Xóa sản phẩm khỏi giỏ hàng
+$router->get('/cart/remove/{productId}', function($productId) {
+    $cartController = new CartController();
+    $cartController->remove($productId);  // Xóa sản phẩm khỏi giỏ hàng
+});
 
 // Checkout routes
 use App\Controllers\CheckoutController;
 
 // Hiển thị trang thanh toán
-$router->get('/checkout', '\App\Controllers\CheckoutController@index');
+$router->get('/checkout', function() {
+    $checkoutController = new CheckoutController();
+    $checkoutController->index();  // Hiển thị trang thanh toán
+});
 
-// Xử lý thanh toán
-$router->post('/checkout/process', '\App\Controllers\CheckoutController@process');
+// Xử lý thanh toán (giao dịch online hoặc nhận tiền khi giao hàng)
+$router->post('/checkout/process', function() {
+    $checkoutController = new CheckoutController();
+    $checkoutController->process();  // Xử lý thanh toán
+});
 
-// Trang cảm ơn
-$router->get('/thank-you', '\App\Controllers\CheckoutController@thankYou');
+// Trang cảm ơn sau khi thanh toán thành công
+$router->get('/thank-you', function() {
+    $checkoutController = new CheckoutController();
+    $checkoutController->thankYou();  // Trang cảm ơn
+});
 
 // Search routes
 $router->get('/search', '\App\Controllers\SearchController@index'); 

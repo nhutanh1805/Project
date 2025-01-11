@@ -45,7 +45,14 @@ class Cart
         if (isset($_SESSION['cart'][$productId])) {
             // Nếu có, xóa sản phẩm khỏi giỏ hàng
             unset($_SESSION['cart'][$productId]);
+            $_SESSION['message'] = "Sản phẩm đã được xóa khỏi giỏ hàng.";
+        } else {
+            // Nếu không tìm thấy sản phẩm trong giỏ hàng, có thể thêm thông báo lỗi
+            $_SESSION['error_message'] = "Sản phẩm không tồn tại trong giỏ hàng.";
         }
+
+        // Cập nhật lại giỏ hàng trong session (mặc dù trong trường hợp này nó sẽ tự động cập nhật khi unset)
+        $_SESSION['cart'] = $_SESSION['cart'];
     }
 
     // Cập nhật số lượng sản phẩm trong giỏ hàng
@@ -71,6 +78,7 @@ class Cart
         // Trả về tổng tiền
         return $total;
     }
+
     // Xóa giỏ hàng
     public static function clearCart()
     {
