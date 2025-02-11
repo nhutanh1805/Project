@@ -6,7 +6,7 @@
     <div class="col-md-8 offset-md-2">
 
       <div class="card mt-3">
-        <div class="card-header fw-bold text-uppercase text-center">ĐĂNH NHẬP</div>
+        <div class="card-header fw-bold text-uppercase text-center">ĐĂNG NHẬP</div>
         <div class="card-body bg-body-tertiary">
 
           <form method="POST" action="/register">

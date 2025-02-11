@@ -119,11 +119,12 @@
               <a class="nav-link" href="/" data-toggle="tab" ><i class="fa-solid fa-house me-1"></i>TRANG CHỦ</a>
             </li>
             <li class="nav-item ms-1 w-auto">
-              <a class="nav-link" href="/homeAmin" data-toggle="tab" ><i class="fa-solid fa-house me-1"></i>TRANG CHỦ ADMIN</a>
-            </li>
-            <li class="nav-item ms-1 w-auto">
               <a class="nav-link" href="/product" data-toggle="tab" ><i class="fa-brands fa-product-hunt me-1"></i>SẢN PHẨM</a>
             </li>
+            <li class="nav-item ms-1 w-auto">
+              <a class="nav-link" href="/homeAmin" data-toggle="tab" ><i class="fa-solid fa-house me-1"></i>TRANG CHỦ ADMIN</a>
+            </li>
+           
 
             <!-- <li class="nav-item ms-1 w-auto">
               <a class="nav-link" href="/registerVIP" data-toggle="tab" ><i class="fa-solid fa-pen me-1"></i>ĐĂNG KÝ VIP</a>
@@ -135,9 +136,9 @@
             <li class="nav-item ms-1 w-auto">
               <a class="nav-link" href="/login"><i class="fa-solid fa-user me-1"></i>ĐĂNG NHẬP</a>
             </li> -->
-            <li class="nav-item ms-1 w-auto">
+            <!-- <li class="nav-item ms-1 w-auto">
               <a class="nav-link" href="/contacts/create/"><i class="fa-solid fa-user me-1"></i>THÊM SẢN PHẨM</a>
-            </li>
+            </li> -->
             
             <!-- <li class="nav-item ms-1 w-auto">
                 <a class="nav-link" href="SanPham1.html">Sản Phẩm demo</a>

@@ -7,6 +7,7 @@
 
 <!-- Phần nội dung chính -->
 <main>
+
 <?php if (!empty($_SESSION['error_message'])): ?>
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <?= htmlspecialchars($_SESSION['error_message'], ENT_QUOTES, 'UTF-8') ?>
@@ -41,6 +42,9 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#category4">Đồng hồ</a>
                 </li>
+                <li class="nav-item ms-1 w-auto">
+              <a class="nav-link" href="/contacts/create/"><i class="fa-solid fa-user me-1"></i>THÊM SẢN PHẨM</a>
+            </li>
             </ul>
         </div>
         <!-- PHẦN LAPTOP -->
