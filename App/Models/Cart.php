@@ -33,6 +33,7 @@ class Cart
             ];
             $cart[$productId] = $product;  // Thêm sản phẩm vào giỏ hàng
         }
+        
 
         // Cập nhật lại giỏ hàng trong session
         $_SESSION['cart'] = $cart;

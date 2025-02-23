@@ -60,4 +60,21 @@ class Product {
         // Trả về danh sách các sản phẩm tìm được dưới dạng mảng kết hợp
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    /**
+     * Lấy tất cả sản phẩm từ cơ sở dữ liệu.
+     *
+     * @return array Danh sách tất cả sản phẩm.
+     */
+    public function getAll() {
+        // Câu truy vấn SQL để lấy tất cả sản phẩm
+        $query = "SELECT * FROM products";
+        
+        // Chuẩn bị và thực thi câu truy vấn SQL
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        
+        // Trả về danh sách tất cả sản phẩm dưới dạng mảng kết hợp
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
