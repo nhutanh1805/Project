@@ -202,7 +202,11 @@
       <i class="fa-solid fa-star text-warning"></i> SẢN PHẨM NỔI BẬT
     </h3>
     <div class="col-6 text-end mt-1">
-      <a href="/product" class="float-end text-dark text-decoration-none">Xem thêm <i class="fa-solid fa-angles-right"></i></a>
+    <a href="/product" class="float-end text-dark text-decoration-none fw-bold d-flex align-items-center gap-2">
+  <span>Xem thêm</span>
+  <i class="fa-solid fa-angles-right"></i>
+</a>
+
     </div>
     <div class="row ms-1">
       <?php foreach ($contacts as $contact): ?>

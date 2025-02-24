@@ -30,7 +30,7 @@
   <div id="laptops" class="brand row m-1">
     <div class="row ms-1 mt-3">
       <?php foreach ($contacts as $contact): ?>
-        <div class="col-lg-4 col-sm-6 mb-3">
+        <div class="col-lg-3 col-sm-6 mb-3">
           <div class="card border shadow-sm">
             <img src="<?= htmlspecialchars($contact->img) ?>" class="card-img-top p-2" alt="<?= htmlspecialchars($contact->name) ?>">
             <div class="card-body text-center">
