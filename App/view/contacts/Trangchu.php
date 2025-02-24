@@ -2,7 +2,47 @@
 
 <?php $this->start("page_specific_css") ?>
 <link href="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-2.0.8/r-3.0.2/sp-2.3.1/datatables.min.css" rel="stylesheet">
+<style>
+  /* Animation cho phần danh mục */
+  .category-list {
+    transition: all 0.5s ease-in-out;
+  }
+
+  .category-toggle {
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .category-toggle:hover {
+    color: #007bff;
+  }
+
+  /* Hiệu ứng ẩn/hiện */
+  .category-collapse {
+    display: none;
+  }
+
+  .category-collapse.show {
+    display: block;
+  }
+
+  /* Phần tin tức nổi bật */
+  #newsList {
+    margin-top: 10px;
+  }
+
+  .list-group-item h6 a {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .list-group-item p {
+    font-size: 0.875rem;
+    color: #6c757d;
+  }
+</style>
 <?php $this->stop() ?>
+
 <?php $this->start("page") ?>
 
 <!-- Phần nội dung chính -->
@@ -15,8 +55,7 @@
         <?= htmlspecialchars($_SESSION['error_message'], ENT_QUOTES, 'UTF-8') ?>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
-      <?php unset($_SESSION['error_message']);
-      ?>
+      <?php unset($_SESSION['error_message']); ?>
     <?php endif; ?>
 
     <?php if (!empty($_SESSION['success_message'])): ?>
@@ -24,8 +63,7 @@
         <?= htmlspecialchars($_SESSION['success_message'], ENT_QUOTES, 'UTF-8') ?>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
-      <?php unset($_SESSION['success_message']);
-      ?>
+      <?php unset($_SESSION['success_message']); ?>
     <?php endif; ?>
 
     <!-- Phần carousel -->
@@ -69,21 +107,7 @@
         </div>
       </div>
 
-      <!-- Thanh danh mục -->
-      <div class="col-lg-3 col-12">
-        <div class="m-0 bg-white">
-          <h5 class="p-2 mt-1">DANH MỤC</h5>
-          <div class="list-group">
-            <!-- Các liên kết danh mục -->
-            <a href="#laptops" class="list-group-item list-group-item-action">Laptop</a>
-            <a href="#phones" class="list-group-item list-group-item-action">Điện Thoại</a>
-            <a href="#tablets" class="list-group-item list-group-item-action">Máy Tính Bảng</a>
-            <a href="#watches" class="list-group-item list-group-item-action">Đồng Hồ</a>
-            <!-- Thêm nhiều danh mục nếu cần -->
-          </div>
-        </div>
-      </div>
-      <!-- Các phần sản phẩm -->
+      <!-- Thanh danh mục (được di chuyển sang bên phải) -->
       <div class="col-lg-9 col-12">
         <div id="laptops" class="brand row m-1">
           <h3 class="col-6 text-center text-white mt-2">
@@ -151,10 +175,46 @@
         </div>
       </div>
 
+      <!-- Thanh danh mục chuyển sang bên phải và có thể toggle -->
+      <div class="col-lg-3 col-12">
+        <div class="m-0 bg-white">
+          <h5 class="p-2 mt-1 category-toggle" data-bs-toggle="collapse" data-bs-target="#categoryList">DANH MỤC <i class="fa-solid fa-caret-down"></i></h5>
+          <div id="categoryList" class="category-list category-collapse">
+            <div class="list-group">
+              <a href="#laptops" class="list-group-item list-group-item-action">Laptop</a>
+              <a href="#phones" class="list-group-item list-group-item-action">Điện Thoại</a>
+              <a href="#tablets" class="list-group-item list-group-item-action">Máy Tính Bảng</a>
+              <a href="#watches" class="list-group-item list-group-item-action">Đồng Hồ</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phần Tin Tức Nổi Bật -->
+        <div class="m-0 bg-light mt-4 p-3">
+          <h5 class="category-toggle" data-bs-toggle="collapse" data-bs-target="#newsList">TIN TỨC NỔI BẬT <i class="fa-solid fa-caret-down"></i></h5>
+          <div id="newsList" class="category-list category-collapse">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <h6><a href="#" class="text-decoration-none">Tin tức 1: Giảm giá lớn tháng này</a></h6>
+                <p class="text-muted">Đọc ngay các chương trình khuyến mãi đặc biệt cho tháng này.</p>
+              </li>
+              <li class="list-group-item">
+                <h6><a href="#" class="text-decoration-none">Tin tức 2: Sản phẩm mới ra mắt</a></h6>
+                <p class="text-muted">Khám phá các sản phẩm công nghệ mới nhất.</p>
+              </li>
+              <li class="list-group-item">
+                <h6><a href="#" class="text-decoration-none">Tin tức 3: Tính năng mới cho sản phẩm</a></h6>
+                <p class="text-muted">Đọc về những cải tiến mới trong sản phẩm của chúng tôi.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
     </div>
 </main>
 
-    <a class="backtop position-fixed text-center rounded-circle text-muted active" href="#"> <i class="bi bi-house-door"></i></a>
+<a class="backtop position-fixed text-center rounded-circle text-muted active" href="#"> <i class="bi bi-house-door"></i></a>
 
 <?php $this->stop() ?>
 
@@ -162,38 +222,15 @@
 <script src="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-2.0.8/r-3.0.2/sp-2.3.1/datatables.min.js"></script>
 
 <script>
-  let table = new DataTable('#contacts', {
-    responsive: true,
-    pagingType: 'simple_numbers'
-  });
+  // Mã JavaScript để toggle (ẩn/hiện) phần danh mục
+  const categoryToggle = document.querySelector('.category-toggle');
+  const categoryList = document.querySelector('#categoryList');
 
-  const deleteButtons = document.querySelectorAll('button[name="delete-contact"]');
-
-  deleteButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-      const form = button.closest('form');
-      const nameTd = button.closest('tr').querySelector('td:first-child');
-      if (nameTd) {
-        document.querySelector('.modal-body').textContent =
-          `Do you want to delete "${nameTd.textContent}"?`;
-      }
-      const submitForm = function() {
-        form.submit();
-      };
-      document.getElementById('delete').addEventListener('click', submitForm, {
-        once: true
-      });
-      const modalEl = document.getElementById('delete-confirm');
-      modalEl.addEventListener('hidden.bs.modal', function() {
-        document.getElementById('delete').removeEventListener('click', submitForm);
-      });
-      const confirmModal = new bootstrap.Modal(modalEl, {
-        backdrop: 'static',
-        keyboard: false
-      });
-      confirmModal.show();
-    });
+  categoryToggle.addEventListener('click', function() {
+    categoryList.classList.toggle('show');
+    const icon = categoryToggle.querySelector('i');
+    icon.classList.toggle('fa-caret-up');
+    icon.classList.toggle('fa-caret-down');
   });
 </script>
 <?php $this->stop() ?>

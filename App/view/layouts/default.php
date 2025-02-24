@@ -127,22 +127,12 @@
            
 
             <!-- <li class="nav-item ms-1 w-auto">
-              <a class="nav-link" href="/registerVIP" data-toggle="tab" ><i class="fa-solid fa-pen me-1"></i>ĐĂNG KÝ VIP</a>
-            </li> -->
-
-            <!-- <li class="nav-item ms-1 w-auto">
               <a class="nav-link" href="/register"><i class="fa-solid fa-pen me-1"></i>ĐĂNG KÝ</a>
             </li>
             <li class="nav-item ms-1 w-auto">
               <a class="nav-link" href="/login"><i class="fa-solid fa-user me-1"></i>ĐĂNG NHẬP</a>
             </li> -->
-            <!-- <li class="nav-item ms-1 w-auto">
-              <a class="nav-link" href="/contacts/create/"><i class="fa-solid fa-user me-1"></i>THÊM SẢN PHẨM</a>
-            </li> -->
-            
-            <!-- <li class="nav-item ms-1 w-auto">
-                <a class="nav-link" href="SanPham1.html">Sản Phẩm demo</a>
-              </li> -->
+          
           </ul>
         </div>
       </div>
