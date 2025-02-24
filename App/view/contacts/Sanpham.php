@@ -25,66 +25,69 @@
         </li>
       </ul>
     </div>
-    <!-- PHẦN LAPTOP -->
-    <div class="col-12">
-      <div id="laptops" class="brand row m-1">
-        <div class="row ms-1 mt-3">
-          <?php foreach ($contacts as $contact): ?>
-            <div class="col-lg-4 col-sm-6 mb-3">
-              <div class="card">
-                <img src="<?= htmlspecialchars($contact->img) ?>" alt=" của <?= htmlspecialchars($contact->name) ?>">
-                <div class="card-body">
-                  <div class="d-flex justify-content-center gap-2 mb-3">
-                    <span class="badge bg-secondary text-decoration-line-through"><?= number_format(html_escape($contact->priceGoc), 0, ',', '.'); ?> VNĐ</span>
-                    <span class="badge bg-danger"><?= number_format(html_escape($contact->price), 0, ',', '.'); ?> VNĐ</span>
-                  </div>
-                  <h5 class="card-title"><?= html_escape($contact->name) ?></h5>
-                  <p class="card-text"><?= html_escape($contact->description) ?></p>
-                </div>
-                <div class="card-footer">
-                  <div class="mt-1 text-center">
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#productModal-<?= $contact->id ?>">
-                      <i class="bi bi-info-circle"></i> Chi tiết
-                    </button>
-                    <a href="/cart/add/<?= $contact->id ?>/<?= urlencode($contact->name) ?>" class="btn btn-primary">
-                      <i class="bi bi-bag-plus-fill"></i> Mua Hàng
-                    </a>
-                  </div>
-                </div>
+   <!-- PHẦN LAPTOP -->
+<div class="col-12">
+  <div id="laptops" class="brand row m-1">
+    <div class="row ms-1 mt-3">
+      <?php foreach ($contacts as $contact): ?>
+        <div class="col-lg-4 col-sm-6 mb-3">
+          <div class="card border shadow-sm">
+            <img src="<?= htmlspecialchars($contact->img) ?>" class="card-img-top p-2" alt="<?= htmlspecialchars($contact->name) ?>">
+            <div class="card-body text-center">
+              <div class="d-flex justify-content-center gap-2 mb-2">
+                <span class="badge bg-secondary text-decoration-line-through">
+                  <?= number_format(htmlspecialchars($contact->priceGoc), 0, ',', '.') ?> VNĐ
+                </span>
+                <span class="badge bg-danger">
+                  <?= number_format(htmlspecialchars($contact->price), 0, ',', '.') ?> VNĐ
+                </span>
               </div>
+              <h5 class="card-title"> <?= htmlspecialchars($contact->name) ?> </h5>
+              <p class="card-text"> <?= htmlspecialchars($contact->description) ?> </p>
             </div>
-
-            <!-- Modal thông tin chi tiết sản phẩm -->
-            <div class="modal fade" id="productModal-<?= $contact->id ?>" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="productModalLabel">Thông Tin Sản Phẩm: <?= htmlspecialchars($contact->name) ?></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <ul>
-                      <li><strong>CPU:</strong> <?= htmlspecialchars($contact->cpu) ?></li>
-                      <li><strong>RAM:</strong> <?= htmlspecialchars($contact->ram) ?></li>
-                      <li><strong>Bộ nhớ:</strong> <?= htmlspecialchars($contact->storage) ?></li>
-                      <li><strong>Dung lượng PIN:</strong> <?= htmlspecialchars($contact->battery_capacity) ?></li>
-                      <li><strong>CAMERA:</strong> <?= htmlspecialchars($contact->camera_resolution) ?></li>
-                      <li><strong>Màn hình:</strong> <?= htmlspecialchars($contact->screen_size) ?> inch</li>
-                      <li><strong>Hệ điều hành:</strong> <?= htmlspecialchars($contact->os) ?></li>
-                      <li><strong>Chất liệu dây đeo:</strong> <?= htmlspecialchars($contact->strap_material) ?></li>
-                      <li><strong>Chống nước:</strong> <?= htmlspecialchars($contact->water_resistance) ?></li>
-                    </ul>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                  </div>
-                </div>
-              </div>
+            <div class="card-footer text-center">
+              <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#productModal-<?= $contact->id ?>">
+                <i class="fa-solid fa-circle-info"></i> Chi tiết
+              </button>
+              <a href="/cart/add/<?= $contact->id ?>/<?= urlencode($contact->name) ?>" class="btn btn-primary">
+                <i class="fa-solid fa-cart-plus"></i> Mua Hàng
+              </a>
             </div>
-          <?php endforeach; ?>
+          </div>
         </div>
-      </div>
+
+        <!-- Modal thông tin chi tiết sản phẩm -->
+        <div class="modal fade" id="productModal-<?= $contact->id ?>" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-light border-bottom">
+                <h5 class="modal-title" id="productModalLabel">Thông Tin Sản Phẩm: <?= htmlspecialchars($contact->name) ?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><strong>CPU:</strong> <?= htmlspecialchars($contact->cpu) ?></li>
+                  <li class="list-group-item"><strong>RAM:</strong> <?= htmlspecialchars($contact->ram) ?></li>
+                  <li class="list-group-item"><strong>Bộ nhớ:</strong> <?= htmlspecialchars($contact->storage) ?></li>
+                  <li class="list-group-item"><strong>Dung lượng PIN:</strong> <?= htmlspecialchars($contact->battery_capacity) ?></li>
+                  <li class="list-group-item"><strong>CAMERA:</strong> <?= htmlspecialchars($contact->camera_resolution) ?></li>
+                  <li class="list-group-item"><strong>Màn hình:</strong> <?= htmlspecialchars($contact->screen_size) ?> inch</li>
+                  <li class="list-group-item"><strong>Hệ điều hành:</strong> <?= htmlspecialchars($contact->os) ?></li>
+                  <li class="list-group-item"><strong>Chất liệu dây đeo:</strong> <?= htmlspecialchars($contact->strap_material) ?></li>
+                  <li class="list-group-item"><strong>Chống nước:</strong> <?= htmlspecialchars($contact->water_resistance) ?></li>
+                </ul>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
     </div>
+  </div>
+</div>
+
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         <li class="page-item disabled">
