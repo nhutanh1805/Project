@@ -1,93 +1,124 @@
 <?php $this->layout("layouts/default", ["title" => CONGNGHE]) ?>
+
 <?php $this->start("page_specific_css") ?>
 <link href="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-2.0.8/r-3.0.2/sp-2.3.1/datatables.min.css" rel="stylesheet">
+<style>
+  .category-list {
+  top: 100%; /* Đẩy menu xuống dưới tiêu đề */
+  left: 0;
+  z-index: 1050; /* Cao hơn để đè lên sản phẩm */
+  display: none; /* Ẩn mặc định */
+}
+
+/* Khi collapse mở ra */
+.category-list.show {
+  display: block !important;
+}
+
+</style>
 <?php $this->stop() ?>
 
 <?php $this->start("page") ?>
 
-<!-- Phần nội dung chính -->
+<!-- Nội dung chính -->
 <main>
   <div class="container">
     <div class="text-center">
-      <h2 style="color:  rgb(3, 41, 119);" class="font-weight-bold">SẢN PHẨM</h2>
-      <ul class="nav nav-tabs" id="categoryTabs">
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#category1">Laptop</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#category2">Điện thoại</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#category3">Máy tính bảng</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#category4">Đồng hồ</a>
-        </li>
-      </ul>
+      <h2 style="color: rgb(3, 41, 119);" class="font-weight-bold">SẢN PHẨM</h2>
     </div>
-   <!-- PHẦN LAPTOP -->
-<div class="col-12">
-  <div id="laptops" class="brand row m-1">
-    <div class="row ms-1 mt-3">
-      <?php foreach ($contacts as $contact): ?>
-        <div class="col-lg-3 col-sm-6 mb-3">
-          <div class="card border shadow-sm">
-            <img src="<?= htmlspecialchars($contact->img) ?>" class="card-img-top p-2" alt="<?= htmlspecialchars($contact->name) ?>">
-            <div class="card-body text-center">
-              <div class="d-flex justify-content-center gap-2 mb-2">
-                <span class="badge bg-secondary text-decoration-line-through">
-                  <?= number_format(htmlspecialchars($contact->priceGoc), 0, ',', '.') ?> VNĐ
-                </span>
-                <span class="badge bg-danger">
-                  <?= number_format(htmlspecialchars($contact->price), 0, ',', '.') ?> VNĐ
-                </span>
-              </div>
-              <h5 class="card-title"> <?= htmlspecialchars($contact->name) ?> </h5>
-              <p class="card-text"> <?= htmlspecialchars($contact->description) ?> </p>
-            </div>
-            <div class="card-footer text-center">
-              <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#productModal-<?= $contact->id ?>">
-                <i class="fa-solid fa-circle-info"></i> Chi tiết
-              </button>
-              <a href="/cart/add/<?= $contact->id ?>/<?= urlencode($contact->name) ?>" class="btn btn-primary">
-                <i class="fa-solid fa-cart-plus"></i> Mua Hàng
-              </a>
-            </div>
-          </div>
-        </div>
 
-        <!-- Modal thông tin chi tiết sản phẩm -->
-        <div class="modal fade" id="productModal-<?= $contact->id ?>" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header bg-light border-bottom">
-                <h5 class="modal-title" id="productModalLabel">Thông Tin Sản Phẩm: <?= htmlspecialchars($contact->name) ?></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item"><strong>CPU:</strong> <?= htmlspecialchars($contact->cpu) ?></li>
-                  <li class="list-group-item"><strong>RAM:</strong> <?= htmlspecialchars($contact->ram) ?></li>
-                  <li class="list-group-item"><strong>Bộ nhớ:</strong> <?= htmlspecialchars($contact->storage) ?></li>
-                  <li class="list-group-item"><strong>Dung lượng PIN:</strong> <?= htmlspecialchars($contact->battery_capacity) ?></li>
-                  <li class="list-group-item"><strong>CAMERA:</strong> <?= htmlspecialchars($contact->camera_resolution) ?></li>
-                  <li class="list-group-item"><strong>Màn hình:</strong> <?= htmlspecialchars($contact->screen_size) ?> inch</li>
-                  <li class="list-group-item"><strong>Hệ điều hành:</strong> <?= htmlspecialchars($contact->os) ?></li>
-                  <li class="list-group-item"><strong>Chất liệu dây đeo:</strong> <?= htmlspecialchars($contact->strap_material) ?></li>
-                  <li class="list-group-item"><strong>Chống nước:</strong> <?= htmlspecialchars($contact->water_resistance) ?></li>
-                </ul>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-              </div>
-            </div>
-          </div>
+    <!-- DANH MỤC & PHÂN LOẠI CHUNG 1 HÀNG -->
+<div class="row mb-3">
+  <!-- DANH MỤC -->
+  <div class="col-md-6 position-relative">
+    <div class="bg-white shadow-sm rounded p-3">
+      <h5 class="category-toggle d-flex align-items-center justify-content-between" data-bs-toggle="collapse" data-bs-target="#categoryList">
+        <span><i class="fa-solid fa-list me-2"></i> DANH MỤC</span>
+        <i class="fa-solid fa-caret-down"></i>
+      </h5>
+      <div id="categoryList" class="category-list collapse position-absolute bg-white w-100 shadow p-2 rounded"> 
+        <div class="list-group">
+          <a href="#laptops" class="list-group-item list-group-item-action d-flex align-items-center">
+            <i class="fa-solid fa-laptop me-2"></i> Laptop
+          </a>
+          <a href="#phones" class="list-group-item list-group-item-action d-flex align-items-center">
+            <i class="fa-solid fa-mobile-alt me-2"></i> Điện Thoại
+          </a>
+          <a href="#tablets" class="list-group-item list-group-item-action d-flex align-items-center">
+            <i class="fa-solid fa-tablet-alt me-2"></i> Máy Tính Bảng
+          </a>
+          <a href="#watches" class="list-group-item list-group-item-action d-flex align-items-center">
+            <i class="fa-solid fa-clock me-2"></i> Đồng Hồ
+          </a>
         </div>
-      <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHÂN LOẠI -->
+  <div class="col-md-6 position-relative">
+    <div class="bg-white shadow-sm rounded p-3">
+      <h5 class="category-toggle d-flex align-items-center justify-content-between" data-bs-toggle="collapse" data-bs-target="#filterList">
+        <span><i class="fa-solid fa-filter me-2"></i> PHÂN LOẠI</span>
+        <i class="fa-solid fa-caret-down"></i>
+      </h5>
+      <div id="filterList" class="category-list collapse position-absolute bg-white w-100 shadow p-2 rounded">
+        <div class="list-group">
+          <a href="?filter=price_asc" class="list-group-item list-group-item-action">
+            <i class="fa-solid fa-sort-amount-up me-2"></i> Giá thấp đến cao
+          </a>
+          <a href="?filter=price_desc" class="list-group-item list-group-item-action">
+            <i class="fa-solid fa-sort-amount-down me-2"></i> Giá cao đến thấp
+          </a>
+          <a href="?filter=newest" class="list-group-item list-group-item-action">
+            <i class="fa-solid fa-calendar-plus me-2"></i> Mới nhất
+          </a>
+          <a href="?filter=popular" class="list-group-item list-group-item-action">
+            <i class="fa-solid fa-fire me-2"></i> Bán chạy nhất
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
+
+    <!-- PHẦN LAPTOP -->
+    <div class="col-12">
+      <div id="laptops" class="brand row m-1">
+        <div class="row ms-1 mt-3">
+          <?php foreach ($contacts as $contact): ?>
+            <div class="col-lg-3 col-sm-6 mb-3">
+              <div class="card border shadow-sm">
+                <img src="<?= htmlspecialchars($contact->img) ?>" class="card-img-top p-2" alt="<?= htmlspecialchars($contact->name) ?>">
+                <div class="card-body text-center">
+                  <div class="d-flex justify-content-center gap-2 mb-2">
+                    <span class="badge bg-secondary text-decoration-line-through">
+                      <?= number_format(htmlspecialchars($contact->priceGoc), 0, ',', '.') ?> VNĐ
+                    </span>
+                    <span class="badge bg-danger">
+                      <?= number_format(htmlspecialchars($contact->price), 0, ',', '.') ?> VNĐ
+                    </span>
+                  </div>
+                  <h5 class="card-title"> <?= htmlspecialchars($contact->name) ?> </h5>
+                  <p class="card-text"> <?= htmlspecialchars($contact->description) ?> </p>
+                </div>
+                <div class="card-footer text-center">
+                  <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#productModal-<?= $contact->id ?>">
+                    <i class="fa-solid fa-circle-info"></i> Chi tiết
+                  </button>
+                  <a href="/cart/add/<?= $contact->id ?>/<?= urlencode($contact->name) ?>" class="btn btn-primary">
+                    <i class="fa-solid fa-cart-plus"></i> Mua Hàng
+                  </a>
+                </div>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phân trang -->
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         <li class="page-item disabled">
@@ -101,12 +132,10 @@
         </li>
       </ul>
     </nav>
-    <!-- Nút Back to Top -->
-    <button id="backToTopBtn" class="btn btn-primary" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-      <i class="bi bi-arrow-up"></i> Lên trên
-    </button>
-    <a class="backtop position-fixed text-center rounded-circle text-muted active" href="#"> <i class="bi bi-house-door"></i></a>
+
+  </div>
 </main>
+
 <?php $this->stop() ?>
 
 <?php $this->start("page_specific_js") ?>
