@@ -16,6 +16,9 @@
 
 
   <?= $this->section("page_specific_css") ?>
+  <style>
+  
+</style>
 </head>
 
 <body">
@@ -32,99 +35,121 @@
           </div>
           <!-- Phần thanh tìm kiếm -->
           <div class="col-md-6 d-flex justify-content-center align-items-center mb-3 mb-md-0">
-            <form action="/search" method="GET" class="d-flex w-100">
-              <input type="text" class="form-control" name="query" placeholder="Tìm kiếm sản phẩm..." required>
-              <button type="submit" class="btn btn-primary ms-2 d-lg-flex" style="background-color: #53b9e0;" ><i class="fas fa-search"></i></button>
-            </form>
-          </div>
+  <form action="/search" method="GET" class="d-flex w-100">
+    <input type="text" class="form-control rounded-start border-0 shadow-sm px-3 py-2" name="query" placeholder="Tìm kiếm sản phẩm..." required>
+    <button type="submit" class="btn btn-primary ms-2 d-lg-flex px-4 py-2 rounded-end shadow-lg transition-all">
+      <i class="fas fa-search"></i>
+    </button>
+  </form>
+</div>
 
-          <!-- Phần các biểu tượng và menu dropdown -->
-          <div class="col-md-3 d-flex justify-content-center justify-content-md-end align-items-center">
-            <div class="d-flex">
-              <!-- Biểu tượng giỏ hàng -->
-              <a class="text-reset ms-2" href="/cart">
-                <span><i class="fas fa-shopping-cart"></i></span>
-                <span class="badge rounded-pill badge-notification bg-danger">1</span>
-              </a>
-              <!-- biểu tượng thông báo -->
-              <div class="dropdown ms-2">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <i class="fas fa-bell"></i>
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item" href="#">Some news</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">Another news</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!-- Biểu tượng ngôn ngữ -->
-            <div class="dropdown ms-2">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <i class="fa-solid fa-language"></i>
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" href="#">English</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Polski</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">中文</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">日本語</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">iDeutsch</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Français</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Español</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Русский</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Português</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+
+
+         <!-- Phần các biểu tượng và menu dropdown -->
+<div class="col-md-3 d-flex justify-content-center justify-content-md-end align-items-center">
+  <div class="d-flex">
+    <!-- Biểu tượng giỏ hàng -->
+    <a class="text-reset ms-3 position-relative" href="/cart">
+      <i class="fas fa-shopping-cart fa-lg"></i>
+      <span class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle p-1">1</span>
+    </a>
+
+    <!-- Biểu tượng thông báo -->
+    <div class="dropdown ms-3">
+      <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-bell fa-lg"></i>
+      </a>
+      <ul class="dropdown-menu shadow-lg rounded-3">
+        <li><a class="dropdown-item" href="#">Some news</a></li>
+        <li><a class="dropdown-item" href="#">Another news</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+      </ul>
     </div>
+  </div>
+
+
+  <!-- Biểu tượng ngôn ngữ -->
+  <div class="dropdown ms-3">
+    <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="fa-solid fa-language fa-lg"></i>
+    </a>
+    <ul class="dropdown-menu shadow-lg rounded-3">
+      <li><a class="dropdown-item" href="#">English</a></li>
+      <li><a class="dropdown-item" href="#">Polski</a></li>
+      <li><a class="dropdown-item" href="#">中文</a></li>
+      <li><a class="dropdown-item" href="#">日本語</a></li>
+      <li><a class="dropdown-item" href="#">iDeutsch</a></li>
+      <li><a class="dropdown-item" href="#">Français</a></li>
+      <li><a class="dropdown-item" href="#">Español</a></li>
+      <li><a class="dropdown-item" href="#">Русский</a></li>
+      <li><a class="dropdown-item" href="#">Português</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+   <!-- Câu giới thiệu về cửa hàng với hiệu ứng chạy và chữ lớn hơn -->
+   <marquee class="mt-2 text-muted fs-4" behavior="scroll" direction="left" scrollamount="5">
+  💎 <strong>Horus Shop</strong> – đỉnh cao thời thượng,  
+  Công nghệ hội tụ, dẫn đường tương lai.  
+  🌟 <strong>Laptop</strong> bền bỉ, dáng hình sang,  
+  Đẳng cấp dẫn lối, vững vàng bước đi.  
+  📱 <strong>Điện thoại</strong> sắc nét diệu kỳ,  
+  Trải nghiệm mượt lướt, tinh vi từng giờ.  
+  📟 <strong>Máy tính bảng</strong> – nét say sưa,  
+  Học hành, công việc, chẳng thừa phút giây.  
+  ⌚ <strong>Đồng hồ</strong> đẳng cấp trên tay,  
+  Kiêu sa một nét, tầm này ai hơn? ✨  
+</marquee>
+
     <!-- Phần menu điều hướng -->
+    
     <nav class="navbar navbar-expand-lg navbar-light bg-white mb-2">
-      <div class="container-fluid mt-2">
-        <button class="navbar-toggler mb-3" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item ms-1 w-auto">
-              <a class="nav-link" href="/" data-toggle="tab" ><i class="fa-solid fa-house me-1"></i>TRANG CHỦ</a>
-            </li>
-            <li class="nav-item ms-1 w-auto">
-              <a class="nav-link" href="/product" data-toggle="tab" ><i class="fa-brands fa-product-hunt me-1"></i>SẢN PHẨM</a>
-            </li>
-            <li class="nav-item ms-1 w-auto">
-              <a class="nav-link" href="/homeAmin" data-toggle="tab" ><i class="fa-solid fa-house me-1"></i>TRANG CHỦ ADMIN</a>
-            </li>
-           
+  <div class="container-fluid mt-2">
+    <button class="navbar-toggler mb-3" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item ms-1">
+          <a class="btn btn-primary text-white shadow-sm px-3 py-2 d-flex align-items-center" href="/">
+            <i class="fa-solid fa-house me-2"></i> TRANG CHỦ
+          </a>
+        </li>
+        <li class="nav-item ms-1">
+          <a class="btn btn-success text-white shadow-sm px-3 py-2 d-flex align-items-center" href="/product">
+            <i class="fa-brands fa-product-hunt me-2"></i> SẢN PHẨM
+          </a>
+        </li>
+        <li class="nav-item ms-1">
+          <a class="btn btn-danger text-white shadow-sm px-3 py-2 d-flex align-items-center" href="/homeAmin">
+            <i class="fa-solid fa-house me-2"></i> TRANG CHỦ ADMIN
+          </a>
+        </li>
+      <!-- Tài khoản -->
+      <li class="nav-item ms-1 dropdown">
+          <a class="btn btn-info text-white shadow-sm px-3 py-2 d-flex align-items-center dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-user me-2"></i> TÀI KHOẢN
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <?php if (!AUTHGUARD()->isUserLoggedIn()) : ?>
+              <li><a class="dropdown-item" href="/login">Đăng Nhập</a></li>
+              <li><a class="dropdown-item" href="/register">Đăng Ký</a></li>
+            <?php else : ?>
+              <li><a class="dropdown-item" href="/account">Quản lý tài khoản</a></li>
+              <li><a class="dropdown-item" href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng Xuất</a></li>
+              <form id="logout-form" class="d-none" action="/logout" method="POST"></form>
+            <?php endif ?>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 
             <!-- <li class="nav-item ms-1 w-auto">
               <a class="nav-link" href="/register"><i class="fa-solid fa-pen me-1"></i>ĐĂNG KÝ</a>
@@ -141,36 +166,8 @@
         <div class="navbar-nav">
           &nbsp;
         </div>
-
-        <!-- Right Side Of Navbar -->
         <ul class="navbar-nav ms-auto">
-          <!-- Authentication Links -->
-          
-
-<!-- Authentication Links -->
-<?php if (!AUTHGUARD()->isUserLoggedIn()) : ?>
-      <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-      <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-    <?php else : ?>
-      <li class="nav-item dropstart">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-          
-        </a>
-
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            Logout
-          </a>
-          <form id="logout-form" class="d-none" action="/logout" method="POST">
-          </form>
-        </div>
-      </li>
-    <?php endif ?>
-          
-    
-        </ul>
-      </div>
-    </nav>
+     
   </header>
 
   <?= $this->section("page") ?>

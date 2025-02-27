@@ -113,10 +113,38 @@
                 </div>
               </div>
             </div>
-          <?php endforeach; ?>
+          <!-- Modal thông tin chi tiết sản phẩm -->
+        <div class="modal fade" id="productModal-<?= $contact->id ?>" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-light border-bottom">
+                <h5 class="modal-title" id="productModalLabel">Thông Tin Sản Phẩm: <?= htmlspecialchars($contact->name) ?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><strong>CPU:</strong> <?= htmlspecialchars($contact->cpu) ?></li>
+                  <li class="list-group-item"><strong>RAM:</strong> <?= htmlspecialchars($contact->ram) ?></li>
+                  <li class="list-group-item"><strong>Bộ nhớ:</strong> <?= htmlspecialchars($contact->storage) ?></li>
+                  <li class="list-group-item"><strong>Dung lượng PIN:</strong> <?= htmlspecialchars($contact->battery_capacity) ?></li>
+                  <li class="list-group-item"><strong>CAMERA:</strong> <?= htmlspecialchars($contact->camera_resolution) ?></li>
+                  <li class="list-group-item"><strong>Màn hình:</strong> <?= htmlspecialchars($contact->screen_size) ?> inch</li>
+                  <li class="list-group-item"><strong>Hệ điều hành:</strong> <?= htmlspecialchars($contact->os) ?></li>
+                  <li class="list-group-item"><strong>Chất liệu dây đeo:</strong> <?= htmlspecialchars($contact->strap_material) ?></li>
+                  <li class="list-group-item"><strong>Chống nước:</strong> <?= htmlspecialchars($contact->water_resistance) ?></li>
+                </ul>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      <?php endforeach; ?>
     </div>
+  </div>
+</div>
+
 
     <!-- Phân trang -->
     <nav aria-label="Page navigation example">

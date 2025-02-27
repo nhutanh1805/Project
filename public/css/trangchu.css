@@ -1,104 +1,93 @@
-.logo{
-    height:100px;
-    width:100px;
-    box-shadow: -10px 10px 5px #00000080 ;
+/* ======= Cấu hình chung ======= */
+:root {
+    --primary-color: #42a6cd;
+    --secondary-color: #b4d9e8;
+    --hover-color: #53b9e0;
+    --text-dark: rgb(3, 41, 119);
+    --text-light: azure;
+    --shadow-color: #00000080;
 }
 
-.header{
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #38ba09;
+}
+
+/* ======= Logo & Header ======= */
+.logo {
+    height: 100px;
+    width: 100px;
+    box-shadow: -10px 10px 5px var(--shadow-color);
+}
+
+.header {
     margin-bottom: 5px;
 }
 
-.navbar-nav{
+/* ======= Navbar ======= */
+.navbar-nav {
     margin: auto;
 }
 
-.navbar-brand{
+.navbar-brand {
     width: 10%;
     font-size: 25px;
     font-weight: bold;
 }
 
-body{
-    background: #d7ebf1;
-}
-
-
-li.nav-item > a{
+.nav-item > a {
     text-align: center;
     text-decoration: none;
-    background: #b4d9e8;
     display: block;
-    transform: rotate(0deg) skew(20deg) translate(0, 0); 
-    color:  rgb(3, 41, 119);
+    background: var(--secondary-color);
+    color: var(--text-dark);
     font-weight: bold;
     margin-left: 20px;
     border: 1px solid azure;
+    transform: skewX(20deg);
+    position: relative;
+    padding: 10px 15px;
+    transition: all 0.3s ease-in-out;
 }
 
-li.nav-item > a::after{
+.nav-item > a::after {
     content: '';
     position: absolute;
     background: #b1b1b1;
     bottom: -20px;
     left: -5px;
-    margin-left: 20px;
-    transform: rotate(0deg) skewX(-45deg);
+    transform: skewX(-45deg);
 }
 
-li.nav-item > a:hover{
-    transform: rotate(0deg) skew(20deg) translate(10px, -5px);
-    background: #53b9e0;
-    color: azure;
-    box-shadow: -15px 15px 8px #00000080;
-    margin-left: 20px;
+.nav-item > a:hover,
+.nav-item > a.active {
+    background: var(--hover-color);
+    color: var(--text-light);
+    box-shadow: -15px 15px 8px var(--shadow-color);
+    transform: skewX(20deg) translate(10px, -5px);
 }
 
-li.nav-item > a.active{
-    transform: rotate(0deg) skew(20deg) translate(10px, -5px);
-    background: #42a6cd;
-    box-shadow: -15px 15px 8px #00000080;
-    color: rgb(18, 48, 123);
-    margin-left: 20px;
-}
-
-
-.d-flex input{
+/* ======= Search bar & Buttons ======= */
+.d-flex input {
     height: 75%;
-    border:1px solid #42a6cd;
+    border: 1px solid var(--primary-color);
 }
 
-.btn-outline-success{
-    color: rgb(18, 48, 123);
+.btn-outline-success {
+    color: var(--text-dark);
     font-weight: bold;
-    border: 2px solid #42a6cd;
+    border: 2px solid var(--primary-color);
 }
 
-.d-flex button:hover{
-    background: #53b9e0;
-    box-shadow: -20px 20px 50px #00000080;
-}
-/* main */
-/*fooder*/
-
-ul{
-    list-style: none;
+.d-flex button:hover {
+    background: var(--hover-color);
+    box-shadow: -20px 20px 50px var(--shadow-color);
 }
 
-.btn-success:hover{
-    color: #00000080;
-    background-color: #b4d9e8;
-}
-
-.list-group-item:hover{
-    color: #42a6cd;
-    text-shadow: 5px 5px 5px #b1b1b1;
-}
-
-.brand{
-    /* background-image: url(../img/backgroud1.jpg); */
-    background-image: linear-gradient(#3a89a8,#b4d9e8)
-}
-
+/* ======= Card thiết kế ======= */
 .card {
     display: flex;
     flex-direction: column;
@@ -107,58 +96,55 @@ ul{
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-  }
+}
 
-  .card img {
+.card img {
     width: 100%;
     height: 180px;
     object-fit: contain;
     background-color: #f8f8f8;
-  }
+}
 
-  .card-body {
+.card-body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 15px;
     flex: 1;
     text-align: center;
-  }
+}
 
-  .card-title {
+.card-title {
     font-size: 1.1em;
     font-weight: bold;
-    margin: 10px 0 5px 0;
+    margin: 10px 0 5px;
     color: #333;
-  }
+}
 
-  .card-text {
+.card-text {
     color: #666;
     font-size: 0.9em;
     margin-bottom: 15px;
-  }
+}
 
-  .card-footer {
-
+.card-footer {
     padding: 10px 15px;
     border-top: 1px solid #e0e0e0;
     background-color: #fafafa;
-  }
-html{
-    scroll-behavior: smooth;
 }
 
-.backtop{
+/* ======= Back to top button ======= */
+.backtop {
     bottom: 150px;
     right: 30px;
     font-size: 30px;
     width: 50px;
     height: 50px;
-    background-color: #57b7e7;
+    background-color: var(--hover-color);
     line-height: 49px;
     visibility: hidden;
 }
 
-.backtop.activeT{
+.backtop.activeT {
     visibility: visible;
 }
