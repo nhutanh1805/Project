@@ -193,7 +193,7 @@
           <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
             <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
             <p>
-              <a class="text-white">LapTop</a>
+              <a class="text-white " href="#laptops">LapTop</a>
             </p>
             <p>
               <a class="text-white">Tablet</a>
@@ -244,7 +244,7 @@
         <div class="row d-flex align-items-center">
           <div class="col-md-7 col-lg-8 text-center text-md-start">
             <div class="p-3">
-              © 2024 Copyright:
+              © 2025 Copyright:
               <a class="text-white" href="https://mdbootstrap.com/">Horus.com</a>
             </div>
           </div>

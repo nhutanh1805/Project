@@ -91,7 +91,16 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
   }
-  
+  #customCarousel {
+  height: 400px; /* Chỉnh chiều cao carousel */
+  overflow: hidden; /* Đảm bảo không có phần nội dung bị tràn ra ngoài */
+}
+
+#customCarousel .carousel-item img {
+  object-fit: cover; /* Đảm bảo hình ảnh phủ đầy và không bị méo */
+  height: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều cao của carousel */
+}
+
 </style>
 <?php $this->stop() ?>
 
@@ -195,7 +204,7 @@
 </div>
 
 
-      <!-- Thanh danh mục (được di chuyển sang bên phải) -->
+      <!-- Thanh danh mục -->
 <div class="col-lg-9 col-12">
   <div id="laptops" class="brand row m-1">
     <h3 class="col-6 text-center text-dark mt-2">
