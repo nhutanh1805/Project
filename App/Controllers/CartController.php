@@ -5,45 +5,37 @@ use App\Models\Cart;
 
 class CartController extends Controller
 {
-    public function index()
+    // Hiển thị giỏ hàng
+    public function index(): void
     {
-        // Lấy giỏ hàng và tổng tiền từ lớp Cart
-        $cart = Cart::getCart();
+        $cart  = Cart::getCart();
         $total = Cart::getTotal();
-        
-        // Truyền dữ liệu sang view
         $this->sendPage('cart/index', [
-            'cart' => $cart,
+            'cart'  => $cart,
             'total' => $total
         ]);
     }
 
     // Thêm sản phẩm vào giỏ hàng
-    public function add($productId)
+    public function add($productId): void
     {
-        $quantity = $_POST['quantity'] ?? 1; // Số lượng mặc định là 1 nếu không có dữ liệu từ form
-        Cart::addToCart($productId, $quantity); // Thêm sản phẩm vào giỏ hàng
-
-        // Sau khi thêm xong, chuyển hướng về trang giỏ hàng
+        $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
+        Cart::addToCart((int)$productId, $quantity);
         redirect('/cart');
     }
 
     // Xóa sản phẩm khỏi giỏ hàng
-    public function remove($productId)
+    public function remove($productId): void
     {
-        Cart::removeFromCart($productId); // Xóa sản phẩm khỏi giỏ hàng
-
-        // Sau khi xóa xong, chuyển hướng về trang giỏ hàng
+        Cart::removeFromCart((int)$productId);
         redirect('/cart');
     }
 
     // Cập nhật số lượng sản phẩm trong giỏ hàng
-    public function update($productId)
+    public function update($productId): void
     {
-        $quantity = $_POST['quantity'] ?? 1; // Lấy số lượng mới từ form, mặc định là 1
-        Cart::updateQuantity($productId, $quantity); // Cập nhật số lượng cho sản phẩm
-
-        // Sau khi cập nhật xong, chuyển hướng về trang giỏ hàng
+        $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
+        Cart::updateQuantity((int)$productId, $quantity);
         redirect('/cart');
     }
 }

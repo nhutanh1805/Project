@@ -19,7 +19,7 @@
                             <h5 class="card-title"><?= htmlspecialchars($product['name']) ?></h5>
                             <p class="card-text"><?= htmlspecialchars($product['description']) ?></p>
                             <p class="card-text text-danger"><?= number_format($product['price'], 0, ',', '.') ?> VND</p>
-                            <a href="/product<?= $product['id']; ?>" class="btn btn-success">Xem chi tiết</a>
+                            <a href="/product <?= $product['id']; ?>" class="btn btn-success">Xem chi tiết</a>
                         </div>
                     </div>
                 </div>

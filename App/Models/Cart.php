@@ -1,89 +1,122 @@
 <?php
 namespace App\Models;
 
+use PDO;
+use Exception;
+
 class Cart
 {
-    // Lấy giỏ hàng từ session
-    public static function getCart()
+    // Khai báo thuộc tính PDO dưới dạng nullable
+    private static ?PDO $db = null;
+
+    // Gán đối tượng PDO cho model Cart
+    public static function setDb(PDO $pdo): void
     {
-        // Kiểm tra xem giỏ hàng đã tồn tại trong session chưa, nếu chưa thì khởi tạo giỏ hàng rỗng
+        self::$db = $pdo;
+    }
+    
+    // Hàm khởi tạo tự động kết nối PDO nếu chưa được thiết lập
+    private static function initDb(): void
+    {
+        if (self::$db === null) {
+            $dsn = "mysql:host=localhost;dbname=ct275_project;charset=utf8";
+            $username = "root";
+            $password = "";
+            try {
+                self::$db = new PDO($dsn, $username, $password);
+                self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (Exception $e) {
+                throw new Exception("Không thể kết nối đến database: " . $e->getMessage());
+            }
+        }
+    }
+
+    // Lấy giỏ hàng từ session
+    public static function getCart(): array
+    {
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = [];  // Khởi tạo giỏ hàng rỗng nếu chưa có
         }
-        // Trả về giỏ hàng
         return $_SESSION['cart'];
     }
 
-    // Thêm sản phẩm vào giỏ hàng
-    public static function addToCart($productId, $quantity)
+    // Thêm sản phẩm vào giỏ hàng với thông tin từ cơ sở dữ liệu (name, img, price)
+    public static function addToCart(int $productId, int $quantity = 1): void
     {
-        // Lấy giỏ hàng hiện tại
         $cart = self::getCart();
         
-        // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+        // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng
         if (isset($cart[$productId])) {
-            // Nếu sản phẩm đã có trong giỏ hàng, cộng thêm số lượng
             $cart[$productId]['quantity'] += $quantity;
         } else {
-            // Nếu sản phẩm chưa có trong giỏ hàng, thêm mới sản phẩm vào giỏ hàng
-            $product = [
-                'name' => 'Product ' . $productId, // Tên sản phẩm giả định (có thể thay thế bằng tên thật từ cơ sở dữ liệu)
-                'price' => 100,  // Giá sản phẩm giả định (có thể thay thế bằng giá thật từ cơ sở dữ liệu)
-                'quantity' => $quantity  // Số lượng sản phẩm
-            ];
-            $cart[$productId] = $product;  // Thêm sản phẩm vào giỏ hàng
-        }
-        
+            // Nếu chưa có kết nối PDO, tự động khởi tạo
+            if (self::$db === null) {
+                self::initDb();
+            }
 
-        // Cập nhật lại giỏ hàng trong session
+            // Truy vấn thông tin sản phẩm từ database
+            $stmt = self::$db->prepare("SELECT id, name, img, price FROM product WHERE id = ?");
+            $stmt->execute([$productId]);
+            $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$product) {
+                $_SESSION['error_message'] = "Sản phẩm không tồn tại.";
+                return;
+            }
+
+            // Thêm sản phẩm vào giỏ hàng với thông tin đầy đủ
+            $cart[$productId] = [
+                'name'     => $product['name'],
+                'img'      => $product['img'],
+                'price'    => $product['price'],
+                'quantity' => $quantity
+            ];
+        }
+
         $_SESSION['cart'] = $cart;
     }
 
     // Xóa sản phẩm khỏi giỏ hàng
-    public static function removeFromCart($productId)
+    public static function removeFromCart(int $productId): void
     {
-        // Kiểm tra xem sản phẩm có trong giỏ hàng không
-        if (isset($_SESSION['cart'][$productId])) {
-            // Nếu có, xóa sản phẩm khỏi giỏ hàng
-            unset($_SESSION['cart'][$productId]);
+        $cart = self::getCart();
+        if (isset($cart[$productId])) {
+            unset($cart[$productId]);
+            $_SESSION['cart'] = $cart;
             $_SESSION['message'] = "Sản phẩm đã được xóa khỏi giỏ hàng.";
         } else {
-            // Nếu không tìm thấy sản phẩm trong giỏ hàng, có thể thêm thông báo lỗi
             $_SESSION['error_message'] = "Sản phẩm không tồn tại trong giỏ hàng.";
         }
-
-        // Cập nhật lại giỏ hàng trong session (mặc dù trong trường hợp này nó sẽ tự động cập nhật khi unset)
-        $_SESSION['cart'] = $_SESSION['cart'];
     }
 
     // Cập nhật số lượng sản phẩm trong giỏ hàng
-    public static function updateQuantity($productId, $quantity)
+    public static function updateQuantity(int $productId, int $quantity): void
     {
-        // Kiểm tra xem sản phẩm có trong giỏ hàng không
-        if (isset($_SESSION['cart'][$productId])) {
-            // Nếu có, cập nhật số lượng sản phẩm trong giỏ hàng
-            $_SESSION['cart'][$productId]['quantity'] = $quantity;
+        $cart = self::getCart();
+        if (isset($cart[$productId])) {
+            // Nếu số lượng <= 0 thì xóa sản phẩm khỏi giỏ hàng
+            if ($quantity <= 0) {
+                unset($cart[$productId]);
+            } else {
+                $cart[$productId]['quantity'] = $quantity;
+            }
+            $_SESSION['cart'] = $cart;
         }
     }
 
     // Tính tổng tiền giỏ hàng
-    public static function getTotal()
+    public static function getTotal(): float
     {
-        $total = 0;  // Khởi tạo biến tổng tiền
-
-        // Lặp qua từng sản phẩm trong giỏ hàng và tính tổng tiền
+        $total = 0;
         foreach (self::getCart() as $item) {
-            $total += $item['price'] * $item['quantity'];  // Cộng dồn giá trị (giá * số lượng) của từng sản phẩm
+            $total += $item['price'] * $item['quantity'];
         }
-
-        // Trả về tổng tiền
         return $total;
     }
 
-    // Xóa giỏ hàng
-    public static function clearCart()
+    // Xóa toàn bộ giỏ hàng
+    public static function clearCart(): void
     {
-        // Xóa toàn bộ giỏ hàng trong session
         $_SESSION['cart'] = [];
     }
 }
