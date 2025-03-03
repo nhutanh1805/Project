@@ -17,7 +17,11 @@
 
   <?= $this->section("page_specific_css") ?>
   <style>
-  
+ body {
+  background-color: #fff; /* Màu trắng cho nền toàn bộ trang */
+  color: #333; /* Màu chữ đen để dễ đọc trên nền sáng */
+}
+
 </style>
 </head>
 
