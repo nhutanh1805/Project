@@ -64,12 +64,16 @@ class Cart
                 return;
             }
 
+            // Tạo chuỗi HTML để hiển thị ảnh sản phẩm (img tag)
+            $imgTag = '<img src="' . $product['img'] . '" alt="' . htmlspecialchars($product['name']) . '" style="max-width:150px;">';
+
             // Thêm sản phẩm vào giỏ hàng với thông tin đầy đủ
             $cart[$productId] = [
-                'name'     => $product['name'],
-                'img'      => $product['img'],
-                'price'    => $product['price'],
-                'quantity' => $quantity
+                'name'      => $product['name'],
+                'img'       => $product['img'],    // Đường dẫn ảnh chính
+                'img_tag'   => $imgTag,            // Chuỗi HTML để hiển thị ảnh
+                'price'     => $product['price'],
+                'quantity'  => $quantity
             ];
         }
 
@@ -94,7 +98,6 @@ class Cart
     {
         $cart = self::getCart();
         if (isset($cart[$productId])) {
-            // Nếu số lượng <= 0 thì xóa sản phẩm khỏi giỏ hàng
             if ($quantity <= 0) {
                 unset($cart[$productId]);
             } else {

@@ -16,6 +16,7 @@
                 <thead>
                     <tr>
                         <th>Sản phẩm</th>
+                        <th>Ảnh</th>
                         <th>Số lượng</th>
                         <th>Giá</th>
                         <th>Tổng</th>
@@ -25,11 +26,24 @@
                 <tbody>
                     <?php foreach ($cart as $productId => $item): ?>
                         <tr>
-                            <td><?= htmlspecialchars($item['name']) ?></td>
+                            <td><?= htmlspecialchars($item['name'] ?? 'Sản phẩm', ENT_QUOTES, 'UTF-8') ?></td>
+                            <td>
+                                <?php
+                                // Nếu có sẵn img_tag thì hiển thị, ngược lại kiểm tra key "img"
+                                if (isset($item['img_tag']) && !empty($item['img_tag'])) {
+                                    echo $item['img_tag'];
+                                } else if (isset($item['img']) && !empty($item['img'])) {
+                                    echo '<img src="' . htmlspecialchars($item['img'], ENT_QUOTES, 'UTF-8') . '" alt="' . htmlspecialchars($item['name'] ?? 'Sản phẩm', ENT_QUOTES, 'UTF-8') . '" style="max-width:150px;">';
+                                } else {
+                                    // Nếu không có ảnh, hiển thị ảnh mặc định
+                                    echo '<img src="/path/to/default.jpg" alt="No Image" style="max-width:150px;">';
+                                }
+                                ?>
+                            </td>
                             <td>
                                 <!-- Form cập nhật số lượng -->
                                 <form action="/cart/update/<?= $productId ?>" method="POST">
-                                    <input type="number" name="quantity" value="<?= $item['quantity'] ?>" min="1" required>
+                                    <input type="number" name="quantity" value="<?= htmlspecialchars($item['quantity'], ENT_QUOTES, 'UTF-8') ?>" min="1" required>
                                     <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
                                 </form>
                             </td>
@@ -44,7 +58,7 @@
                         </tr>
                     <?php endforeach; ?>
                     <tr>
-                        <td colspan="3" class="text-right"><strong>Tổng tiền:</strong></td>
+                        <td colspan="4" class="text-right"><strong>Tổng tiền:</strong></td>
                         <td><strong><?= number_format($total, 0, ',', '.') ?> VNĐ</strong></td>
                         <td></td>
                     </tr>
