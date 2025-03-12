@@ -58,7 +58,7 @@ class RegisterController extends Controller
       'password' => $data['password'] ?? null,
       'password_confirmation' => $data['password_confirmation'] ?? null,
       'phone' => $data['phone'] ?? null,
-      'address' => $data['address'] ?? null // Thêm trường địa chỉ vào đây
+      'address' => $data['address'] ?? null 
     ];
   }
 }
