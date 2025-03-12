@@ -14,6 +14,7 @@ class User
     public string $name;       // Tên của người dùng
     public string $password;   // Mật khẩu của người dùng (đã mã hóa)
     public string $phone;      // Số điện thoại của người dùng
+    public string $address;    // Địa chỉ của người dùng
     public string $role;       // Vai trò của người dùng (ví dụ: admin, user)
 
     /**
@@ -86,26 +87,28 @@ class User
         if ($this->id >= 0) {
             // Cập nhật thông tin người dùng nếu ID đã tồn tại
             $statement = $this->db->prepare(
-                'UPDATE users SET email = :email, name = :name, password = :password, phone = :phone, updated_at = NOW() WHERE id = :id'
+                'UPDATE users SET email = :email, name = :name, password = :password, phone = :phone, address = :address, updated_at = NOW() WHERE id = :id'
             );
             $result = $statement->execute([
                 'id' => $this->id,
                 'email' => $this->email,
                 'name' => $this->name,
                 'password' => $this->password,
-                'phone' => $this->phone
+                'phone' => $this->phone,
+                'address' => $this->address  // Thêm địa chỉ vào câu lệnh cập nhật
             ]);
         } else {
-            // Nếu chưa có ID (tức là tạo mới), thực hiện thêm mới người dùng
+            // Nếu chưa có ID (tạo mới người dùng)
             $statement = $this->db->prepare(
-                'INSERT INTO users (email, name, password, created_at, updated_at, phone)
-                VALUES (:email, :name, :password, NOW(), NOW(), :phone)'
+                'INSERT INTO users (email, name, password, created_at, updated_at, phone, address)
+                VALUES (:email, :name, :password, NOW(), NOW(), :phone, :address)'
             );
             $result = $statement->execute([
                 'email' => $this->email,
                 'name' => $this->name,
                 'password' => $this->password,
-                'phone' => $this->phone
+                'phone' => $this->phone,
+                'address' => $this->address  // Thêm địa chỉ vào câu lệnh thêm mới
             ]);
             if ($result) {
                 $this->id = $this->db->lastInsertId();  // Lưu lại ID của người dùng mới tạo
@@ -126,7 +129,8 @@ class User
         $this->email = $data['email'];
         $this->name = $data['name'];
         $this->password = password_hash($data['password'], PASSWORD_DEFAULT);  // Mã hóa mật khẩu
-        $this->phone = password_hash($data['phone'], PASSWORD_DEFAULT);  // Mã hóa số điện thoại (nếu cần)
+        $this->phone = $data['phone'];  // Không mã hóa số điện thoại
+        $this->address = $data['address'];  // Điền địa chỉ
         return $this;
     }
 
@@ -142,6 +146,7 @@ class User
         $this->name = $row['name'];
         $this->password = $row['password'];
         $this->phone = $row['phone'];
+        $this->address = $row['address'];  // Điền địa chỉ từ cơ sở dữ liệu
         $this->role = $row['role'];
     }
 
@@ -159,7 +164,20 @@ class User
     }
 
     /**
-     * Xác thực dữ liệu của người dùng (email, mật khẩu, số điện thoại).
+     * Kiểm tra xem số điện thoại đã được sử dụng hay chưa trong cơ sở dữ liệu.
+     *
+     * @param string $phone Số điện thoại cần kiểm tra.
+     * @return bool Trả về true nếu số điện thoại đã tồn tại, false nếu chưa.
+     */
+    private function isPhoneInUse(string $phone): bool
+    {
+        $statement = $this->db->prepare('SELECT count(*) FROM users WHERE phone = :phone');
+        $statement->execute(['phone' => $phone]);
+        return $statement->fetchColumn() > 0;  // Nếu có ít nhất 1 bản ghi, trả về true
+    }
+
+    /**
+     * Xác thực dữ liệu của người dùng (email, mật khẩu, số điện thoại, địa chỉ).
      *
      * @param array $data Mảng chứa dữ liệu của người dùng cần xác thực.
      * @return array Mảng chứa các lỗi nếu có, nếu không sẽ là mảng rỗng.
@@ -170,22 +188,29 @@ class User
 
         // Kiểm tra email
         if (!$data['email']) {
-            $errors['email'] = 'Invalid email.';
+            $errors['email'] = 'Email không hợp lệ.';
         } elseif ($this->isEmailInUse($data['email'])) {
-            $errors['email'] = 'Email already in use.';
+            $errors['email'] = 'Email đã được sử dụng.';
         }
 
         // Kiểm tra mật khẩu
         if (strlen($data['password']) < 6) {
-            $errors['password'] = 'Password must be at least 6 characters.';
+            $errors['password'] = 'Mật khẩu phải ít nhất 6 ký tự.';
         } elseif ($data['password'] != $data['password_confirmation']) {
-            $errors['password'] = 'Password confirmation does not match.';
+            $errors['password'] = 'Mật khẩu xác nhận không khớp.';
         }
 
         // Kiểm tra số điện thoại
         $validPhone = preg_match('/^(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b$/', $data['phone'] ?? '');
         if (!$validPhone) {
-            $errors['phone'] = 'Invalid phone number.';
+            $errors['phone'] = 'Số điện thoại không hợp lệ.';
+        } elseif ($this->isPhoneInUse($data['phone'])) {
+            $errors['phone'] = 'Số điện thoại đã được sử dụng.';
+        }
+
+        // Kiểm tra địa chỉ
+        if (empty($data['address'])) {
+            $errors['address'] = 'Địa chỉ không được để trống.';
         }
 
         return $errors;  // Trả về mảng các lỗi

@@ -87,7 +87,15 @@ $router->get('/thank-you', function() {
 });
 
 // Search routes
-$router->get('/search', '\App\Controllers\SearchController@index'); 
+$router->get('/search', '\App\Controllers\SearchController@index');
+
+// Router để xử lý trang thông tin người dùng
+$router->get('/account', '\App\Controllers\UserController@user');
+
+// Router để xử lý trang sửa thông tin người dùng
+$router->get('/account/edit', '\App\Controllers\UserController@edit');  // Phương thức edit chưa tạo
+$router->post('/account/edit', '\App\Controllers\UserController@update');  // Phương thức update chưa tạo
+
 
 // Run the router
 $router->run();
