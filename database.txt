@@ -102,3 +102,7 @@ INSERT INTO productdetails (product_id, product_type, cpu, ram, storage, battery
 (105, 'Watch', 'Không có', 'Không có', 'Không có', 'Không có', 'Không có', 1.6, 'Wear OS', '4G LTE', 'Silicon', 'IP68'),
 (106, 'Watch', 'Không có', 'Không có', 'Không có', 'Không có', 'Không có', 1.7, 'Proprietary OS', 'Không có', 'Silicon', '50m'),
 (107, 'Watch', 'Không có', 'Không có', 'Không có', 'Không có', 'Không có', 1.9, 'watchOS', 'Không có', 'Silicon', 'WR50');
+
+
+ALTER TABLE users
+ADD COLUMN address VARCHAR(255) NULL;

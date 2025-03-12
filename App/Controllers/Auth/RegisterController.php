@@ -28,19 +28,25 @@ class RegisterController extends Controller
 
   public function store()
   {
+    // Lưu giá trị form đã nhập (trừ password và password_confirmation)
     $this->saveFormValues($_POST, ['password', 'password_confirmation']);
 
+    // Lọc và chuẩn bị dữ liệu
     $data = $this->filterUserData($_POST);
+
+    // Khởi tạo mô hình người dùng
     $newUser = new User(PDO());
     $model_errors = $newUser->validate($data);
+
     if (empty($model_errors)) {
+      // Điền dữ liệu và lưu vào cơ sở dữ liệu
       $newUser->fill($data)->save();
 
-      $messages = ['success' => 'Đang ký thành công vui lòng đăng nhập bàng tài khoản cửa bạn!'];
+      $messages = ['success' => 'Đăng ký thành công. Vui lòng đăng nhập bằng tài khoản của bạn!'];
       redirect('/login', ['messages' => $messages]);
     }
 
-    // Dữ liệu không hợp lệ...
+    // Dữ liệu không hợp lệ, chuyển hướng về trang đăng ký và hiển thị lỗi
     redirect('/register', ['errors' => $model_errors]);
   }
 
@@ -51,7 +57,8 @@ class RegisterController extends Controller
       'email' => filter_var($data['email'], FILTER_VALIDATE_EMAIL),
       'password' => $data['password'] ?? null,
       'password_confirmation' => $data['password_confirmation'] ?? null,
-      'phone' => $data['phone'] ?? null
+      'phone' => $data['phone'] ?? null,
+      'address' => $data['address'] ?? null // Thêm trường địa chỉ vào đây
     ];
   }
 }

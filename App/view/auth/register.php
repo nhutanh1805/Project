@@ -6,7 +6,7 @@
     <div class="col-md-8 offset-md-2">
 
       <div class="card mt-3">
-        <div class="card-header fw-bold text-uppercase text-center">ĐĂNG NHẬP</div>
+        <div class="card-header fw-bold text-uppercase text-center">ĐĂNG KÝ</div>
         <div class="card-body bg-body-tertiary">
 
           <form method="POST" action="/register">
@@ -65,11 +65,24 @@
             <div class="mb-3 row">
               <label for="phone" class="offset-md-2 col-md-3 col-form-label">Số điện thoại</label>
               <div class="col-md-5">
-                <input id="phone" type="password" class="form-control <?= isset($errors['phone']) ? 'is-invalid' : '' ?>" name="phone" value="<?= isset($old['phone']) ? $this->e($old['phone']) : '' ?>" required autofocus>
+                <input id="phone" type="text" class="form-control <?= isset($errors['phone']) ? 'is-invalid' : '' ?>" name="phone" value="<?= isset($old['phone']) ? $this->e($old['phone']) : '' ?>" required>
 
                 <?php if (isset($errors['phone'])) : ?>
                   <span class="invalid-feedback">
                     <strong><?= $this->e($errors['phone']) ?></strong>
+                  </span>
+                <?php endif ?>
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="address" class="offset-md-2 col-md-3 col-form-label">Địa chỉ</label>
+              <div class="col-md-5">
+                <input id="address" type="text" class="form-control <?= isset($errors['address']) ? 'is-invalid' : '' ?>" name="address" value="<?= isset($old['address']) ? $this->e($old['address']) : '' ?>" required>
+
+                <?php if (isset($errors['address'])) : ?>
+                  <span class="invalid-feedback">
+                    <strong><?= $this->e($errors['address']) ?></strong>
                   </span>
                 <?php endif ?>
               </div>
