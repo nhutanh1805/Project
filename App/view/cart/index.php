@@ -10,7 +10,12 @@
         <h2 class="text-center">Giỏ Hàng</h2>
 
         <?php if (empty($cart)): ?>
-            <p class="text-center">Giỏ hàng của bạn đang trống.</p>
+            <p class="text-center">
+  Giỏ hàng của bạn đang trống. <span class="font-weight-bold text-danger">Đừng bỏ lỡ cơ hội!</span> Khám phá ngay những <span class="font-weight-bold text-success">sản phẩm hot nhất</span> và <span class="font-weight-bold text-info">thêm vào giỏ hàng của bạn</span> để nhận <span class="font-weight-bold text-primary">ưu đãi đặc biệt</span>!
+  <br>
+  <a href="/product" class="btn btn-lg btn-warning mt-3 px-4 py-2 text-white shadow-sm hover-shadow-lg">Mua sắm ngay</a>
+</p>
+
         <?php else: ?>
             <table class="table">
                 <thead>

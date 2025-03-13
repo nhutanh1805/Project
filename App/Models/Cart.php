@@ -122,4 +122,5 @@ class Cart
     {
         $_SESSION['cart'] = [];
     }
+    
 }
