@@ -95,7 +95,7 @@
 
    <!-- Câu giới thiệu về cửa hàng với hiệu ứng chạy và chữ lớn hơn -->
    <marquee class="mt-2 text-muted fs-4" behavior="scroll" direction="left" scrollamount="5">
-  💎 <strong>Horus Shop</strong> – đỉnh cao thời thượng,  
+  💎 <strong>Shop Điện tử</strong> – đỉnh cao thời thượng,  
   Công nghệ hội tụ, dẫn đường tương lai.  
   🌟 <strong>Laptop</strong> bền bỉ, dáng hình sang,  
   Đẳng cấp dẫn lối, vững vàng bước đi.  
@@ -130,7 +130,7 @@
         </li>
         <li class="nav-item ms-1">
           <a class="btn btn-danger text-white shadow-sm px-3 py-2 d-flex align-items-center" href="/homeAmin">
-            <i class="fa-solid fa-house me-2"></i> TRANG CHỦ ADMIN
+            <i class="fa-solid fa-house me-2"></i> QUẢN TRỊ
           </a>
         </li>
       <!-- Tài khoản -->
@@ -200,13 +200,13 @@
               <a class="text-white " href="#laptops">LapTop</a>
             </p>
             <p>
-              <a class="text-white">Tablet</a>
+              <a class="text-white" href="#phones">Phone</a>
             </p>
             <p>
-              <a class="text-white">Clock</a>
+              <a class="text-white">Tables</a>
             </p>
             <p>
-              <a class="text-white">Smart Phone</a>
+              <a class="text-white">Watchs</a>
             </p>
           </div>
 
@@ -249,7 +249,7 @@
           <div class="col-md-7 col-lg-8 text-center text-md-start">
             <div class="p-3">
               © 2025 Copyright:
-              <a class="text-white" href="https://mdbootstrap.com/">Horus.com</a>
+              <a class="text-white" href="http://nienluancoso.localhost/">ShopDienTu.com</a>
             </div>
           </div>
 

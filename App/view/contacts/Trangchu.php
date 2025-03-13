@@ -139,23 +139,23 @@
 
   <div class="carousel-inner">
     <div class="carousel-item active" data-bs-interval="2000"> <!-- Mỗi hình chuyển động 2 giây -->
-      <img src="img/iphone 16 pro.png" class="d-block w-100" alt="iPhone 16 Pro">
+      <img src="img/Carousel1.png" class="d-block w-100" alt="iPhone 16 Pro">
       <div class="carousel-caption">
-        <h5>iPhone 16 Pro</h5>
+        <h5>MSI Gaming</h5>
         <p>Siêu phẩm với công nghệ AI và camera nâng cấp.</p>
       </div>
     </div>
     
     <div class="carousel-item" data-bs-interval="2000">
-      <img src="img/asus Zenbook pro.png" class="d-block w-100" alt="Asus Zenbook Pro">
+      <img src="img/Carousel2.jpg" class="d-block w-100" alt="Asus Zenbook Pro">
       <div class="carousel-caption">
-        <h5>Asus Zenbook Pro</h5>
+        <h5>Iphone thế hệ mới</h5>
         <p>Mỏng nhẹ, hiệu năng mạnh mẽ dành cho sáng tạo.</p>
       </div>
     </div>
     
     <div class="carousel-item" data-bs-interval="2000">
-      <img src="img/Galaxy watch.png" class="d-block w-100" alt="Galaxy Watch">
+      <img src="img/Turquoise Blue Photo Collage Summer Sea Vacation Facebook Cover.png" class="d-block w-100" alt="Galaxy Watch">
       <div class="carousel-caption">
         <h5>Galaxy Watch</h5>
         <p>Trợ lý sức khỏe thông minh, thiết kế tinh tế.</p>
@@ -163,7 +163,7 @@
     </div>
     
     <div class="carousel-item" data-bs-interval="2000">
-      <img src="img/Turquoise Blue Photo Collage Summer Sea Vacation Facebook Cover.png" class="d-block w-100" alt="Khuyến mãi mùa hè">
+      <img src="img/Galaxy watch.png" class="d-block w-100" alt="Khuyến mãi mùa hè">
       <div class="carousel-caption">
         <h5>Ưu đãi mùa hè</h5>
         <p>Giảm giá sốc lên đến 50% cho khách hàng mới!</p>

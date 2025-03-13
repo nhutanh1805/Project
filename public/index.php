@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../bootstrap.php';
 
-define('CONGNGHE', 'Horus Shop');
+define('CONGNGHE', 'Shop Điện Tử');
 
 session_start();
 
