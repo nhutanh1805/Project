@@ -167,18 +167,18 @@
     </div>
     
     <div class="carousel-item" data-bs-interval="2000">
-      <img src="img/Turquoise Blue Photo Collage Summer Sea Vacation Facebook Cover.png" class="d-block w-100" alt="Galaxy Watch">
+      <img src="img/Carousel3.jpg" class="d-block w-100" alt="Galaxy Watch">
       <div class="carousel-caption">
-        <h5>Galaxy Watch</h5>
-        <p>Trợ lý sức khỏe thông minh, thiết kế tinh tế.</p>
+        <h5>Tablet</h5>
+        <p></p>
       </div>
     </div>
     
     <div class="carousel-item" data-bs-interval="2000">
-      <img src="img/Galaxy watch.png" class="d-block w-100" alt="Khuyến mãi mùa hè">
+      <img src="img/Carousel4.jpg" class="d-block w-100" alt="Khuyến mãi mùa hè">
       <div class="carousel-caption">
-        <h5>Ưu đãi mùa hè</h5>
-        <p>Giảm giá sốc lên đến 50% cho khách hàng mới!</p>
+        <h5>Watch</h5>
+        <p></p>
       </div>
     </div>
   </div>
