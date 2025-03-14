@@ -18,8 +18,16 @@
   <?= $this->section("page_specific_css") ?>
   <style>
  body {
-  background-color: #fff; /* Màu trắng cho nền toàn bộ trang */
-  color: #333; /* Màu chữ đen để dễ đọc trên nền sáng */
+  background-color: #fff; 
+  color: #333; 
+}
+
+.responsive-video {
+  width: 100%; /* Chiều ngang full trong div cha */
+  height: 50; /* Giữ tỷ lệ khung hình */
+  max-width: 100vw; /* Không vượt quá màn hình */
+  max-height: 90vh; /* Không vượt quá 90% chiều cao màn hình */
+  object-fit: cover; /* Đảm bảo video không bị méo */
 }
 
 </style>
@@ -34,10 +42,11 @@
           <!-- Phần logo -->
           <div class="col-md-3 d-flex justify-content-center justify-content-md-start mb-3 mb-md-0">
             <a href="#!" class="ms-md-2">
-              <img class="logo" src="/img/logo.png" height="100" />
+              <img class="logo" src="/img/3.png" height="100" />
             </a>
           </div>
-
+       
+          
           
           <!-- Phần thanh tìm kiếm -->
           <div class="col-md-6 d-flex justify-content-center align-items-center mb-3 mb-md-0">
@@ -95,7 +104,7 @@
 
 
 
-   <!-- Câu giới thiệu về cửa hàng với hiệu ứng chạy và chữ lớn hơn -->
+   <!-- Câu giới thiệu về cửa hàng -->
    <marquee class="mt-2 text-muted fs-4" behavior="scroll" direction="left" scrollamount="5">
   💎 <strong>Electronics Shop</strong> – đỉnh cao thời thượng,  
   Công nghệ hội tụ, dẫn đường tương lai.  
@@ -153,21 +162,17 @@
         </li>
       </ul>
     </div>
+    
   </div>
+
 </nav>
 
 
-            <!-- <li class="nav-item ms-1 w-auto">
-              <a class="nav-link" href="/register"><i class="fa-solid fa-pen me-1"></i>ĐĂNG KÝ</a>
-            </li>
-            <li class="nav-item ms-1 w-auto">
-              <a class="nav-link" href="/login"><i class="fa-solid fa-user me-1"></i>ĐĂNG NHẬP</a>
-            </li> -->
-          
-          </ul>
-        </div>
-      </div>
+
+      
       <div class="collapse navbar-collapse" id="app-navbar-collapse">
+
+      
         <!-- Left Side Of Navbar -->
         <div class="navbar-nav">
           &nbsp;

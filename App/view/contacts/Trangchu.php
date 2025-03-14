@@ -100,6 +100,10 @@
   object-fit: cover; /* Đảm bảo hình ảnh phủ đầy và không bị méo */
   height: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều cao của carousel */
 }
+.video-container video {
+  max-height: 350px; /* Giới hạn chiều cao */
+  object-fit: cover; /* Giữ tỷ lệ mà không làm méo */
+}
 
 </style>
 <?php $this->stop() ?>
@@ -127,6 +131,13 @@
       <?php unset($_SESSION['success_message']); ?>
     <?php endif; ?>
 
+    <!-- Phần Video -->
+    <div class="video-container">
+  <video class="responsive-video" controls autoplay muted loop >
+    <source src="/img/video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
     <!-- Phần carousel -->
     <div id="customCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <!-- Indicators -->
