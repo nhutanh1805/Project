@@ -42,8 +42,8 @@
 
 
   .promo-ai {
-    background: linear-gradient(90deg, #b3e5fc, #81d4fa); /* Màu xanh nhẹ */
-    color: #01579b; /* Màu xanh đậm hơn để đọc dễ hơn */
+    background: linear-gradient(90deg, #b3e5fc, #81d4fa); 
+    color: #01579b; 
     border-radius: 12px;
     padding: 20px;
     display: flex;
@@ -92,8 +92,8 @@
     50% { transform: translateY(-5px); }
   }
   #customCarousel {
-  height: 400px; /* Chỉnh chiều cao carousel */
-  overflow: hidden; /* Đảm bảo không có phần nội dung bị tràn ra ngoài */
+  height: 400px; 
+  overflow: hidden; 
 }
 
 #customCarousel .carousel-item img {
@@ -112,7 +112,7 @@
 
 <!-- Phần nội dung chính -->
 <main>
-  <div class="container mt-1">
+  <div class="container-fluid mt-1">
 
     <!-- Hiển thị thông báo lỗi nếu có -->
     <?php if (!empty($_SESSION['error_message'])): ?>
@@ -133,11 +133,12 @@
 
     <!-- Phần Video -->
     <div class="video-container">
-  <video class="responsive-video" controls autoplay muted loop >
-    <source src="/img/video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
+  <video class="responsive-video" autoplay muted loop>
+    <source src="/img/videotrailer.mp4" type="video/mp4">
+    Không thấy Video.
   </video>
 </div>
+
     <!-- Phần carousel -->
     <div id="customCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <!-- Indicators -->

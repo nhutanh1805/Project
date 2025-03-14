@@ -37,7 +37,7 @@
   <header>
     <!-- Phần tiêu đề -->
     <div class="p-2 text-center bg-white border-bottom">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
           <!-- Phần logo -->
           <div class="col-md-3 d-flex justify-content-center justify-content-md-start mb-3 mb-md-0">
