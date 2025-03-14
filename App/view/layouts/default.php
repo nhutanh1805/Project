@@ -34,9 +34,11 @@
           <!-- Phần logo -->
           <div class="col-md-3 d-flex justify-content-center justify-content-md-start mb-3 mb-md-0">
             <a href="#!" class="ms-md-2">
-              <img class="logo" src="/img/horus.png" height="100" />
+              <img class="logo" src="/img/logo.png" height="100" />
             </a>
           </div>
+
+          
           <!-- Phần thanh tìm kiếm -->
           <div class="col-md-6 d-flex justify-content-center align-items-center mb-3 mb-md-0">
   <form action="/search" method="GET" class="d-flex w-100">
@@ -95,7 +97,7 @@
 
    <!-- Câu giới thiệu về cửa hàng với hiệu ứng chạy và chữ lớn hơn -->
    <marquee class="mt-2 text-muted fs-4" behavior="scroll" direction="left" scrollamount="5">
-  💎 <strong>Shop Điện tử</strong> – đỉnh cao thời thượng,  
+  💎 <strong>Electronics Shop</strong> – đỉnh cao thời thượng,  
   Công nghệ hội tụ, dẫn đường tương lai.  
   🌟 <strong>Laptop</strong> bền bỉ, dáng hình sang,  
   Đẳng cấp dẫn lối, vững vàng bước đi.  
@@ -249,7 +251,7 @@
           <div class="col-md-7 col-lg-8 text-center text-md-start">
             <div class="p-3">
               © 2025 Copyright:
-              <a class="text-white" href="http://nienluancoso.localhost/">ShopDienTu.com</a>
+              <a class="text-white" href="http://nienluancoso.localhost/">ElectronicsShop.com</a>
             </div>
           </div>
 
