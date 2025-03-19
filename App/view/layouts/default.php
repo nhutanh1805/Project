@@ -64,13 +64,18 @@
 <div class="col-md-3 d-flex justify-content-center justify-content-md-end align-items-center">
   <div class="d-flex">
     <!-- Biểu tượng giỏ hàng -->
-    <a class="text-reset ms-3 position-relative" href="/cart">
+    <a class="text-reset ms-3 position-relative" href="/cart" title="Giỏ hàng">
       <i class="fas fa-shopping-cart fa-lg"></i>
       <span class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle p-1">1</span>
     </a>
 
+    <!-- Biểu tượng chăm sóc khách hàng -->
+    <a class="text-reset ms-3" href="/customer-support" title="Chăm sóc khách hàng">
+      <i class="fas fa-headset fa-lg"></i> <!-- Biểu tượng chăm sóc khách hàng -->
+    </a>
+
     <!-- Biểu tượng thông báo -->
-    <div class="dropdown ms-3">
+    <div class="dropdown ms-3" title="Thông báo">
       <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fas fa-bell fa-lg"></i>
       </a>
@@ -80,25 +85,29 @@
         <li><a class="dropdown-item" href="#">Something else here</a></li>
       </ul>
     </div>
-  </div>
 
+    <!-- Biểu tượng ngôn ngữ -->
+    <div class="dropdown ms-3" title="Ngôn ngữ">
+      <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa-solid fa-language fa-lg"></i>
+      </a>
+      <ul class="dropdown-menu shadow-lg rounded-3">
+        <li><a class="dropdown-item" href="#">English</a></li>
+        <li><a class="dropdown-item" href="#">Polski</a></li>
+        <li><a class="dropdown-item" href="#">中文</a></li>
+        <li><a class="dropdown-item" href="#">日本語</a></li>
+        <li><a class="dropdown-item" href="#">iDeutsch</a></li>
+        <li><a class="dropdown-item" href="#">Français</a></li>
+        <li><a class="dropdown-item" href="#">Español</a></li>
+        <li><a class="dropdown-item" href="#">Русский</a></li>
+        <li><a class="dropdown-item" href="#">Português</a></li>
+      </ul>
+    </div>
 
-  <!-- Biểu tượng ngôn ngữ -->
-  <div class="dropdown ms-3">
-    <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="fa-solid fa-language fa-lg"></i>
+    <!-- Biểu tượng cài đặt -->
+    <a class="text-reset ms-3" href="/settings" title="Cài đặt">
+      <i class="fas fa-cogs fa-lg"></i>
     </a>
-    <ul class="dropdown-menu shadow-lg rounded-3">
-      <li><a class="dropdown-item" href="#">English</a></li>
-      <li><a class="dropdown-item" href="#">Polski</a></li>
-      <li><a class="dropdown-item" href="#">中文</a></li>
-      <li><a class="dropdown-item" href="#">日本語</a></li>
-      <li><a class="dropdown-item" href="#">iDeutsch</a></li>
-      <li><a class="dropdown-item" href="#">Français</a></li>
-      <li><a class="dropdown-item" href="#">Español</a></li>
-      <li><a class="dropdown-item" href="#">Русский</a></li>
-      <li><a class="dropdown-item" href="#">Português</a></li>
-    </ul>
   </div>
 </div>
 
