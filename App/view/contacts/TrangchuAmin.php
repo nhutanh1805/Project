@@ -42,8 +42,8 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#category4">Đồng hồ</a>
                 </li>
-                <li class="nav-item ms-1 w-auto">
-              <a class="nav-link" href="/contacts/create/"><i class="fa-solid fa-user me-1"></i>THÊM SẢN PHẨM</a>
+                <li class="nav-item">
+              <a class="nav-link" href="/contacts/create/"><i class=""></i>THÊM SẢN PHẨM</a>
             </li>
             </ul>
         </div>

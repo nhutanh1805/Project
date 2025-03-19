@@ -92,10 +92,12 @@ $router->get('/search', '\App\Controllers\SearchController@index');
 // Router để xử lý trang thông tin người dùng
 $router->get('/account', '\App\Controllers\UserController@user');
 
-// Router để xử lý trang sửa thông tin người dùng
-$router->get('/account/edit', '\App\Controllers\UserController@edit');  // Phương thức edit chưa tạo
-$router->post('/account/edit', '\App\Controllers\UserController@update');  // Phương thức update chưa tạo
 
+
+// Router để xử lý trang sửa thông tin người dùng
+$router->get('/user/update', '\App\Controllers\UserController@updateUser');
+// POST request để xử lý việc cập nhật thông tin
+$router->post('/account/update', '\App\Controllers\UserController@updateUser');
 
 // Run the router
 $router->run();

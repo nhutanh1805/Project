@@ -15,12 +15,12 @@
                     <p><strong>Email:</strong> <?= htmlspecialchars($user['email'] ?? 'Chưa có email') ?></p>
                     <p><strong>Số điện thoại:</strong> <?= htmlspecialchars($user['phone'] ?? 'Chưa có số điện thoại') ?></p>
                     <p><strong>Địa chỉ:</strong> <?= htmlspecialchars($user['address'] ?? 'Chưa có địa chỉ') ?></p>
-                    <p><strong>Mật khẩu:</strong> <?= htmlspecialchars($user['password'] ?? 'Chưa có mật khẩu') ?></p>
+                    <!-- <p><strong>Mật khẩu:</strong> <?= htmlspecialchars($user['password'] ?? 'Chưa có mật khẩu') ?></p> -->
                     <p><strong>Ngày đăng ký:</strong> <?= date('d/m/Y', strtotime($user['created_at'] ?? '')) ?></p>
                     
                     <!-- Cung cấp tùy chọn để cập nhật thông tin người dùng -->
                     <div class="text-center">
-                        <a href="/account/edit" class="btn btn-primary">Cập nhật thông tin</a>
+                        <a href="/user/update" class="btn btn-primary">Cập nhật thông tin</a>
                     </div>
                 </div>
             </div>
