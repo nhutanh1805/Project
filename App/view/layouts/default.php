@@ -41,7 +41,7 @@
         <div class="row">
           <!-- Phần logo -->
           <div class="col-md-3 d-flex justify-content-center justify-content-md-start mb-3 mb-md-0">
-            <a href="#!" class="ms-md-2">
+            <a href="#!" class="ms-md-4">
               <img class="logo" src="/img/3.png" height="100" />
             </a>
           </div>

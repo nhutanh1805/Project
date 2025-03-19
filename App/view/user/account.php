@@ -27,10 +27,7 @@
         </div>
     </div>
 
-    <!-- Thêm tùy chọn đăng xuất -->
-    <div class="text-center mt-4">
-        <a href="/logout" class="btn btn-danger">Đăng xuất</a>
-    </div>
+    
 </div>
 
 <?php $this->stop() ?>
