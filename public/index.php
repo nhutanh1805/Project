@@ -92,12 +92,13 @@ $router->get('/search', '\App\Controllers\SearchController@index');
 // Router để xử lý trang thông tin người dùng
 $router->get('/account', '\App\Controllers\UserController@user');
 
-
-
 // Router để xử lý trang sửa thông tin người dùng
 $router->get('/user/update', '\App\Controllers\UserController@updateUser');
 // POST request để xử lý việc cập nhật thông tin
 $router->post('/account/update', '\App\Controllers\UserController@updateUser');
-
+// Router để xử lý trang thay đổi mật khẩu
+$router->get('/user/changepass', '\App\Controllers\UserController@changePassword');
+// POST request để xử lý việc thay đổi mật khẩu
+$router->post('/user/changepass', '\App\Controllers\UserController@changePassword');
 // Run the router
 $router->run();

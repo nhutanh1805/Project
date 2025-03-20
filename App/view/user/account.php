@@ -21,6 +21,7 @@
                     <!-- Cung cấp tùy chọn để cập nhật thông tin người dùng -->
                     <div class="text-center">
                         <a href="/user/update" class="btn btn-primary">Cập nhật thông tin</a>
+                        <a href="/user/changepass" class="btn btn-primary">Đổi mật khẩu</a>
                     </div>
                 </div>
             </div>

@@ -90,5 +90,43 @@ class Account
             return false;  // Lỗi trong quá trình cập nhật
         }
     }
+
+    // Phương thức thay đổi mật khẩu
+    public function changePassword($userId, $currentPassword, $newPassword)
+    {
+        // Kiểm tra mật khẩu mới hợp lệ (tối thiểu 8 ký tự)
+        if (strlen($newPassword) < 8) {
+            return false;  // Mật khẩu phải có ít nhất 8 ký tự
+        }
+
+        // Lấy mật khẩu hiện tại của người dùng từ cơ sở dữ liệu
+        $stmt = $this->pdo->prepare("SELECT password FROM users WHERE id = :id");
+        $stmt->bindParam(':id', $userId, \PDO::PARAM_INT);
+        $stmt->execute();
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            return false;  // Người dùng không tồn tại
+        }
+
+        // Kiểm tra mật khẩu hiện tại có đúng không (so sánh mật khẩu đã mã hóa)
+        if (!password_verify($currentPassword, $user['password'])) {
+            return false;  // Mật khẩu hiện tại không đúng
+        }
+
+        // Mã hóa mật khẩu mới
+        $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+
+        // Cập nhật mật khẩu mới vào cơ sở dữ liệu
+        $stmt = $this->pdo->prepare("UPDATE users SET password = :password WHERE id = :id");
+        $stmt->bindParam(':id', $userId, \PDO::PARAM_INT);
+        $stmt->bindParam(':password', $hashedPassword, \PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            return true;  // Đổi mật khẩu thành công
+        } else {
+            return false;  // Lỗi trong quá trình cập nhật mật khẩu
+        }
+    }
 }
 ?>

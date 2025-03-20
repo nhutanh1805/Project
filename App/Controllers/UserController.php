@@ -81,4 +81,57 @@ class UserController extends Controller
             ]);
         }
     }
+
+    // Phương thức thay đổi mật khẩu
+    public function changePassword()
+    {
+        // Kiểm tra xem người dùng đã đăng nhập hay chưa
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /login');
+            exit();
+        }
+
+        $userId = $_SESSION['user_id'];
+        $user = new Account(PDO());
+
+        // Kiểm tra nếu form đã được submit
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Lấy dữ liệu từ form
+            $currentPassword = $_POST['current_password'];
+            $newPassword = $_POST['new_password'];
+            $confirmPassword = $_POST['confirm_password'];
+
+            // Kiểm tra mật khẩu mới và mật khẩu xác nhận trùng nhau
+            if ($newPassword !== $confirmPassword) {
+                $message = 'Mật khẩu mới và xác nhận mật khẩu không trùng nhau!';
+                $messageType = 'danger';
+            } else {
+                // Thay đổi mật khẩu
+                $changePasswordResult = $user->changePassword($userId, $currentPassword, $newPassword);
+
+                if ($changePasswordResult) {
+                    $message = 'Đổi mật khẩu thành công!';
+                    $messageType = 'success';
+                } else {
+                    $message = 'Mật khẩu hiện tại không đúng hoặc có lỗi xảy ra. Vui lòng thử lại!';
+                    $messageType = 'danger';
+                }
+            }
+
+            // Gửi thông báo và thông tin người dùng đến view
+            $userInfo = $user->getUserById($userId);
+            $this->sendPage('user/changepass', [
+                'user' => $userInfo,
+                'message' => $message,
+                'messageType' => $messageType
+            ]);
+        } else {
+            // Nếu không phải là POST request, chỉ lấy thông tin người dùng
+            $userInfo = $user->getUserById($userId);
+            $this->sendPage('user/changepass', [
+                'user' => $userInfo
+            ]);
+        }
+    }
 }
+?>
