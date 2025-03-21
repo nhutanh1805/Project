@@ -5,11 +5,15 @@ use App\Models\Cart;
 
 class CheckoutController extends Controller
 {
+    // Hiển thị trang thanh toán
     public function index()
     {
-        // Lấy giỏ hàng và tổng tiền từ session hoặc Cart model
-        $cart = Cart::getCart();
-        $total = Cart::getTotal();
+        // Lấy userId từ session
+        $userId = $_SESSION['user_id'];
+
+        // Lấy giỏ hàng và tổng tiền từ model Cart
+        $cart = Cart::getCart($userId);
+        $total = Cart::getTotal($userId);
 
         // Truyền dữ liệu sang view
         $this->sendPage('checkout/index', [
@@ -18,7 +22,7 @@ class CheckoutController extends Controller
         ]);
     }
 
-    // Phương thức xử lý thanh toán
+    // Xử lý thanh toán
     public function process()
     {
         // Lấy thông tin từ form
@@ -45,6 +49,8 @@ class CheckoutController extends Controller
     {
         // Giả lập lưu thông tin đơn hàng và xử lý COD
         // Ví dụ: Lưu thông tin vào database, gửi email xác nhận, v.v.
+        // Bạn có thể xử lý logic lưu đơn hàng vào cơ sở dữ liệu ở đây.
+        echo "Đơn hàng của bạn sẽ được giao đến địa chỉ $address. Thanh toán khi nhận hàng!";
     }
 
     // Chuyển hướng người dùng đến trang giao dịch online
@@ -52,9 +58,11 @@ class CheckoutController extends Controller
     {
         // Giả lập chuyển hướng đến một trang thanh toán online (ví dụ PayPal, Stripe)
         // Bạn có thể sử dụng API của PayPal, Stripe, v.v.
+        // Ở đây bạn chỉ cần chuyển hướng đến một trang thanh toán.
         return header('Location: /payment-online');
     }
 
+    // Trang cảm ơn sau khi thanh toán thành công
     public function thankYou()
     {
         // Hiển thị trang cảm ơn sau khi thanh toán thành công

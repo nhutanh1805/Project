@@ -11,11 +11,10 @@
 
         <?php if (empty($cart)): ?>
             <p class="text-center">
-  Giỏ hàng của bạn đang trống. <span class="font-weight-bold text-danger">Đừng bỏ lỡ cơ hội!</span> Khám phá ngay những <span class="font-weight-bold text-success">sản phẩm hot nhất</span> và <span class="font-weight-bold text-info">thêm vào giỏ hàng của bạn</span> để nhận <span class="font-weight-bold text-primary">ưu đãi đặc biệt</span>!
-  <br>
-  <a href="/product" class="btn btn-lg btn-warning mt-3 px-4 py-2 text-white shadow-sm hover-shadow-lg">Mua sắm ngay</a>
-</p>
-
+                Giỏ hàng của bạn đang trống. <span class="font-weight-bold text-danger">Đừng bỏ lỡ cơ hội!</span> Khám phá ngay những <span class="font-weight-bold text-success">sản phẩm hot nhất</span> và <span class="font-weight-bold text-info">thêm vào giỏ hàng của bạn</span> để nhận <span class="font-weight-bold text-primary">ưu đãi đặc biệt</span>!
+                <br>
+                <a href="/product" class="btn btn-lg btn-warning mt-3 px-4 py-2 text-white shadow-sm hover-shadow-lg">Mua sắm ngay</a>
+            </p>
         <?php else: ?>
             <table class="table">
                 <thead>
@@ -29,34 +28,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($cart as $productId => $item): ?>
+                    <?php foreach ($cart as $item): ?>
                         <tr>
-                            <td><?= htmlspecialchars($item['name'] ?? 'Sản phẩm', ENT_QUOTES, 'UTF-8') ?></td>
+                            <td><?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
-                                <?php
-                                // Nếu có sẵn img_tag thì hiển thị, ngược lại kiểm tra key "img"
-                                if (isset($item['img_tag']) && !empty($item['img_tag'])) {
-                                    echo $item['img_tag'];
-                                } else if (isset($item['img']) && !empty($item['img'])) {
-                                    echo '<img src="' . htmlspecialchars($item['img'], ENT_QUOTES, 'UTF-8') . '" alt="' . htmlspecialchars($item['name'] ?? 'Sản phẩm', ENT_QUOTES, 'UTF-8') . '" style="max-width:150px;">';
-                                } else {
-                                    // Nếu không có ảnh, hiển thị ảnh mặc định
-                                    echo '<img src="/path/to/default.jpg" alt="No Image" style="max-width:150px;">';
-                                }
-                                ?>
+                                <img src="<?= htmlspecialchars($item['img'], ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8') ?>" style="max-width:150px;">
                             </td>
                             <td>
-                                <!-- Form cập nhật số lượng -->
-                                <form action="/cart/update/<?= $productId ?>" method="POST">
+                                <form action="/cart/update/<?= $item['id'] ?>" method="POST">
                                     <input type="number" name="quantity" value="<?= htmlspecialchars($item['quantity'], ENT_QUOTES, 'UTF-8') ?>" min="1" required>
                                     <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
                                 </form>
                             </td>
                             <td><?= number_format($item['price'], 0, ',', '.') ?> VNĐ</td>
-                            <td><?= number_format($item['price'] * $item['quantity'], 0, ',', '.') ?> VNĐ</td>
+                            <td><?= number_format($item['total_price'], 0, ',', '.') ?> VNĐ</td>
                             <td>
-                                <!-- Form xóa sản phẩm -->
-                                <form action="/cart/remove/<?= $productId ?>" method="POST" onsubmit="return confirm('Bạn chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?');">
+                                <form action="/cart/remove/<?= $item['id'] ?>" method="POST" onsubmit="return confirm('Bạn chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?');">
                                     <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
                                 </form>
                             </td>
@@ -70,7 +57,6 @@
                 </tbody>
             </table>
 
-            <!-- Link đến trang thanh toán -->
             <a href="/checkout" class="btn btn-success">Thanh toán</a>
         <?php endif; ?>
     </div>
