@@ -106,3 +106,17 @@ INSERT INTO productdetails (product_id, product_type, cpu, ram, storage, battery
 
 ALTER TABLE users
 ADD COLUMN address VARCHAR(255) NULL;
+
+CREATE TABLE cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL, -- Số lượng sản phẩm
+    price DECIMAL(10, 2) NOT NULL, -- Giá sản phẩm tại thời điểm mua
+    total_price DECIMAL(10, 2) NOT NULL, -- Tổng giá (số lượng * giá)
+    purchased_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Thời gian mua
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE, -- Liên kết với bảng users
+    FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE -- Liên kết với bảng product
+);
+ALTER TABLE cart MODIFY total_price DECIMAL(15, 2);
+ALTER TABLE product MODIFY price DECIMAL(15, 2);
