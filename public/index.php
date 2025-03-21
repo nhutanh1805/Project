@@ -60,7 +60,7 @@ $router->post('/cart/update/{productId}', function($productId) {
 });
 
 // Xóa sản phẩm khỏi giỏ hàng
-$router->get('/cart/remove/{productId}', function($productId) {
+$router->post('/cart/remove/{productId}', function($productId) {
     $cartController = new CartController();
     $cartController->remove($productId);  // Xóa sản phẩm khỏi giỏ hàng
 });
