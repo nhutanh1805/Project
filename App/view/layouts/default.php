@@ -108,6 +108,11 @@
     <a class="text-reset ms-3" href="/settings" title="Cài đặt">
       <i class="fas fa-cogs fa-lg"></i>
     </a>
+
+     <!-- Biểu tượng kho hàng -->
+     <a class="text-reset ms-3" href="/warehouse" title="Kho hàng">
+      <i class="fas fa-warehouse fa-lg"></i> <!-- Biểu tượng kho hàng -->
+    </a>
   </div>
 </div>
 
@@ -164,8 +169,12 @@
               <li><a class="dropdown-item" href="/register">Đăng Ký</a></li>
             <?php else : ?>
               <li><a class="dropdown-item" href="/account">Quản lý tài khoản</a></li>
-              <li><a class="dropdown-item" href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng Xuất</a></li>
-              <form id="logout-form" class="d-none" action="/logout" method="POST"></form>
+            
+              
+              <!-- Thêm liên kết quản lý đơn hàng -->
+            <li><a class="dropdown-item" href="/order/list">Quản lý đơn hàng</a></li> <!-- Liên kết đến trang quản lý đơn hàng -->
+            <li><a class="dropdown-item" href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng Xuất</a></li>
+            <form id="logout-form" class="d-none" action="/logout" method="POST"></form>
             <?php endif ?>
           </ul>
         </li>

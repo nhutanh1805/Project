@@ -100,5 +100,15 @@ $router->post('/account/update', '\App\Controllers\UserController@updateUser');
 $router->get('/user/changepass', '\App\Controllers\UserController@changePassword');
 // POST request để xử lý việc thay đổi mật khẩu
 $router->post('/user/changepass', '\App\Controllers\UserController@changePassword');
+
+
+// Router để xử lý trang xác nhận đơn hàng
+$router->get('/order/xacnhan/{orderId}', '\App\Controllers\OrderController@confirm');
+
+// Router để xử lý trang quản lý tất cả đơn hàng của người dùng
+$router->get('/orders', '\App\Controllers\OrderController@listOrders');
+
+$router->get('/warehouse', '\App\Controllers\WarehouseController@');
+
 // Run the router
 $router->run();

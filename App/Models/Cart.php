@@ -16,7 +16,7 @@ class Cart
     private static function initDb(): void
     {
         if (self::$db === null) {
-            $dsn = "mysql:host=localhost;dbname=nienluancoso;charset=utf8";
+            $dsn = "mysql:host=localhost;dbname=nienluancoso1;charset=utf8";
             $username = "root";
             $password = "";
             try {

@@ -4,6 +4,7 @@ CREATE TABLE users (
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     role TINYINT NOT NULL
@@ -120,3 +121,33 @@ CREATE TABLE cart (
 );
 ALTER TABLE cart MODIFY total_price DECIMAL(15, 2);
 ALTER TABLE product MODIFY price DECIMAL(15, 2);
+
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,  -- Liên kết với người dùng
+    total_amount DECIMAL(15, 2) NOT NULL,  -- Tổng giá trị đơn hàng
+    status ENUM('pending', 'completed', 'canceled') DEFAULT 'pending',  -- Trạng thái đơn hàng
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Thời gian tạo đơn hàng
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Thời gian cập nhật đơn hàng
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE  -- Liên kết với bảng users
+);
+
+CREATE TABLE order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,  -- Liên kết với đơn hàng
+    product_id INT NOT NULL,  -- Liên kết với sản phẩm
+    quantity INT NOT NULL,  -- Số lượng sản phẩm trong đơn hàng
+    price DECIMAL(15, 2) NOT NULL,  -- Giá sản phẩm tại thời điểm mua
+    total_price DECIMAL(15, 2) NOT NULL,  -- Tổng giá (số lượng * giá)
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,  -- Liên kết với bảng orders
+    FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE  -- Liên kết với bảng product
+);
+
+CREATE TABLE inventory (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,  -- Liên kết với sản phẩm trong bảng `product`
+    quantity INT NOT NULL,    -- Số lượng sản phẩm trong kho
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Thời gian tạo bản ghi
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Thời gian cập nhật bản ghi
+    FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE  -- Liên kết với bảng `product`
+);
