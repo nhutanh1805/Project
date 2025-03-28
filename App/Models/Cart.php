@@ -16,9 +16,9 @@ class Cart
     private static function initDb(): void
     {
         if (self::$db === null) {
-            $dsn = "mysql:host=localhost;dbname=nienluancoso1;charset=utf8";
+            $dsn = "mysql:host=localhost;dbname=nienluancoso;charset=utf8";
             $username = "root";
-            $password = "";
+            $password = "123456";
             try {
                 self::$db = new PDO($dsn, $username, $password);
                 self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
