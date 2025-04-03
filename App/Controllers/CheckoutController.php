@@ -2,6 +2,8 @@
 namespace App\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
+use Exception;
 
 class CheckoutController extends Controller
 {
@@ -9,7 +11,12 @@ class CheckoutController extends Controller
     public function index()
     {
         // Lấy userId từ session
-        $userId = $_SESSION['user_id'];
+        $userId = $_SESSION['user_id'] ?? null;
+
+        if (!$userId) {
+            // Nếu chưa đăng nhập, chuyển hướng về trang đăng nhập
+            redirect('/login');
+        }
 
         // Lấy giỏ hàng và tổng tiền từ model Cart
         $cart = Cart::getCart($userId);
@@ -25,40 +32,64 @@ class CheckoutController extends Controller
     // Xử lý thanh toán
     public function process()
     {
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if (!isset($_SESSION['user_id'])) {
+            // Nếu chưa đăng nhập, chuyển hướng về trang đăng nhập
+            redirect('/login');
+        }
+
         // Lấy thông tin từ form
         $name = $_POST['name'] ?? '';
         $address = $_POST['address'] ?? '';
         $paymentMethod = $_POST['payment_method'] ?? '';
-        $cardNumber = $_POST['card_number'] ?? '';
+        $cardNumber = $_POST['card_number'] ?? ''; // Chỉ dùng nếu thanh toán online
 
         // Kiểm tra phương thức thanh toán
         if ($paymentMethod === 'cod') {
-            // Xử lý nhận tiền khi giao hàng
+            // Xử lý thanh toán khi nhận hàng (COD)
             $this->processCOD($name, $address);
         } elseif ($paymentMethod === 'online') {
             // Chuyển hướng người dùng đến trang giao dịch online
             return $this->redirectToOnlinePayment($cardNumber);
+        } else {
+            // Nếu không có phương thức thanh toán hợp lệ
+            echo "Phương thức thanh toán không hợp lệ.";
+            return;
         }
 
         // Quá trình thanh toán xong, chuyển hướng đến trang cảm ơn
         redirect('/thank-you');
     }
 
-    // Xử lý nhận tiền khi giao hàng
+    // Xử lý nhận tiền khi giao hàng (COD)
     private function processCOD($name, $address)
     {
-        // Giả lập lưu thông tin đơn hàng và xử lý COD
-        // Ví dụ: Lưu thông tin vào database, gửi email xác nhận, v.v.
-        // Bạn có thể xử lý logic lưu đơn hàng vào cơ sở dữ liệu ở đây.
-        echo "Đơn hàng của bạn sẽ được giao đến địa chỉ $address. Thanh toán khi nhận hàng!";
+        // Lấy thông tin giỏ hàng
+        $userId = $_SESSION['user_id']; // Lấy userId từ session
+        $cart = Cart::getCart($userId);
+        $totalAmount = Cart::getTotal($userId); // Tính tổng tiền đơn hàng
+
+        try {
+            // Tạo đơn hàng trong cơ sở dữ liệu
+            $orderId = Order::createOrder($userId, $address, $totalAmount); // Lưu đơn hàng vào database
+
+            // Nếu đơn hàng được tạo thành công, xóa giỏ hàng khỏi session
+            unset($_SESSION['cart']); // Xóa giỏ hàng trong session sau khi thanh toán thành công
+
+            // Chuyển hướng đến trang cảm ơn
+            redirect('/thank-you');
+        } catch (Exception $e) {
+            // Xử lý lỗi nếu có
+            echo "Lỗi khi thanh toán: " . $e->getMessage();
+        }
     }
 
     // Chuyển hướng người dùng đến trang giao dịch online
     private function redirectToOnlinePayment($cardNumber)
     {
         // Giả lập chuyển hướng đến một trang thanh toán online (ví dụ PayPal, Stripe)
-        // Bạn có thể sử dụng API của PayPal, Stripe, v.v.
         // Ở đây bạn chỉ cần chuyển hướng đến một trang thanh toán.
+        // Ví dụ chuyển đến một trang thanh toán online (chỉ giả lập).
         return header('Location: /payment-online');
     }
 

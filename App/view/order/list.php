@@ -1,35 +1,29 @@
-<!-- views/user/order/list.php -->
-
-<h1>Danh sách đơn hàng của bạn</h1>
-
-<table border="1">
+<!-- File: src/Views/order/list.php -->
+<h1>Danh sách đơn hàng</h1>
+<table>
     <thead>
         <tr>
-            <th>ID Đơn Hàng</th>
-            <th>Tổng Tiền</th>
-            <th>Trạng Thái</th>
-            <th>Ngày Tạo</th>
-            <th>Hành Động</th>
+            <th>Mã đơn hàng</th>
+            <th>Địa chỉ</th>
+            <th>Tổng tiền</th>
+            <th>Ngày tạo</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($orders as $order): ?>
         <tr>
-            <td><?= htmlspecialchars($order['id']) ?></td>
-            <td><?= number_format($order['total_price'], 2) ?> VND</td>
+            <td><?= $order['id'] ?></td>
+            <td><?= $order['address'] ?></td>
+            <td><?= number_format($order['total_amount'], 0, ',', '.') ?> VNĐ</td>
+            <td><?= $order['created_at'] ?></td>
+            <td><?= $order['status'] ?? 'Chưa xác nhận' ?></td>
             <td>
-                <?php
-                    switch ($order['status']) {
-                        case 0: echo 'Đang chờ xử lý'; break;
-                        case 1: echo 'Đang giao hàng'; break;
-                        case 2: echo 'Đã hoàn thành'; break;
-                        default: echo 'Không xác định';
-                    }
-                ?>
-            </td>
-            <td><?= htmlspecialchars($order['created_at']) ?></td>
-            <td>
-                <a href="/order/confirm/<?= $order['id'] ?>">Xem chi tiết</a>
+                <a href="/order/view/<?= $order['id'] ?>">Xem</a> |
+                <a href="/order/confirm/<?= $order['id'] ?>">Xác nhận</a> |
+                <a href="/order/cancel/<?= $order['id'] ?>">Hủy</a> |
+                <a href="/order/delete/<?= $order['id'] ?>">Xóa</a>
             </td>
         </tr>
         <?php endforeach; ?>

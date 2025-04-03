@@ -74,6 +74,9 @@ $router->get('/checkout', function() {
     $checkoutController->index();  // Hiển thị trang thanh toán
 });
 
+
+
+
 // Xử lý thanh toán (giao dịch online hoặc nhận tiền khi giao hàng)
 $router->post('/checkout/process', function() {
     $checkoutController = new CheckoutController();
@@ -102,13 +105,19 @@ $router->get('/user/changepass', '\App\Controllers\UserController@changePassword
 $router->post('/user/changepass', '\App\Controllers\UserController@changePassword');
 
 
-// Router để xử lý trang xác nhận đơn hàng
-$router->get('/order/xacnhan/{orderId}', '\App\Controllers\OrderController@confirm');
 
-// Router để xử lý trang quản lý tất cả đơn hàng của người dùng
-$router->get('/orders', '\App\Controllers\OrderController@listOrders');
+// Hiển thị danh sách đơn hàng của người dùng
+$router->get('/orders', '\App\Controllers\OrderController@index');
 
-$router->get('/warehouse', '\App\Controllers\WarehouseController@');
+// Hiển thị chi tiết đơn hàng
+$router->get('/order/{id}', '\App\Controllers\OrderController@show');
+
+// Cập nhật trạng thái đơn hàng
+$router->post('/order/{id}/update-status', '\App\Controllers\OrderController@updateStatus');
+
+// Xóa đơn hàng
+$router->post('/order/{id}/delete', '\App\Controllers\OrderController@delete');
+
 
 // Run the router
 $router->run();

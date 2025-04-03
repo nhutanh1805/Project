@@ -11,6 +11,7 @@ class Controller
     public function __construct()
     {
         $this->view = new Engine(ROOTDIR . 'app/view');
+        
     }
 
     public function sendPage($page, array $data = [])
