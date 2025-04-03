@@ -175,3 +175,39 @@ CREATE TABLE IF NOT EXISTS `inventory` (
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Thời gian cập nhật kho
     FOREIGN KEY (`product_id`) REFERENCES `product`(`id`) ON DELETE CASCADE  -- Khóa ngoại với bảng `product`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO inventory (id, product_id, quantity_in_stock, created_at, updated_at) VALUES
+-- Laptops
+(1, 90, 100, '2024-11-04 23:56:24', '2024-11-04 23:56:24'),
+(2, 92, 150, '2024-11-05 00:00:49', '2024-11-05 00:00:49'),
+(3, 93, 200, '2024-11-05 00:03:07', '2024-11-05 00:03:07'),
+(4, 94, 250, '2024-11-05 00:20:07', '2024-11-05 00:20:07'),
+
+-- Phones
+(5, 95, 300, '2024-11-05 00:07:53', '2024-11-05 00:07:53'),
+(6, 96, 350, '2024-11-05 00:11:30', '2024-11-05 00:11:30'),
+(7, 97, 400, '2024-11-05 00:13:16', '2024-11-05 00:13:16'),
+(8, 100, 500, '2024-11-05 00:21:00', '2024-11-05 00:21:00'),
+
+-- Tablets
+(9, 101, 200, '2024-11-05 00:22:07', '2024-11-05 00:22:07'),
+(10, 102, 150, '2024-11-05 00:23:14', '2024-11-05 00:23:14'),
+(11, 103, 180, '2024-11-05 00:24:20', '2024-11-05 00:24:20'),
+(12, 104, 220, '2024-11-05 00:25:33', '2024-11-05 00:25:33'),
+
+-- Watches
+(13, 105, 500, '2024-11-05 00:37:42', '2024-11-05 00:38:08'),
+(14, 106, 400, '2024-11-05 00:39:54', '2024-11-05 00:39:54'),
+(15, 107, 450, '2024-11-05 00:41:05', '2024-11-05 00:41:05'),
+(16, 109, 300, '2024-11-05 00:42:10', '2024-11-05 00:42:10');
+
+
+CREATE TABLE IF NOT EXISTS `inventory` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,  -- Khóa chính
+    `product_id` INT NOT NULL,            -- Khóa ngoại liên kết với bảng `product`
+    `quantity_in_stock` INT NOT NULL,     -- Số lượng sản phẩm trong kho
+    `img` VARCHAR(255) DEFAULT NULL,      -- Thêm trường img lưu đường dẫn ảnh
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Thời gian thêm vào kho
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Thời gian cập nhật kho
+    FOREIGN KEY (`product_id`) REFERENCES `product`(`id`) ON DELETE CASCADE  -- Khóa ngoại với bảng `product`
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

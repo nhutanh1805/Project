@@ -31,7 +31,12 @@
                         <tr>
                             <td><?= htmlspecialchars($item['name'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
-                                <img src="<?= htmlspecialchars($item['img'] ?? '', ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($item['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>" style="max-width:150px;">
+                                <!-- Kiểm tra nếu có ảnh tồn tại -->
+                                <?php if (!empty($item['img']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $item['img'])): ?>
+                                    <img src="<?= htmlspecialchars($item['img'], ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8') ?>" style="max-width:150px;">
+                                <?php else: ?>
+                                    <p>Ảnh không có sẵn</p>
+                                <?php endif; ?>
                             </td>
                             <td>
                                 <form action="/inventory/update/<?= htmlspecialchars($item['product_id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" method="POST">

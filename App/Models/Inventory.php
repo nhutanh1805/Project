@@ -32,7 +32,7 @@ class Inventory
     public static function getAllProductsInStock(): array
     {
         self::initDb();
-        $stmt = self::$db->prepare("SELECT p.id, p.name, p.price, i.quantity_in_stock 
+        $stmt = self::$db->prepare("SELECT p.id, p.name, p.img, p.price, i.quantity_in_stock 
                                     FROM product p
                                     JOIN inventory i ON p.id = i.product_id");
         $stmt->execute();
