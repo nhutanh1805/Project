@@ -119,5 +119,35 @@ $router->post('/order/{id}/update-status', '\App\Controllers\OrderController@upd
 $router->post('/order/{id}/delete', '\App\Controllers\OrderController@delete');
 
 
+// Inventory routes
+use App\Controllers\InventoryController;
+
+// Hiển thị danh sách sản phẩm trong kho
+$router->get('/inventory', function() {
+    $inventoryController = new InventoryController();
+    $inventoryController->index();  // Hiển thị danh sách sản phẩm trong kho
+});
+
+// Thêm sản phẩm vào kho (có thể dùng một form riêng để thêm sản phẩm)
+$router->get('/inventory/add', function($productId, int $quantity) {
+    $inventoryController = new InventoryController();
+    $inventoryController->add($productId, $quantity);  // Hiển thị form thêm sản phẩm
+});
+
+// Cập nhật số lượng sản phẩm trong kho
+$router->post('/inventory/update/{productId}', function($productId) {
+    $quantityInStock = $_POST['quantity_in_stock'] ?? 0;  // Lấy số lượng tồn kho từ form
+    $inventoryController = new InventoryController();
+    $inventoryController->update($productId, $quantityInStock);  // Cập nhật số lượng sản phẩm trong kho
+});
+
+// Xóa sản phẩm khỏi kho
+$router->post('/inventory/remove/{productId}', function($productId) {
+    $inventoryController = new InventoryController();
+    $inventoryController->remove($productId);  // Xóa sản phẩm khỏi kho
+});
+
+
+
 // Run the router
 $router->run();

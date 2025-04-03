@@ -110,7 +110,7 @@
     </a>
 
      <!-- Biểu tượng kho hàng -->
-     <a class="text-reset ms-3" href="/warehouse" title="Kho hàng">
+     <a class="text-reset ms-3" href="/inventory" title="Kho hàng">
       <i class="fas fa-warehouse fa-lg"></i> <!-- Biểu tượng kho hàng -->
     </a>
   </div>
