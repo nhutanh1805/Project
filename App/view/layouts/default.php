@@ -105,7 +105,7 @@
     </div>
 
     <!-- Biểu tượng cài đặt -->
-    <a class="text-reset ms-3" href="/settings" title="Cài đặt">
+    <a class="text-reset ms-3" href="/orders" title="Cài đặt">
       <i class="fas fa-cogs fa-lg"></i>
     </a>
 

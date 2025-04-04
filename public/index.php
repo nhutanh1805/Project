@@ -106,17 +106,49 @@ $router->post('/user/changepass', '\App\Controllers\UserController@changePasswor
 
 
 
+
+// Order routes
+use App\Controllers\OrderController;
+
 // Hiển thị danh sách đơn hàng của người dùng
-$router->get('/orders', '\App\Controllers\OrderController@index');
+$router->get('/orders', function() {
+    $orderController = new OrderController();
+    $orderController->index();  // Hiển thị danh sách đơn hàng
+});
 
 // Hiển thị chi tiết đơn hàng
-$router->get('/order/{id}', '\App\Controllers\OrderController@show');
+$router->get('/order/view/{orderId}', function($orderId) {
+    $orderController = new OrderController();
+    $orderController->view($orderId);  // Hiển thị chi tiết đơn hàng
+});
+
+// Hủy đơn hàng
+$router->post('/order/cancel/{orderId}', function($orderId) {
+    $orderController = new OrderController();
+    $orderController->cancel($orderId);  // Hủy đơn hàng
+});
 
 // Cập nhật trạng thái đơn hàng
-$router->post('/order/{id}/update-status', '\App\Controllers\OrderController@updateStatus');
+$router->post('/order/updateStatus/{orderId}', function($orderId) {
+    $status = $_POST['status'] ?? '';  // Lấy trạng thái từ form
+    $orderController = new OrderController();
+    $orderController->updateStatus($orderId, $status);  // Cập nhật trạng thái đơn hàng
+});
 
-// Xóa đơn hàng
-$router->post('/order/{id}/delete', '\App\Controllers\OrderController@delete');
+
+
+
+// // Hiển thị danh sách đơn hàng của người dùng
+// $router->get('/orders', '\App\Controllers\OrderController@index');
+
+// // Hiển thị chi tiết đơn hàng
+// $router->get('/order/{id}', '\App\Controllers\OrderController@show');
+
+// // Cập nhật trạng thái đơn hàng
+// $router->post('/order/{id}/update-status', '\App\Controllers\OrderController@updateStatus');
+
+// // Xóa đơn hàng
+// $router->post('/order/{id}/delete', '\App\Controllers\OrderController@delete');
 
 
 // Inventory routes
