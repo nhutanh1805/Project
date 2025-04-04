@@ -43,7 +43,10 @@
                     <a class="nav-link" data-toggle="tab" href="#category4">Đồng hồ</a>
                 </li>
                 <li class="nav-item">
-              <a class="nav-link" href="/contacts/create/"><i class=""></i>THÊM SẢN PHẨM</a>
+              <a class="nav-link" href="/contacts/create/"><i class=""></i>Thêm Sản Phẩm</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/inventory"><i class=""></i>Kho Hàng</a>
             </li>
             </ul>
         </div>
