@@ -8,11 +8,13 @@ class Inventory
 {
     private static ?PDO $db = null;
 
+    // Thiết lập kết nối DB
     public static function setDb(PDO $pdo): void
     {
         self::$db = $pdo;
     }
 
+    // Khởi tạo kết nối DB nếu chưa có
     private static function initDb(): void
     {
         if (self::$db === null) {
@@ -28,18 +30,58 @@ class Inventory
         }
     }
 
-    // Lấy tất cả sản phẩm trong kho
-    public static function getAllProductsInStock(): array
+    // Lấy tất cả sản phẩm kết hợp với số lượng tồn kho từ bảng product và inventory
+    public static function getAllProducts(): array
     {
         self::initDb();
-        $stmt = self::$db->prepare("SELECT p.id, p.name, p.img, p.price, i.quantity_in_stock 
-                                    FROM product p
-                                    JOIN inventory i ON p.id = i.product_id");
+        $stmt = self::$db->prepare(
+            "SELECT p.id, p.name, p.img, p.price, p.priceGoc, i.quantity_in_stock, p.created_at, p.updated_at 
+             FROM product p 
+             LEFT JOIN inventory i ON p.id = i.product_id"
+        );
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Thêm sản phẩm vào kho
+    // Thêm sản phẩm vào bảng product
+    public static function addProduct(string $name, string $img, string $description, float $price, float $priceGoc): void
+    {
+        self::initDb();
+        $stmt = self::$db->prepare("INSERT INTO product (name, img, description, price, priceGoc) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$name, $img, $description, $price, $priceGoc]);
+    }
+
+    // Cập nhật thông tin sản phẩm trong bảng product
+    public static function updateProduct(int $productId, string $name, string $img, string $description, float $price, float $priceGoc): void
+    {
+        self::initDb();
+        $stmt = self::$db->prepare("UPDATE product SET name = ?, img = ?, description = ?, price = ?, priceGoc = ? WHERE id = ?");
+        $stmt->execute([$name, $img, $description, $price, $priceGoc, $productId]);
+    }
+
+    // Xóa sản phẩm khỏi bảng product
+    public static function removeProduct(int $productId): void
+    {
+        self::initDb();
+        $stmt = self::$db->prepare("DELETE FROM product WHERE id = ?");
+        $stmt->execute([$productId]);
+    }
+
+    // Lấy thông tin một sản phẩm theo product_id từ bảng product kết hợp với số lượng tồn kho từ bảng inventory
+    public static function getProduct(int $productId): ?array
+    {
+        self::initDb();
+        $stmt = self::$db->prepare(
+            "SELECT p.id, p.name, p.img, p.price, p.priceGoc, i.quantity_in_stock, p.description, p.created_at, p.updated_at
+             FROM product p
+             LEFT JOIN inventory i ON p.id = i.product_id
+             WHERE p.id = ?"
+        );
+        $stmt->execute([$productId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Thêm sản phẩm vào kho (bảng inventory)
     public static function addToInventory(int $productId, int $quantity): void
     {
         self::initDb();
@@ -61,32 +103,23 @@ class Inventory
         }
     }
 
-    // Cập nhật số lượng sản phẩm trong kho
-    public static function updateStock(int $productId, int $quantity): void
-    {
-        self::initDb();
+    // Cập nhật số lượng tồn kho cho sản phẩm
+    // Thêm phương thức cập nhật số lượng vào InventoryController
+// Cập nhật số lượng tồn kho cho sản phẩm
+public static function updateStock(int $productId, int $quantity): void
+{
+    self::initDb();
+    $stmt = self::$db->prepare("UPDATE inventory SET quantity_in_stock = ? WHERE product_id = ?");
+    $stmt->execute([$quantity, $productId]);
+}
 
-        // Cập nhật số lượng sản phẩm trong kho
-        $stmt = self::$db->prepare("UPDATE inventory SET quantity_in_stock = ? WHERE product_id = ?");
-        $stmt->execute([$quantity, $productId]);
-    }
 
-    // Xóa sản phẩm khỏi kho
+    // Xóa sản phẩm khỏi kho (bảng inventory)
     public static function removeFromInventory(int $productId): void
     {
         self::initDb();
-
-        // Xóa sản phẩm khỏi kho
         $stmt = self::$db->prepare("DELETE FROM inventory WHERE product_id = ?");
         $stmt->execute([$productId]);
     }
-
-    // Lấy thông tin sản phẩm trong kho
-    public static function getProductInStock(int $productId): ?array
-    {
-        self::initDb();
-        $stmt = self::$db->prepare("SELECT * FROM inventory WHERE product_id = ?");
-        $stmt->execute([$productId]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
 }
+?>

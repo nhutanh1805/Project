@@ -107,6 +107,9 @@ $router->post('/user/changepass', '\App\Controllers\UserController@changePasswor
 
 
 
+
+
+
 // Order routes
 use App\Controllers\OrderController;
 
@@ -151,33 +154,44 @@ $router->post('/order/updateStatus/{orderId}', function($orderId) {
 // $router->post('/order/{id}/delete', '\App\Controllers\OrderController@delete');
 
 
-// Inventory routes
 use App\Controllers\InventoryController;
 
-// Hiển thị danh sách sản phẩm trong kho
+// Hiển thị danh sách sản phẩm
 $router->get('/inventory', function() {
     $inventoryController = new InventoryController();
-    $inventoryController->index();  // Hiển thị danh sách sản phẩm trong kho
+    $inventoryController->index();  // Hiển thị danh sách sản phẩm
 });
 
-// Thêm sản phẩm vào kho (có thể dùng một form riêng để thêm sản phẩm)
-$router->get('/inventory/add', function($productId, int $quantity) {
+// Thêm sản phẩm mới vào kho
+$router->post('/inventory/add', function() {
     $inventoryController = new InventoryController();
-    $inventoryController->add($productId, $quantity);  // Hiển thị form thêm sản phẩm
+    $inventoryController->add();  // Thêm sản phẩm mới vào kho
 });
 
-// Cập nhật số lượng sản phẩm trong kho
+// Cập nhật thông tin sản phẩm
 $router->post('/inventory/update/{productId}', function($productId) {
-    $quantityInStock = $_POST['quantity_in_stock'] ?? 0;  // Lấy số lượng tồn kho từ form
     $inventoryController = new InventoryController();
-    $inventoryController->update($productId, $quantityInStock);  // Cập nhật số lượng sản phẩm trong kho
+    $inventoryController->update($productId);  // Cập nhật thông tin sản phẩm
 });
 
-// Xóa sản phẩm khỏi kho
+// Xóa sản phẩm khỏi danh sách (sản phẩm không có trong kho)
 $router->post('/inventory/remove/{productId}', function($productId) {
     $inventoryController = new InventoryController();
-    $inventoryController->remove($productId);  // Xóa sản phẩm khỏi kho
+    $inventoryController->remove($productId);  // Xóa sản phẩm khỏi danh sách
 });
+
+// Cập nhật số lượng tồn kho cho sản phẩm
+$router->post('/inventory/updateStock/{productId}', function($productId) {
+    $inventoryController = new InventoryController();
+    $inventoryController->updateStock($productId);  // Cập nhật số lượng tồn kho
+});
+
+// Thêm số lượng sản phẩm vào kho
+$router->post('/inventory/addStock/{productId}', function($productId) {
+    $inventoryController = new InventoryController();
+    $inventoryController->addStock($productId);  // Thêm số lượng vào kho
+});
+
 
 
 

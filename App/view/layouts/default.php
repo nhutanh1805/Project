@@ -118,6 +118,7 @@
 
 
 
+
    <!-- Câu giới thiệu về cửa hàng -->
    <marquee class="mt-2 text-muted fs-4" behavior="scroll" direction="left" scrollamount="5">
   💎 <strong>Electronics Shop</strong> – đỉnh cao thời thượng,  
