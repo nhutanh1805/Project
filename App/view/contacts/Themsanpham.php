@@ -96,7 +96,7 @@
                         <strong><?= $this->e($errors['product_type']) ?></strong>
                     </span>
                 <?php endif ?>
-            </div>
+            </div>z
         </div>
 
         <!-- Gạch ngang phân tách -->

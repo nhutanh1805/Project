@@ -99,17 +99,22 @@ class User
             ]);
         } else {
             // Nếu chưa có ID (tạo mới người dùng)
-            $statement = $this->db->prepare(
-                'INSERT INTO users (email, name, password, created_at, updated_at, phone, address)
-                VALUES (:email, :name, :password, NOW(), NOW(), :phone, :address)'
-            );
-            $result = $statement->execute([
-                'email' => $this->email,
-                'name' => $this->name,
-                'password' => $this->password,
-                'phone' => $this->phone,
-                'address' => $this->address  // Thêm địa chỉ vào câu lệnh thêm mới
-            ]);
+           // Cập nhật phương thức save() để bao gồm trường role
+$statement = $this->db->prepare(
+    'INSERT INTO users (email, name, password, created_at, updated_at, phone, address, role)
+    VALUES (:email, :name, :password, NOW(), NOW(), :phone, :address, :role)'
+);
+
+$result = $statement->execute([
+    'email' => $this->email,
+    'name' => $this->name,
+    'password' => $this->password,
+    'phone' => $this->phone,
+    'address' => $this->address,
+    'role' => $this->role ?? 'user'  // Đảm bảo có giá trị cho role, mặc định là 'user'
+]);
+
+            
             if ($result) {
                 $this->id = $this->db->lastInsertId();  // Lưu lại ID của người dùng mới tạo
             }
