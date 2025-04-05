@@ -22,12 +22,22 @@
                     <?php foreach ($orders as $order): ?>
                         <tr>
                             <td><?= htmlspecialchars($order['id'], ENT_QUOTES, 'UTF-8') ?></td>
-                            <td><?= number_format($order['total_price'], 0, ',', '.') ?> VNĐ</td>
-                            <td><?= htmlspecialchars($order['status'], ENT_QUOTES, 'UTF-8') ?></td>
+                            <td>
+                                <?php
+                                $totalPrice = $order['total_price'] ?? 0; // Kiểm tra nếu 'total_price' không tồn tại
+                                echo number_format($totalPrice, 0, ',', '.') . ' VNĐ';
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                // Kiểm tra nếu 'status' tồn tại, nếu không sẽ sử dụng giá trị mặc định
+                                echo htmlspecialchars($order['status'] ?? 'Chưa xác định', ENT_QUOTES, 'UTF-8');
+                                ?>
+                            </td>
                             <td><?= htmlspecialchars($order['created_at'], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
                                 <a href="/order/view/<?= $order['id'] ?>" class="btn btn-info">Chi tiết</a>
-                                <!-- Nếu trạng thái là 'Processing' hoặc 'Shipped', có thể cập nhật trạng thái hoặc hủy đơn hàng -->
+                                <!-- Nếu trạng thái là 'Processing', có thể cập nhật trạng thái hoặc hủy đơn hàng -->
                                 <?php if ($order['status'] == 'Processing'): ?>
                                     <a href="/order/updateStatus/<?= $order['id'] ?>" class="btn btn-warning">Cập nhật trạng thái</a>
                                     <a href="/order/cancel/<?= $order['id'] ?>" class="btn btn-danger">Hủy đơn</a>

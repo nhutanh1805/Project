@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\Order;
 use App\Models\Cart;
 use Exception;
+
 class OrderController extends Controller
 {
     // Tạo đơn hàng từ giỏ hàng
@@ -33,7 +34,7 @@ class OrderController extends Controller
     public function view($orderId): void
     {
         $userId = $_SESSION['user_id'];
-        
+
         // Lấy thông tin đơn hàng từ model Order
         $order = Order::getOrder($orderId);
 
@@ -57,10 +58,10 @@ class OrderController extends Controller
     public function index(): void
     {
         $userId = $_SESSION['user_id'];
-        
+
         // Lấy tất cả đơn hàng của người dùng từ model Order
         $orders = Order::getUserOrders($userId);
-        
+
         // Hiển thị danh sách đơn hàng
         $this->sendPage('order/index', ['orders' => $orders]);
     }

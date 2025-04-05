@@ -46,20 +46,18 @@ class Order
         // Lấy ID của đơn hàng vừa tạo
         $orderId = self::$db->lastInsertId();
 
-        // Thêm chi tiết đơn hàng vào bảng order_details từ giỏ hàng
-        $stmt = self::$db->prepare("SELECT product_id, quantity, total_price FROM cart WHERE user_id = ?");
-        $stmt->execute([$userId]);
-        $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Lấy giỏ hàng của người dùng
+        $cartItems = Cart::getCart($userId);  // Sử dụng phương thức getCart() của Cart model
 
         foreach ($cartItems as $item) {
             $stmt = self::$db->prepare("INSERT INTO order_details (order_id, product_id, quantity, price, total_price) 
                                         VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([
                 $orderId, 
-                $item['product_id'], 
-                $item['quantity'], 
-                $item['total_price'] / $item['quantity'],  // Giá sản phẩm
-                $item['total_price']
+                $item['id'],  // product_id
+                $item['quantity'],  // quantity
+                $item['price'],  // price
+                $item['total_price']  // total_price
             ]);
         }
 
