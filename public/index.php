@@ -144,6 +144,9 @@ $router->post('/order/updateStatus/{orderId}', function($orderId) {
 });
 
 
+// Cập nhật route để hiển thị chi tiết đơn hàng
+$router->get('/order/details/(:num)', 'OrderDetailsController@view');
+
 
 
 

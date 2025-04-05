@@ -70,17 +70,16 @@ class Order
 
     // Lấy thông tin đơn hàng
     public static function getOrder(int $orderId): array
-    {
-        self::initDb();
-        $stmt = self::$db->prepare("SELECT o.id, o.user_id, o.address, o.total_amount, o.status, o.created_at, o.updated_at, 
-                                            d.product_id, d.quantity, d.price, d.total_price, p.name AS product_name
-                                    FROM orders o
-                                    JOIN order_details d ON o.id = d.order_id
-                                    JOIN product p ON d.product_id = p.id
-                                    WHERE o.id = ?");
-        $stmt->execute([$orderId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+{
+    self::initDb();
+
+    // Lấy thông tin đơn hàng từ bảng orders
+    $stmt = self::$db->prepare("SELECT * FROM orders WHERE id = ?");
+    $stmt->execute([$orderId]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC); // Trả về mảng thông tin đơn hàng
+}
+
 
     // Lấy tất cả đơn hàng của người dùng
     public static function getUserOrders(int $userId): array
