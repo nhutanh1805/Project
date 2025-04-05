@@ -214,3 +214,7 @@ VALUES
 (105, 10, 'img/Dongho2.jpg', '2024-11-05 00:39:54', '2024-11-05 00:39:54'),
 (106, 10, 'img/Dongho3.jpg', '2024-11-05 00:41:05', '2024-11-05 00:41:05'),
 (107, 10, 'img/Dongho4.jpg', '2024-11-05 00:42:10', '2024-11-05 00:42:10');
+
+
+ALTER TABLE `orders`
+    ADD COLUMN `status` VARCHAR(50) NOT NULL DEFAULT 'Processing' AFTER `total_amount`;  -- Thêm trường `status` với giá trị mặc định là 'Processing'

@@ -40,7 +40,8 @@ class Order
         }
 
         // Thêm đơn hàng vào bảng orders
-        $stmt = self::$db->prepare("INSERT INTO orders (user_id, address, total_amount, created_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP)");
+        $stmt = self::$db->prepare("INSERT INTO orders (user_id, address, total_amount, status, created_at) 
+                                    VALUES (?, ?, ?, 'Processing', CURRENT_TIMESTAMP)");
         $stmt->execute([$userId, $address, $totalAmount]);
 
         // Lấy ID của đơn hàng vừa tạo
@@ -52,7 +53,7 @@ class Order
         foreach ($cartItems as $item) {
             $stmt = self::$db->prepare("INSERT INTO order_details (order_id, product_id, quantity, price, total_price) 
                                         VALUES (?, ?, ?, ?, ?)");
-            $stmt->execute([
+            $stmt->execute([ 
                 $orderId, 
                 $item['id'],  // product_id
                 $item['quantity'],  // quantity
@@ -71,7 +72,7 @@ class Order
     public static function getOrder(int $orderId): array
     {
         self::initDb();
-        $stmt = self::$db->prepare("SELECT o.id, o.user_id, o.address, o.total_amount, o.created_at, o.updated_at, 
+        $stmt = self::$db->prepare("SELECT o.id, o.user_id, o.address, o.total_amount, o.status, o.created_at, o.updated_at, 
                                             d.product_id, d.quantity, d.price, d.total_price, p.name AS product_name
                                     FROM orders o
                                     JOIN order_details d ON o.id = d.order_id
@@ -85,7 +86,7 @@ class Order
     public static function getUserOrders(int $userId): array
     {
         self::initDb();
-        $stmt = self::$db->prepare("SELECT o.id, o.address, o.total_amount, o.created_at, o.updated_at 
+        $stmt = self::$db->prepare("SELECT o.id, o.address, o.total_amount, o.status, o.created_at, o.updated_at 
                                     FROM orders o
                                     WHERE o.user_id = ?");
         $stmt->execute([$userId]);

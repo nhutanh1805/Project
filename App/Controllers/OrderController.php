@@ -101,6 +101,13 @@ class OrderController extends Controller
             return;
         }
 
+        // Kiểm tra nếu người dùng có quyền cập nhật trạng thái đơn hàng (có thể chỉ admin hoặc người tạo đơn)
+        $order = Order::getOrder($orderId);
+        if ($order[0]['user_id'] != $userId) {
+            $this->sendPage('order/updateStatus', ['error' => 'Bạn không có quyền cập nhật trạng thái của đơn hàng này']);
+            return;
+        }
+
         try {
             // Cập nhật trạng thái của đơn hàng
             Order::updateOrderStatus($orderId, $status);
@@ -115,6 +122,13 @@ class OrderController extends Controller
     public function cancel($orderId): void
     {
         $userId = $_SESSION['user_id'];
+
+        // Kiểm tra nếu người dùng có quyền hủy đơn hàng (có thể chỉ admin hoặc người tạo đơn)
+        $order = Order::getOrder($orderId);
+        if ($order[0]['user_id'] != $userId) {
+            $this->sendPage('order/view', ['error' => 'Bạn không có quyền hủy đơn hàng này']);
+            return;
+        }
 
         try {
             // Hủy đơn hàng

@@ -24,13 +24,13 @@
                             <td><?= htmlspecialchars($order['id'], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
                                 <?php
-                                $totalPrice = $order['total_price'] ?? 0; // Kiểm tra nếu 'total_price' không tồn tại
-                                echo number_format($totalPrice, 0, ',', '.') . ' VNĐ';
+                                $totalAmount = $order['total_amount'] ?? 0; // Kiểm tra nếu 'total_amount' không tồn tại
+                                echo number_format($totalAmount, 0, ',', '.') . ' VNĐ';
                                 ?>
                             </td>
                             <td>
                                 <?php
-                                // Kiểm tra nếu 'status' tồn tại, nếu không sẽ sử dụng giá trị mặc định
+                                // Hiển thị trạng thái của đơn hàng (nếu có)
                                 echo htmlspecialchars($order['status'] ?? 'Chưa xác định', ENT_QUOTES, 'UTF-8');
                                 ?>
                             </td>
@@ -41,6 +41,10 @@
                                 <?php if ($order['status'] == 'Processing'): ?>
                                     <a href="/order/updateStatus/<?= $order['id'] ?>" class="btn btn-warning">Cập nhật trạng thái</a>
                                     <a href="/order/cancel/<?= $order['id'] ?>" class="btn btn-danger">Hủy đơn</a>
+                                <?php elseif ($order['status'] == 'Shipped' || $order['status'] == 'Delivered'): ?>
+                                    <span class="badge bg-success">Đã giao hàng</span>
+                                <?php elseif ($order['status'] == 'Cancelled'): ?>
+                                    <span class="badge bg-danger">Đã hủy</span>
                                 <?php endif; ?>
                             </td>
                         </tr>

@@ -134,9 +134,15 @@ $router->post('/order/cancel/{orderId}', function($orderId) {
 // Cập nhật trạng thái đơn hàng
 $router->post('/order/updateStatus/{orderId}', function($orderId) {
     $status = $_POST['status'] ?? '';  // Lấy trạng thái từ form
+    if (empty($status)) {
+        // Nếu trạng thái không được cung cấp, trả về lỗi hoặc chuyển hướng
+        return redirect('/orders');
+    }
+
     $orderController = new OrderController();
     $orderController->updateStatus($orderId);  // Cập nhật trạng thái đơn hàng
 });
+
 
 
 
