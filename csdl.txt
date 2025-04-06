@@ -249,3 +249,30 @@ END //
 
 DELIMITER ;
 
+-- Tringer thêm đơn hàng khi có sản phẩm trong giỏ
+
+DELIMITER //
+
+CREATE TRIGGER after_add_to_cart
+AFTER INSERT ON cart
+FOR EACH ROW
+BEGIN
+    DECLARE totalAmount DECIMAL(15, 2);
+    DECLARE userAddress VARCHAR(255);
+
+    -- Tính tổng tiền đơn hàng (tổng tiền của tất cả các sản phẩm trong giỏ)
+    SELECT SUM(total_price) INTO totalAmount
+    FROM cart
+    WHERE user_id = NEW.user_id;
+
+    -- Lấy địa chỉ giao hàng của người dùng (giả sử có bảng `users` chứa thông tin này)
+    SELECT address INTO userAddress
+    FROM users
+    WHERE id = NEW.user_id;
+
+    -- Thêm đơn hàng vào bảng `orders`
+    INSERT INTO orders (user_id, address, total_amount)
+    VALUES (NEW.user_id, userAddress, totalAmount);
+END //
+
+DELIMITER ;

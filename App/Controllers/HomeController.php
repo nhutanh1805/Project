@@ -67,7 +67,7 @@ class HomeController extends Controller
             ]);
         } else {
             // Nếu không phải admin, hiển thị thông báo lỗi và chuyển hướng về trang chính
-            $_SESSION['error_message'] = 'Bạn không có quyền truy cập trang này.';
+            $_SESSION['error_message'] = 'Không đủ thẩm quyền. Chuyển lại trang chủ.';
             redirect('/home');  // Chuyển hướng về trang chính
         }
     }
@@ -92,7 +92,7 @@ class HomeController extends Controller
             ]);
         } else {
             // Nếu không phải admin, chuyển hướng về trang chính và hiển thị thông báo lỗi
-            $_SESSION['error_message'] = 'Bạn không có quyền truy cập trang này.';
+            $_SESSION['error_message'] = 'Không đủ thẩm quyền. Đã chuyển lại trang chủ';
             redirect('/home');
         }
     }
