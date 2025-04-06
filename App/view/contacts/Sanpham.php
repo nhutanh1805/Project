@@ -83,37 +83,57 @@
 </div>
 
 
-    <!-- PHẦN SẢN PHẨM -->
-    <div class="col-12">
-      <div id="laptops" class="brand row m-1">
-        <div class="row ms-1 mt-3">
-          <?php foreach ($contacts as $contact): ?>
-            <div class="col-lg-3 col-sm-6 mb-3">
-              <div class="card border shadow-sm">
-                <img src="<?= htmlspecialchars($contact->img) ?>" class="card-img-top p-2" alt="<?= htmlspecialchars($contact->name) ?>">
-                <div class="card-body text-center">
-                  <div class="d-flex justify-content-center gap-2 mb-2">
-                    <span class="badge bg-secondary text-decoration-line-through">
-                      <?= number_format(htmlspecialchars($contact->priceGoc), 0, ',', '.') ?> VNĐ
-                    </span>
-                    <span class="badge bg-danger">
-                      <?= number_format(htmlspecialchars($contact->price), 0, ',', '.') ?> VNĐ
-                    </span>
-                  </div>
-                  <h5 class="card-title"> <?= htmlspecialchars($contact->name) ?> </h5>
-                  <p class="card-text"> <?= htmlspecialchars($contact->description) ?> </p>
-                </div>
-                <div class="card-footer text-center">
-                  <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#productModal-<?= $contact->id ?>">
-                    <i class="fa-solid fa-circle-info"></i> Chi tiết
-                  </button>
-                  <a href="/cart/add/<?= $contact->id ?>/<?= urlencode($contact->name) ?>" class="btn btn-primary">
-                    <i class="fa-solid fa-cart-plus"></i> Mua Hàng
-                  </a>
+   <div class="col-12">
+  <div id="laptops" class="brand row m-1">
+    <div class="row ms-1 mt-3">
+      <?php foreach ($contacts as $contact): ?>
+        <div class="col-lg-3 col-sm-6 mb-3">
+          <div class="card border shadow-sm">
+            <img src="<?= htmlspecialchars($contact->img) ?>" class="card-img-top p-2" alt="<?= htmlspecialchars($contact->name) ?>">
+            <div class="card-body text-center">
+              <div class="d-flex justify-content-center gap-2 mb-2">
+                <span class="badge bg-secondary text-decoration-line-through">
+                  <?= number_format(htmlspecialchars($contact->priceGoc), 0, ',', '.') ?> VNĐ
+                </span>
+                <span class="badge bg-danger">
+                  <?= number_format(htmlspecialchars($contact->price), 0, ',', '.') ?> VNĐ
+                </span>
+              </div>
+              <h5 class="card-title"><?= htmlspecialchars($contact->name) ?></h5>
+              <p class="card-text"><?= htmlspecialchars($contact->description) ?></p>
+            </div>
+
+            <div class="card-footer text-center">
+              <!-- Số lượng còn lại với badge và thanh tiến trình -->
+              <?php
+              // Lấy số lượng tồn kho
+              $quantityInStock = $contact->getStockQuantity();
+              ?>
+              <p class="stock-quantity mb-2">
+                <strong>Số lượng còn lại:</strong>
+                <span class="badge <?php echo ($quantityInStock <= 5) ? 'bg-danger' : 'bg-success'; ?>">
+                  <?= htmlspecialchars($quantityInStock) ?> sản phẩm
+                </span>
+              </p>
+
+              <!-- Thanh tiến trình -->
+              <div class="progress mb-2" style="height: 25px;">
+                <div class="progress-bar" role="progressbar" style="width: <?= ($quantityInStock > 0 ? min(100, ($quantityInStock / 100) * 100) : 0) ?>%" aria-valuenow="<?= $quantityInStock ?>" aria-valuemin="0" aria-valuemax="100">
+                  <?= $quantityInStock ?> sản phẩm còn
                 </div>
               </div>
+
+              <button type="button" class="btn btn-outline-secondary mt-2" data-bs-toggle="modal" data-bs-target="#productModal-<?= $contact->id ?>">
+                <i class="fa-solid fa-circle-info"></i> Chi tiết
+              </button>
+              <a href="/cart/add/<?= $contact->id ?>/<?= urlencode($contact->name) ?>" class="btn btn-primary mt-2">
+                <i class="fa-solid fa-cart-plus"></i> Mua Hàng
+              </a>
             </div>
-          <!-- Modal thông tin chi tiết sản phẩm -->
+          </div>
+        </div>
+
+        <!-- Modal thông tin chi tiết sản phẩm -->
         <div class="modal fade" id="productModal-<?= $contact->id ?>" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -144,7 +164,6 @@
     </div>
   </div>
 </div>
-
 
 
 

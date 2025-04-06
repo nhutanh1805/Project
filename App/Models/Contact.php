@@ -37,6 +37,21 @@ class Contact
     {
         $this->db = $pdo;
     }
+// Thêm phương thức để lấy số lượng tồn kho của sản phẩm từ bảng inventory
+public function getStockQuantity(): int
+{
+    // Truy vấn bảng inventory để lấy quantity_in_stock
+    $statement = $this->db->prepare('
+        SELECT quantity_in_stock FROM inventory WHERE product_id = :product_id
+    ');
+    $statement->execute(['product_id' => $this->id]);
+
+    if ($row = $statement->fetch()) {
+        return (int) $row['quantity_in_stock'];  // Trả về số lượng tồn kho, mặc định là 0 nếu không tìm thấy
+    }
+
+    return 0;  // Nếu không tìm thấy, trả về 0
+}
 
     // Đặt người dùng sở hữu sản phẩm
     public function setUser(User $user): Contact
