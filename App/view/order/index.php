@@ -37,10 +37,10 @@
                             <td><?= htmlspecialchars($order['created_at'], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
                                 <a href="/order/view/<?= $order['id'] ?>" class="btn btn-info">Chi tiết</a>
-                                <!-- Nếu trạng thái là 'Processing', có thể cập nhật trạng thái hoặc hủy đơn hàng -->
+                                
+                                <!-- Nếu trạng thái là 'Processing', có thể xóa đơn hàng -->
                                 <?php if ($order['status'] == 'Processing'): ?>
-                                    <a href="/order/updateStatus/<?= $order['id'] ?>" class="btn btn-warning">Cập nhật trạng thái</a>
-                                    <a href="/order/cancel/<?= $order['id'] ?>" class="btn btn-danger">Hủy đơn</a>
+                                    <a href="/order/delete/<?= $order['id'] ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?')">Xóa</a>
                                 <?php elseif ($order['status'] == 'Shipped' || $order['status'] == 'Delivered'): ?>
                                     <span class="badge bg-success">Đã giao hàng</span>
                                 <?php elseif ($order['status'] == 'Cancelled'): ?>

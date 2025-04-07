@@ -139,5 +139,25 @@ class OrderController extends Controller
             $this->sendPage('order/view', ['error' => $e->getMessage()]);
         }
     }
+    // Trong OrderController
+ // Xóa đơn hàng
+ public function delete($orderId): void
+ {
+     try {
+         // Gọi phương thức deleteOrder để xóa đơn hàng khỏi cơ sở dữ liệu
+         Order::deleteOrder($orderId);
+
+         // Sau khi xóa thành công, hiển thị thông báo và chuyển hướng người dùng về trang danh sách đơn hàng
+         $_SESSION['message'] = 'Đơn hàng đã được xóa thành công!';
+         header("Location: /orders");
+         exit;
+     } catch (Exception $e) {
+         // Nếu có lỗi, thông báo lỗi và quay lại trang danh sách đơn hàng
+         $_SESSION['error'] = 'Lỗi khi xóa đơn hàng: ' . $e->getMessage();
+         header("Location: /orders");
+         exit;
+     }
+ }
+
 }
 ?>

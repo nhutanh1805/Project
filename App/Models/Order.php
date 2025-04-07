@@ -116,5 +116,20 @@ class Order
         $stmt = self::$db->prepare("UPDATE orders SET status = 'Cancelled', updated_at = CURRENT_TIMESTAMP WHERE id = ?");
         $stmt->execute([$orderId]);
     }
+    // Trong Order model
+    public static function deleteOrder(int $orderId): void
+    {
+        self::initDb();
+    
+        // Xóa tất cả các chi tiết của đơn hàng trước khi xóa đơn hàng
+        $stmt = self::$db->prepare("DELETE FROM order_details WHERE order_id = ?");
+        $stmt->execute([$orderId]);
+    
+        // Sau đó xóa đơn hàng chính
+        $stmt = self::$db->prepare("DELETE FROM orders WHERE id = ?");
+        $stmt->execute([$orderId]);
+    }
+    
+
 }
 ?>

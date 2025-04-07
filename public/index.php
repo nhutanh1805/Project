@@ -142,6 +142,11 @@ $router->post('/order/updateStatus/{orderId}', function($orderId) {
     $orderController = new OrderController();
     $orderController->updateStatus($orderId);  // Cập nhật trạng thái đơn hàng
 });
+// Route xóa đơn hàng
+$router->get('/order/delete/{orderId}', function($orderId) {
+    $orderController = new OrderController();
+    $orderController->delete($orderId);  // Xóa đơn hàng
+});
 
 
 // Cập nhật route để hiển thị chi tiết đơn hàng
