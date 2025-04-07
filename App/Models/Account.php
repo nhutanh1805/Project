@@ -95,8 +95,8 @@ class Account
     public function changePassword($userId, $currentPassword, $newPassword)
     {
         // Kiểm tra mật khẩu mới hợp lệ (tối thiểu 8 ký tự)
-        if (strlen($newPassword) < 8) {
-            return false;  // Mật khẩu phải có ít nhất 8 ký tự
+        if (strlen($newPassword) < 6) {
+            return ['status' => false, 'message' => 'Mật khẩu mới phải có ít nhất 6 ký tự.'];
         }
 
         // Lấy mật khẩu hiện tại của người dùng từ cơ sở dữ liệu
@@ -106,12 +106,12 @@ class Account
         $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         if (!$user) {
-            return false;  // Người dùng không tồn tại
+            return ['status' => false, 'message' => 'Người dùng không tồn tại.'];
         }
 
         // Kiểm tra mật khẩu hiện tại có đúng không (so sánh mật khẩu đã mã hóa)
         if (!password_verify($currentPassword, $user['password'])) {
-            return false;  // Mật khẩu hiện tại không đúng
+            return ['status' => false, 'message' => 'Mật khẩu hiện tại không đúng.'];
         }
 
         // Mã hóa mật khẩu mới
@@ -123,10 +123,11 @@ class Account
         $stmt->bindParam(':password', $hashedPassword, \PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            return true;  // Đổi mật khẩu thành công
+            return ['status' => true, 'message' => 'Đổi mật khẩu thành công.'];
         } else {
-            return false;  // Lỗi trong quá trình cập nhật mật khẩu
+            return ['status' => false, 'message' => 'Có lỗi xảy ra khi đổi mật khẩu.'];
         }
     }
 }
+
 ?>

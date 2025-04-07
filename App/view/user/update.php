@@ -34,24 +34,27 @@
                     <h5 class="card-title text-center">Cập Nhật Thông Tin Mới</h5>
 
                     <form method="POST" action="/account/update">
-                        <div class="form-group">
-                            <label for="name">Tên:</label>
-                            <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($user['name']) ?>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Số điện thoại:</label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="<?= htmlspecialchars($user['phone']) ?>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="address">Địa chỉ:</label>
-                            <input type="text" class="form-control" id="address" name="address" value="<?= htmlspecialchars($user['address']) ?>" required>
+                        <div class="form-group d-flex align-items-center mb-3">
+                            <label for="name" class="mr-3" style="flex-shrink: 0; width: 100px;">Tên:</label>
+                            <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($user['name']) ?>" required style="flex-grow: 1;">
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                        <div class="form-group d-flex align-items-center mb-3">
+                            <label for="email" class="mr-3" style="flex-shrink: 0; width: 100px;">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required style="flex-grow: 1;">
+                        </div>
+
+                        <div class="form-group d-flex align-items-center mb-3">
+                            <label for="phone" class="mr-3" style="flex-shrink: 0; width: 100px;">Số điện thoại:</label>
+                            <input type="text" class="form-control" id="phone" name="phone" value="<?= htmlspecialchars($user['phone']) ?>" required style="flex-grow: 1;">
+                        </div>
+
+                        <div class="form-group d-flex align-items-center mb-3">
+                            <label for="address" class="mr-3" style="flex-shrink: 0; width: 100px;">Địa chỉ:</label>
+                            <input type="text" class="form-control" id="address" name="address" value="<?= htmlspecialchars($user['address']) ?>" required style="flex-grow: 1;">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Cập nhật</button>
                     </form>
                 </div>
             </div>
