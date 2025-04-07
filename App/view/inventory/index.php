@@ -7,7 +7,7 @@
 <?php $this->start("page") ?>
 <main>
     <div class="container">
-        <h2 class="text-center">Danh Sách Sản Phẩm</h2>
+        <h2 class="text-center">Kho Hàng</h2>
 
         <!-- Thông báo khi thành công hoặc có lỗi -->
         <?php if (isset($_SESSION['success'])): ?>

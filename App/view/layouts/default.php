@@ -163,7 +163,7 @@
     <?php else : ?>
       <li><a class="dropdown-item" href="/account">Quản lý tài khoản</a></li>
       <!-- Thêm liên kết quản lý đơn hàng -->
-      <li><a class="dropdown-item" href="/orders">Quản lý đơn hàng</a></li> <!-- Liên kết đến trang quản lý đơn hàng -->
+      <li><a class="dropdown-item" href="/orders">Đơn hàng</a></li> <!-- Liên kết đến trang quản lý đơn hàng -->
       <li><a class="dropdown-item" href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng Xuất</a></li>
       <form id="logout-form" class="d-none" action="/logout" method="POST"></form>
     <?php endif ?>
