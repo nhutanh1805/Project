@@ -143,15 +143,16 @@
               </div>
               <div class="modal-body">
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item"><strong>CPU:</strong> <?= htmlspecialchars($contact->cpu) ?></li>
+                  <li class="list-group-item"><strong>CPU/Chipset:</strong> <?= htmlspecialchars($contact->cpu) ?></li>
                   <li class="list-group-item"><strong>RAM:</strong> <?= htmlspecialchars($contact->ram) ?></li>
-                  <li class="list-group-item"><strong>Bộ nhớ:</strong> <?= htmlspecialchars($contact->storage) ?></li>
-                  <li class="list-group-item"><strong>Dung lượng PIN:</strong> <?= htmlspecialchars($contact->battery_capacity) ?></li>
-                  <li class="list-group-item"><strong>CAMERA:</strong> <?= htmlspecialchars($contact->camera_resolution) ?></li>
+                  <li class="list-group-item"><strong>ROM:</strong> <?= htmlspecialchars($contact->storage) ?></li>
+                  <li class="list-group-item"><strong>Dung lượng PIN / Sạc:</strong> <?= htmlspecialchars($contact->battery_capacity) ?></li>
+                  <li class="list-group-item"><strong>Camera:</strong> <?= htmlspecialchars($contact->camera_resolution) ?></li>
                   <li class="list-group-item"><strong>Màn hình:</strong> <?= htmlspecialchars($contact->screen_size) ?> inch</li>
                   <li class="list-group-item"><strong>Hệ điều hành:</strong> <?= htmlspecialchars($contact->os) ?></li>
-                  <li class="list-group-item"><strong>Chất liệu dây đeo:</strong> <?= htmlspecialchars($contact->strap_material) ?></li>
-                  <li class="list-group-item"><strong>Chống nước:</strong> <?= htmlspecialchars($contact->water_resistance) ?></li>
+                  <li class="list-group-item"><strong>Băng tần:</strong> <?= htmlspecialchars($contact->band) ?></li>
+                  <li class="list-group-item"><strong>Chất liệu/ Khả năng:</strong> <?= htmlspecialchars($contact->strap_material) ?></li>
+                  <!-- <li class="list-group-item"><strong>Chống nước, bụi:</strong> <?= htmlspecialchars($contact->water_resistance) ?></li> -->
                 </ul>
               </div>
               <div class="modal-footer">

@@ -202,7 +202,7 @@
                 <!-- CPU -->
                 <div class="col-md-12 col-sm-12">
                     <div class="d-flex ms-3">
-                        <label for="cpu" class="form-label">Tên sản phẩm</label>
+                        <label for="cpu" class="form-label">CPU / Chipset</label>
                     </div>
                     <input type="text" name="cpu" class="form-control<?= isset($errors['cpu']) ? ' is-invalid' : '' ?>" id="cpu" placeholder="CPU của sản phẩm" value="<?= $this->e($contact['cpu']) ?>" />
                     <?php if (isset($errors['cpu'])) : ?>
@@ -215,7 +215,7 @@
                 <!-- RAM -->
                 <div class="col-md-12 col-sm-12">
                     <div class="d-flex ms-3">
-                        <label for="ram" class="form-label">Tên sản phẩm</label>
+                        <label for="ram" class="form-label">RAM</label>
                     </div>
                     <input type="text" name="ram" class="form-control<?= isset($errors['ram']) ? ' is-invalid' : '' ?>" id="ram" placeholder="RAM của sản phẩm" value="<?= $this->e($contact['ram']) ?>" />
                     <?php if (isset($errors['ram'])) : ?>
@@ -228,7 +228,7 @@
                 <!-- Bộ nhớ -->
                 <div class="col-md-12 col-sm-12">
                     <div class="d-flex ms-3">
-                        <label for="storage" class="form-label">Tên sản phẩm</label>
+                        <label for="storage" class="form-label">ROM</label>
                     </div>
                     <input type="text" name="storage" class="form-control<?= isset($errors['storage']) ? ' is-invalid' : '' ?>" id="storage" placeholder="Bộ nhớ của sản phẩm" value="<?= $this->e($contact['storage']) ?>" />
                     <?php if (isset($errors['storage'])) : ?>
@@ -242,7 +242,7 @@
                     
                 <div class="col-md-12 col-sm-12">
                     <div class="d-flex ms-3">
-                        <label for="battery_capacity" class="form-label">Tên sản phẩm</label>
+                        <label for="battery_capacity" class="form-label">Dung lượng PIN / Sạc</label>
                     </div>
                     <input type="text" name="battery_capacity" class="form-control<?= isset($errors['battery_capacity']) ? ' is-invalid' : '' ?>" id="battery_capacity" placeholder="Dung lượng pin của sản phẩm" value="<?= $this->e($contact['battery_capacity']) ?>" />
                     <?php if (isset($errors['battery_capacity'])) : ?>
@@ -253,9 +253,9 @@
                 </div>
 
                 <!-- Khả năng chống nước -->
-                <div class="col-md-12 col-sm-12">
+                <!-- <div class="col-md-12 col-sm-12">
                     <div class="d-flex ms-3">
-                        <label for="water_resistance" class="form-label">Tên sản phẩm</label>
+                        <label for="water_resistance" class="form-label">Khả năng chống nước, chống bụi</label>
                     </div>
                     <input type="text" name="water_resistance" class="form-control<?= isset($errors['water_resistance']) ? ' is-invalid' : '' ?>" id="water_resistance" placeholder="Khả năng chống nước" value="<?= $this->e($contact['water_resistance']) ?>" />
                     <?php if (isset($errors['water_resistance'])) : ?>
@@ -263,7 +263,7 @@
                             <strong><?= $this->e($errors['water_resistance']) ?></strong>
                         </span>
                     <?php endif ?>
-                </div>
+                </div> -->
             </div>
 
             <!-- Cột 2 -->
@@ -271,7 +271,7 @@
                 <!-- Độ phân giải camera -->
                 <div class="col-md-12 col-sm-12">
                     <div class="d-flex ms-3">
-                        <label for="camera_resolution" class="form-label">Tên sản phẩm</label>
+                        <label for="camera_resolution" class="form-label">Độ phân giải camera</label>
                     </div>
                     <input type="text" name="camera_resolution" class="form-control<?= isset($errors['camera_resolution']) ? ' is-invalid' : '' ?>" id="camera_resolution" placeholder="Độ phân giải camera" value="<?= $this->e($contact['camera_resolution']) ?>" />
                     <?php if (isset($errors['camera_resolution'])) : ?>
@@ -284,7 +284,7 @@
                 <!-- Kích thước màn hình -->
                 <div class="col-md-12 col-sm-12">
                     <div class="d-flex ms-3">
-                        <label for="screen_size" class="form-label">Tên sản phẩm</label>
+                        <label for="screen_size" class="form-label">Màn hình</label>
                     </div>
                     <input type="text" name="screen_size" class="form-control<?= isset($errors['screen_size']) ? ' is-invalid' : '' ?>" id="screen_size" placeholder="Độ phân giải camera" value="<?= $this->e($contact['screen_size']) ?>" />
                     <?php if (isset($errors['screen_size'])) : ?>
@@ -297,7 +297,7 @@
                 <!-- Hệ điều hành -->
                 <div class="col-md-12 col-sm-12">
                     <div class="d-flex ms-3">
-                        <label for="os" class="form-label">Tên sản phẩm</label>
+                        <label for="os" class="form-label">Hệ điều hành</label>
                     </div>
                     <input type="text" name="os" class="form-control<?= isset($errors['os']) ? ' is-invalid' : '' ?>" id="os" placeholder="Hệ điều hành" value="<?= $this->e($contact['os']) ?>" />
                     <?php if (isset($errors['os'])) : ?>
@@ -310,7 +310,7 @@
                 <!-- Băng tần -->
                 <div class="col-md-12 col-sm-12">
                     <div class="d-flex ms-3">
-                        <label for="band" class="form-label">Tên sản phẩm</label>
+                        <label for="band" class="form-label">Băng tần</label>
                     </div>
                     <input type="text" name="band" class="form-control<?= isset($errors['band']) ? ' is-invalid' : '' ?>" id="band" placeholder="Băng tần" value="<?= $this->e($contact['band']) ?>" />
                     <?php if (isset($errors['band'])) : ?>
@@ -323,7 +323,7 @@
                 <!-- Chất liệu -->
                 <div class="col-md-12 col-sm-12">
                     <div class="d-flex ms-3">
-                        <label for="strap_material" class="form-label">Tên sản phẩm</label>
+                        <label for="strap_material" class="form-label">Chất liệu / Khả năng</label>
                     </div>
                     <input type="text" name="strap_material" class="form-control<?= isset($errors['strap_material']) ? ' is-invalid' : '' ?>" id="strap_material" placeholder="Chất liệu dây đeo" value="<?= $this->e($contact['strap_material']) ?>" />
                     <?php if (isset($errors['strap_material'])) : ?>

@@ -96,7 +96,7 @@
                         <strong><?= $this->e($errors['product_type']) ?></strong>
                     </span>
                 <?php endif ?>
-            </div>z
+            </div>
         </div>
 
         <!-- Gạch ngang phân tách -->
@@ -110,7 +110,7 @@
                 <div class="col-md-12 col-sm-12">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-microchip"></i></span>
-                        <input type="text" name="cpu" class="form-control<?= isset($errors['cpu']) ? ' is-invalid' : '' ?>" id="cpu" placeholder="CPU của sản phẩm" value="<?= isset($old['cpu']) ? $this->e($old['cpu']) : '' ?>" />
+                        <input type="text" name="cpu" class="form-control<?= isset($errors['cpu']) ? ' is-invalid' : '' ?>" id="cpu" placeholder="CPU / Chipset" value="<?= isset($old['cpu']) ? $this->e($old['cpu']) : '' ?>" />
                     </div>
                     <?php if (isset($errors['cpu'])) : ?>
                         <span class="invalid-feedback">
@@ -123,7 +123,7 @@
                 <div class="col-md-12 col-sm-12">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-memory"></i></span>
-                        <input type="text" name="ram" class="form-control<?= isset($errors['ram']) ? ' is-invalid' : '' ?>" id="ram" placeholder="RAM của sản phẩm" value="<?= isset($old['ram']) ? $this->e($old['ram']) : '' ?>" />
+                        <input type="text" name="ram" class="form-control<?= isset($errors['ram']) ? ' is-invalid' : '' ?>" id="ram" placeholder="RAM" value="<?= isset($old['ram']) ? $this->e($old['ram']) : '' ?>" />
                     </div>
                     <?php if (isset($errors['ram'])) : ?>
                         <span class="invalid-feedback">
@@ -136,7 +136,7 @@
                 <div class="col-md-12 col-sm-12">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-hdd"></i></span>
-                        <input type="text" name="storage" class="form-control<?= isset($errors['storage']) ? ' is-invalid' : '' ?>" id="storage" placeholder="Bộ nhớ của sản phẩm" value="<?= isset($old['storage']) ? $this->e($old['storage']) : '' ?>" />
+                        <input type="text" name="storage" class="form-control<?= isset($errors['storage']) ? ' is-invalid' : '' ?>" id="storage" placeholder="Bộ nhớ" value="<?= isset($old['storage']) ? $this->e($old['storage']) : '' ?>" />
                     </div>
                     <?php if (isset($errors['storage'])) : ?>
                         <span class="invalid-feedback">
@@ -149,7 +149,7 @@
                 <div class="col-md-12 col-sm-12">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-battery-half"></i></span>
-                        <input type="text" name="battery_capacity" class="form-control<?= isset($errors['battery_capacity']) ? ' is-invalid' : '' ?>" id="battery_capacity" placeholder="Dung lượng pin của sản phẩm" value="<?= isset($old['battery_capacity']) ? $this->e($old['battery_capacity']) : '' ?>" />
+                        <input type="text" name="battery_capacity" class="form-control<?= isset($errors['battery_capacity']) ? ' is-invalid' : '' ?>" id="battery_capacity" placeholder="Dung lượng pin / Sạc" value="<?= isset($old['battery_capacity']) ? $this->e($old['battery_capacity']) : '' ?>" />
                     </div>
                     <?php if (isset($errors['battery_capacity'])) : ?>
                         <span class="invalid-feedback">
@@ -159,7 +159,7 @@
                 </div>
 
                  <!-- Khả năng chống nước -->
-                 <div class="col-md-12 col-sm-12">
+                 <!-- <div class="col-md-12 col-sm-12">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-tint"></i></span>
                         <input type="text" name="water_resistance" class="form-control<?= isset($errors['water_resistance']) ? ' is-invalid' : '' ?>" id="water_resistance" placeholder="Khả năng chống nước" value="<?= isset($old['water_resistance']) ? $this->e($old['water_resistance']) : '' ?>" />
@@ -169,7 +169,7 @@
                             <strong><?= $this->e($errors['water_resistance']) ?></strong>
                         </span>
                     <?php endif ?>
-                </div>
+                </div> -->
             </div>
 
             <!-- Cột 2 -->
@@ -191,7 +191,7 @@
                 <div class="col-md-12 col-sm-12">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-tv"></i></span>
-                        <input type="text" name="screen_size" class="form-control<?= isset($errors['screen_size']) ? ' is-invalid' : '' ?>" id="screen_size" placeholder="Kích thước màn hình" value="<?= isset($old['screen_size']) ? $this->e($old['screen_size']) : '' ?>" />
+                        <input type="text" name="screen_size" class="form-control<?= isset($errors['screen_size']) ? ' is-invalid' : '' ?>" id="screen_size" placeholder="Màn hình" value="<?= isset($old['screen_size']) ? $this->e($old['screen_size']) : '' ?>" />
                     </div>
                     <?php if (isset($errors['screen_size'])) : ?>
                         <span class="invalid-feedback">
@@ -230,7 +230,7 @@
                 <div class="col-md-12 col-sm-12">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-wrench"></i></span>
-                        <input type="text" name="strap_material" class="form-control<?= isset($errors['strap_material']) ? ' is-invalid' : '' ?>" id="strap_material" placeholder="Chất liệu dây đeo" value="<?= isset($old['strap_material']) ? $this->e($old['strap_material']) : '' ?>" />
+                        <input type="text" name="strap_material" class="form-control<?= isset($errors['strap_material']) ? ' is-invalid' : '' ?>" id="strap_material" placeholder="Chất liệu / Khả năng" value="<?= isset($old['strap_material']) ? $this->e($old['strap_material']) : '' ?>" />
                     </div>
                     <?php if (isset($errors['strap_material'])) : ?>
                         <span class="invalid-feedback">
