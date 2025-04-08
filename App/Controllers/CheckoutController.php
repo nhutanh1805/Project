@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Models\Cart;
 use App\Models\Order;
+
 use Exception;
 
 class CheckoutController extends Controller
@@ -66,22 +67,42 @@ class CheckoutController extends Controller
     {
         // Lấy thông tin giỏ hàng
         $userId = $_SESSION['user_id']; // Lấy userId từ session
-        $cart = Cart::getCart($userId);
+        $cart = Cart::getCart($userId); // Lấy giỏ hàng của người dùng
         $totalAmount = Cart::getTotal($userId); // Tính tổng tiền đơn hàng
-
+    
         try {
             // Tạo đơn hàng trong cơ sở dữ liệu
             $orderId = Order::createOrder($userId, $address, $totalAmount); // Lưu đơn hàng vào database
-
+    
+            // Lặp qua giỏ hàng và cập nhật số lượng kho cho từng sản phẩm
+            foreach ($cart as $item) {
+                $productId = $item['id']; // Lấy ID sản phẩm
+                $quantity = $item['quantity']; // Lấy số lượng sản phẩm trong giỏ
+    
+                // Debugging: Kiểm tra số lượng sản phẩm trong giỏ
+                echo "Sản phẩm ID: $productId, Số lượng trong giỏ: $quantity";
+    
+                // Cập nhật số lượng kho sau khi mua hàng
+                $this->updateInventory($productId, $quantity); // Giảm số lượng kho cho sản phẩm
+            }
+    
             // Nếu đơn hàng được tạo thành công, xóa giỏ hàng khỏi session
-            unset($_SESSION['cart']); // Xóa giỏ hàng trong session sau khi thanh toán thành công
-
+            Cart::clearCart($userId); // Xóa giỏ hàng trong database sau khi thanh toán thành công
+    
             // Chuyển hướng đến trang cảm ơn
             redirect('/thank-you');
         } catch (Exception $e) {
             // Xử lý lỗi nếu có
             echo "Lỗi khi thanh toán: " . $e->getMessage();
         }
+    }
+    
+
+    // Cập nhật số lượng kho khi đã mua
+    private function updateInventory($productId, $quantity)
+    {
+        // Giảm số lượng sản phẩm trong kho sau khi đơn hàng được thanh toán
+        Cart::updateStock($productId, $quantity);
     }
 
     // Chuyển hướng người dùng đến trang giao dịch online

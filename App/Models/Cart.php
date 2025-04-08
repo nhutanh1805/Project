@@ -27,9 +27,49 @@ class Cart
             }
         }
     }
+ // Phương thức để lấy đối tượng PDO
+ public static function getDb(): PDO
+ {
+     self::initDb();
+     return self::$db;
+ }
+ public static function updateStock(int $productId, int $quantity): void
+ {
+     self::initDb();
+ 
+     // Lấy số lượng kho trước khi giảm
+     $stmt = self::$db->prepare("SELECT quantity_in_stock FROM inventory WHERE product_id = ?");
+     $stmt->execute([$productId]);
+     $inventory = $stmt->fetch(PDO::FETCH_ASSOC);
+ 
+     if (!$inventory) {
+         throw new Exception("Sản phẩm không tồn tại trong kho.");
+     }
+ 
+     // Kiểm tra số lượng kho trước khi trừ
+     if ($inventory['quantity_in_stock'] < $quantity) {
+         throw new Exception("Sản phẩm không đủ số lượng trong kho.");
+     }
+ 
+     // Trừ số lượng kho
+     $stmt = self::$db->prepare("UPDATE inventory SET quantity_in_stock = quantity_in_stock - ? WHERE product_id = ?");
+     $stmt->execute([$quantity, $productId]);
+ 
+     // Debugging: Kiểm tra số lượng kho sau khi trừ
+     $stmt = self::$db->prepare("SELECT quantity_in_stock FROM inventory WHERE product_id = ?");
+     $stmt->execute([$productId]);
+     $updatedInventory = $stmt->fetch(PDO::FETCH_ASSOC);
+ 
+     echo "Số lượng kho còn lại sau khi trừ: " . $updatedInventory['quantity_in_stock'];
+ }
+ 
+
+
+
+
 
     // Thêm sản phẩm vào giỏ hàng
-    public static function addToCart(int $userId, int $productId, int $quantity = 1): void
+public static function addToCart(int $userId, int $productId, int $quantity = 1): void
 {
     self::initDb();
 
@@ -44,6 +84,20 @@ class Cart
 
     $price = $product['price'];
     $totalPrice = $price * $quantity;
+
+    // Kiểm tra số lượng sản phẩm trong kho
+    $stmt = self::$db->prepare("SELECT quantity_in_stock FROM inventory WHERE product_id = ?");
+    $stmt->execute([$productId]);
+    $inventory = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$inventory || $inventory['quantity_in_stock'] < $quantity) {
+        throw new Exception("Số lượng sản phẩm trong kho không đủ.");
+    }
+
+    // Cập nhật số lượng sản phẩm trong kho
+    $newQuantityInStock = $inventory['quantity_in_stock'] - $quantity;
+    $stmt = self::$db->prepare("UPDATE inventory SET quantity_in_stock = ? WHERE product_id = ?");
+    $stmt->execute([$newQuantityInStock, $productId]);
 
     // Kiểm tra nếu sản phẩm đã có trong giỏ hàng
     $stmt = self::$db->prepare("SELECT id, quantity FROM cart WHERE user_id = ? AND product_id = ?");
@@ -126,12 +180,12 @@ public static function getTotal(int $userId): float
     // $stmt->execute([$userId, $productId]);
 }
 
-
     // Xóa toàn bộ giỏ hàng
-    public static function clearCart(int $userId): void
-    {
-        self::initDb();
-        $stmt = self::$db->prepare("DELETE FROM cart WHERE user_id = ?");
-        $stmt->execute([$userId]);
-    }
+public static function clearCart(int $userId): void
+{
+    self::initDb();
+    $stmt = self::$db->prepare("DELETE FROM cart WHERE user_id = ?");
+    $stmt->execute([$userId]);
+}
+
 }
