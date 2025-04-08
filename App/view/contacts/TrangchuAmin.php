@@ -5,25 +5,22 @@
 
 <?php $this->start("page") ?>
 
-<!-- Phần nội dung chính -->
 <main>
 
-<?php if (!empty($_SESSION['error_message'])): ?>
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <?= htmlspecialchars($_SESSION['error_message'], ENT_QUOTES, 'UTF-8') ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      <?php unset($_SESSION['error_message']);
-      ?>
+    <?php if (!empty($_SESSION['error_message'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?= htmlspecialchars($_SESSION['error_message'], ENT_QUOTES, 'UTF-8') ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php unset($_SESSION['error_message']); ?>
     <?php endif; ?>
-    
+
     <?php if (!empty($_SESSION['success_message'])): ?>
-      <div class="alert alert alert-success alert-dismissible fade show" role="alert">
-        <?= htmlspecialchars($_SESSION['success_message'], ENT_QUOTES, 'UTF-8') ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      <?php unset($_SESSION['success_message']);
-      ?>
+        <div class="alert alert alert-success alert-dismissible fade show" role="alert">
+            <?= htmlspecialchars($_SESSION['success_message'], ENT_QUOTES, 'UTF-8') ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php unset($_SESSION['success_message']); ?>
     <?php endif; ?>
 
     <div class="container">
@@ -43,14 +40,14 @@
                     <a class="nav-link" data-toggle="tab" href="#category4">Đồng hồ</a>
                 </li>
                 <li class="nav-item">
-              <a class="nav-link" href="/contacts/create/"><i class=""></i>Thêm Sản Phẩm</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/inventory"><i class=""></i>Kho Hàng</a>
-            </li>
+                    <a class="nav-link" href="/contacts/create/"><i class=""></i>Thêm Sản Phẩm</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/inventory"><i class=""></i>Kho Hàng</a>
+                </li>
             </ul>
         </div>
-        <!-- PHẦN LAPTOP -->
+
         <div class="col-12">
             <div id="laptops" class="brand row m-1">
                 <div class="row ms-1 mt-3">
@@ -69,30 +66,14 @@
                                 <div class="card-footer">
                                     <div class="row mx-1">
 
-                                        <form class="col-6" action="<?= '/contacts/delete/' . $this->e($contact->id) ?>" method="POST">
+                                        <!-- Nút xóa sản phẩm với modal xác nhận -->
+                                        <form class="col-6" action="<?= '/contacts/delete/' . $this->e($contact->id) ?>" method="POST" onsubmit="return confirmDelete()">
                                             <button type="submit" class="btn btn-secondary" name="delete-contact">
                                                 <i alt="Delete" class="fa fa-trash"></i> Xóa sản phẩm
                                             </button>
                                         </form>
-                                        <a href="<?= '/contacts/edit/' . $this->e($contact->id) ?>" class="btn btn-primary col-6 "><i alt="Edit" class="fa fa-pencil"></i> Chỉnh sửa</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Modal thông tin chi tiết sản phẩm -->
-                        <div class="modal fade" id="productModal-<?= $contact->id ?>" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="productModalLabel">Thông Tin Sản Phẩm: <?= htmlspecialchars($contact->name) ?></h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        <a href="<?= '/contacts/edit/' . $this->e($contact->id) ?>" class="btn btn-primary col-6"><i alt="Edit" class="fa fa-pencil"></i> Chỉnh sửa</a>
                                     </div>
                                 </div>
                             </div>
@@ -100,9 +81,16 @@
                     <?php endforeach; ?>
                 </div>
             </div>
-            <a class="backtop position-fixed text-center rounded-circle text-muted active" href="#"> <i class="bi bi-house-door"></i></a>
+        </div>
+    </div>
+
 </main>
-<!-- Phần chân trang -->
+
+<!-- Thêm JavaScript xác nhận xóa -->
+<script>
+    function confirmDelete() {
+        return confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?");
+    }
+</script>
 
 <?php $this->stop() ?>
-
