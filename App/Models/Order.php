@@ -34,23 +34,24 @@ class Order
         self::initDb();
         // Tính tổng tiền từ giỏ hàng
         $totalAmount = Cart::getTotal($userId);
-
+    
         if ($totalAmount <= 0) {
             throw new Exception("Giỏ hàng của bạn không có sản phẩm.");
         }
-
+    
         // Thêm đơn hàng vào bảng orders
         $stmt = self::$db->prepare("INSERT INTO orders (user_id, address, total_amount, status, created_at) 
                                     VALUES (?, ?, ?, 'Processing', CURRENT_TIMESTAMP)");
         $stmt->execute([$userId, $address, $totalAmount]);
-
+    
         // Lấy ID của đơn hàng vừa tạo
         $orderId = self::$db->lastInsertId();
-
+    
         // Lấy giỏ hàng của người dùng
         $cartItems = Cart::getCart($userId);  // Sử dụng phương thức getCart() của Cart model
-
+    
         foreach ($cartItems as $item) {
+            // Thêm chi tiết vào bảng order_details
             $stmt = self::$db->prepare("INSERT INTO order_details (order_id, product_id, quantity, price, total_price) 
                                         VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([ 
@@ -61,7 +62,12 @@ class Order
                 $item['total_price']  // total_price
             ]);
         }
-
+    
+        // Xóa giỏ hàng sau khi tạo đơn hàng
+        Cart::clearCart($userId);
+    
+        return $orderId;
+    
         // Xóa giỏ hàng sau khi tạo đơn hàng
         Cart::clearCart($userId);
 

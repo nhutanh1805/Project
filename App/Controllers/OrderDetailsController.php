@@ -28,21 +28,18 @@ class OrderDetailsController extends Controller
                 return;
             }
 
-            // Lấy thông tin người dùng từ đơn hàng (giả sử rằng thông tin người dùng có thể lấy từ orderItems[0])
-            $userName = $orderItems[0]['user_name'] ?? null;
-
             // Kiểm tra nếu người dùng không phải chủ đơn hàng
-            if ($orderItems[0]['user_name'] != $userName) {
+            if ($orderItems[0]['user_name'] != $userId) {
                 $this->sendPage('order/view', ['error' => 'Bạn không có quyền xem đơn hàng này']);
                 return;
             }
 
             // Truyền dữ liệu vào view nếu có thông tin đơn hàng và quyền truy cập hợp lệ
-            $this->sendPage('order/index', ['orderItems' => $orderItems]);
+            $this->sendPage('order/view', ['orderItems' => $orderItems]);
 
         } catch (Exception $e) {
             // Nếu có lỗi khi lấy dữ liệu, hiển thị thông báo lỗi
-            $this->sendPage('order/index', ['error' => 'Lỗi khi lấy chi tiết đơn hàng: ' . $e->getMessage()]);
+            $this->sendPage('order/view', ['error' => 'Lỗi khi lấy chi tiết đơn hàng: ' . $e->getMessage()]);
         }
     }
 }

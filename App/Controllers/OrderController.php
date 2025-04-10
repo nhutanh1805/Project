@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\Order;
 use App\Models\Cart;
 use Exception;
+use App\Models\OrderDetail;
 
 class OrderController extends Controller
 {
@@ -31,28 +32,36 @@ class OrderController extends Controller
     }
 
     // Xem chi tiết đơn hàng
+    // Xem chi tiết đơn hàng
     public function view($orderId): void
     {
         $userId = $_SESSION['user_id'];
-
+    
         // Lấy thông tin đơn hàng từ model Order
         $order = Order::getOrder($orderId);
-
+    
         if (empty($order)) {
             // Nếu không tìm thấy đơn hàng, thông báo lỗi
             $this->sendPage('order/view', ['error' => 'Không tìm thấy đơn hàng']);
             return;
         }
-
+    
         // Kiểm tra nếu người dùng không phải chủ đơn hàng
         if ($order[0]['user_id'] != $userId) {
             $this->sendPage('order/view', ['error' => 'Bạn không có quyền xem đơn hàng này']);
             return;
         }
-
-        // Hiển thị chi tiết đơn hàng
-        $this->sendPage('order/view', ['order' => $order]);
+    
+        // Lấy chi tiết sản phẩm trong đơn hàng
+        $orderItems = OrderDetail::getOrderDetails($orderId);
+    
+        // Truyền dữ liệu vào view (bao gồm cả thông tin đơn hàng và các chi tiết sản phẩm)
+        $this->sendPage('order/view', [
+            'order' => $order,
+            'orderItems' => $orderItems
+        ]);
     }
+    
 
     // Xem tất cả đơn hàng của người dùng
     public function index(): void
