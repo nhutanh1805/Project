@@ -136,8 +136,9 @@ $router->post('/order/updateStatus/{orderId}', function($orderId) {
     $status = $_POST['status'] ?? '';  // Lấy trạng thái từ form
     if (empty($status)) {
         // Nếu trạng thái không được cung cấp, trả về lỗi hoặc chuyển hướng
-        return redirect('/orders');
+        return redirect("/order/view/{$orderId}");  // Quay lại trang đơn hàng với thông báo lỗi
     }
+
 
     $orderController = new OrderController();
     $orderController->updateStatus($orderId);  // Cập nhật trạng thái đơn hàng
@@ -153,6 +154,7 @@ $router->get('/order/delete/{orderId}', function($orderId) {
 $router->get('/order/details/(:num)', 'OrderDetailsController@view');
 
 
+$router->post('/order/updateStatus/[i:orderId]', 'OrderController@updateStatus');
 
 
 // // Hiển thị danh sách đơn hàng của người dùng

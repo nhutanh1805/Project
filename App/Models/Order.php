@@ -102,12 +102,23 @@ class Order
     }
 
     // Cập nhật trạng thái đơn hàng (ví dụ: đang xử lý, đã giao hàng, v.v.)
-    public static function updateOrderStatus(int $orderId, string $status): void
-    {
-        self::initDb();
-        $stmt = self::$db->prepare("UPDATE orders SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
-        $stmt->execute([$status, $orderId]);
-    }
+    public static function updateOrderStatus(int $orderId, string $status, int $userId = null): void
+{
+    self::initDb();
+
+    // Kiểm tra xem người dùng có quyền cập nhật trạng thái hay không (Ví dụ, kiểm tra quyền quản trị viên)
+    // Trong trường hợp này, bạn có thể muốn cho phép cập nhật trạng thái từ bất kỳ ai, nên bỏ qua quyền hạn
+    // Tuy nhiên, nếu bạn muốn kiểm tra quyền, bạn có thể thêm một đoạn như sau:
+    // if (!self::isUserAdmin($userId)) {
+    //     throw new Exception("Bạn không có quyền cập nhật trạng thái đơn hàng.");
+    // }
+
+    // Cập nhật trạng thái của đơn hàng
+    $stmt = self::$db->prepare("UPDATE orders SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
+    $stmt->execute([$status, $orderId]);
+}
+
+
 
     // Hủy đơn hàng
     public static function cancelOrder(int $orderId): void

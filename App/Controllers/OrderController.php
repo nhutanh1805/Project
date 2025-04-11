@@ -98,34 +98,37 @@ class OrderController extends Controller
     }
 
     // Cập nhật trạng thái đơn hàng
+    // Cập nhật trạng thái đơn hàng
     public function updateStatus($orderId): void
     {
         $userId = $_SESSION['user_id'];
         $status = isset($_POST['status']) ? $_POST['status'] : '';
-
+    
         // Kiểm tra trạng thái hợp lệ
         if (!in_array($status, ['Processing', 'Shipped', 'Delivered', 'Cancelled'])) {
-            // Nếu trạng thái không hợp lệ, thông báo lỗi
-            $this->sendPage('order/updateStatus', ['error' => 'Trạng thái không hợp lệ']);
+            $this->sendPage('order/view', ['error' => 'Trạng thái không hợp lệ']);
             return;
         }
-
+    
         // Kiểm tra nếu người dùng có quyền cập nhật trạng thái đơn hàng (có thể chỉ admin hoặc người tạo đơn)
         $order = Order::getOrder($orderId);
         if ($order[0]['user_id'] != $userId) {
-            $this->sendPage('order/updateStatus', ['error' => 'Bạn không có quyền cập nhật trạng thái của đơn hàng này']);
+            $this->sendPage('order/view', ['error' => 'Bạn không có quyền cập nhật trạng thái của đơn hàng này']);
             return;
         }
-
+    
         try {
             // Cập nhật trạng thái của đơn hàng
             Order::updateOrderStatus($orderId, $status);
+    
+            // Sau khi cập nhật trạng thái thành công, chuyển hướng lại trang chi tiết đơn hàng
             redirect("/order/view/{$orderId}");
         } catch (Exception $e) {
-            // Nếu có lỗi, hiển thị thông báo lỗi
-            $this->sendPage('order/updateStatus', ['error' => $e->getMessage()]);
+            // Nếu có lỗi khi cập nhật trạng thái, hiển thị thông báo lỗi
+            $this->sendPage('order/view', ['error' => $e->getMessage()]);
         }
     }
+    
 
     // Hủy đơn hàng
     public function cancel($orderId): void

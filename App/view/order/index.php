@@ -20,31 +20,55 @@
                 </thead>
                 <tbody>
                     <?php foreach ($orders as $order): ?>
-                        <tr>
+                        <tr id="order_<?= $order['id'] ?>">
                             <td><?= htmlspecialchars($order['id'], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
                                 <?php
-                                $totalAmount = $order['total_amount'] ?? 0; // Kiểm tra nếu 'total_amount' không tồn tại
+                                // Hiển thị tổng tiền với định dạng VNĐ
+                                $totalAmount = $order['total_amount'] ?? 0;
                                 echo number_format($totalAmount, 0, ',', '.') . ' VNĐ';
                                 ?>
                             </td>
-                            <td>
+                            <td id="status_<?= $order['id'] ?>">
                                 <?php
-                                // Hiển thị trạng thái của đơn hàng (nếu có)
-                                echo htmlspecialchars($order['status'] ?? 'Chưa xác định', ENT_QUOTES, 'UTF-8');
+                                // Sử dụng Bootstrap classes để tô màu cho trạng thái
+                                switch ($order['status']) {
+                                    case 'Processing':
+                                        echo '<span class="badge bg-warning">Đơn hàng đang được xử lý</span>';
+                                        break;
+                                    case 'Shipped':
+                                        echo '<span class="badge bg-primary">Đơn hàng đang được giao</span>';
+                                        break;
+                                    case 'Delivered':
+                                        echo '<span class="badge bg-success">Đơn hàng đã giao</span>';
+                                        break;
+                                    case 'Cancelled':
+                                        echo '<span class="badge bg-danger">Đơn hàng đã hủy</span>';
+                                        break;
+                                    default:
+                                        echo '<span class="badge bg-secondary">Trạng thái chưa xác định</span>';
+                                        break;
+                                }
                                 ?>
                             </td>
                             <td><?= htmlspecialchars($order['created_at'], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
                                 <a href="/order/view/<?= $order['id'] ?>" class="btn btn-info">Chi tiết</a>
                                 
-                                <!-- Nếu trạng thái là 'Processing', có thể xóa đơn hàng -->
+                                <!-- Xóa đơn hàng ở mọi trạng thái -->
+                                <a href="/order/delete/<?= $order['id'] ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?')">Xóa</a>
+
+                                <!-- Cập nhật trạng thái đơn hàng -->
                                 <?php if ($order['status'] == 'Processing'): ?>
-                                    <a href="/order/delete/<?= $order['id'] ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?')">Xóa</a>
-                                <?php elseif ($order['status'] == 'Shipped' || $order['status'] == 'Delivered'): ?>
-                                    <span class="badge bg-success">Đã giao hàng</span>
-                                <?php elseif ($order['status'] == 'Cancelled'): ?>
-                                    <span class="badge bg-danger">Đã hủy</span>
+                                    <form action="/order/updateStatus/<?= $order['id'] ?>" method="post" class="status-form" style="display:inline;">
+                                        <label for="status_<?= $order['id'] ?>" class="form-label">Trạng thái:</label>
+                                        <select name="status" id="status_select_<?= $order['id'] ?>" class="form-select" onchange="this.form.submit()">
+                                            <option value="Processing" <?= $order['status'] == 'Processing' ? 'selected' : '' ?>>Đang xử lý</option>
+                                            <option value="Shipped" <?= $order['status'] == 'Shipped' ? 'selected' : '' ?>>Đang giao hàng</option>
+                                            <option value="Delivered" <?= $order['status'] == 'Delivered' ? 'selected' : '' ?>>Đã giao</option>
+                                            <option value="Cancelled" <?= $order['status'] == 'Cancelled' ? 'selected' : '' ?>>Đã hủy</option>
+                                        </select>
+                                    </form>
                                 <?php endif; ?>
                             </td>
                         </tr>
