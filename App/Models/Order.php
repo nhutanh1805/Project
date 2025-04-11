@@ -65,11 +65,6 @@ class Order
     
         // Xóa giỏ hàng sau khi tạo đơn hàng
         Cart::clearCart($userId);
-    
-        return $orderId;
-    
-        // Xóa giỏ hàng sau khi tạo đơn hàng
-        Cart::clearCart($userId);
 
         return $orderId;
     }
