@@ -12,6 +12,7 @@
                 <thead>
                     <tr>
                         <th>ID Đơn Hàng</th>
+                        <th>ID Người Dùng</th>
                         <th>Tổng Tiền</th>
                         <th>Trạng Thái</th>
                         <th>Ngày Tạo</th>
@@ -22,6 +23,8 @@
                     <?php foreach ($orders as $order): ?>
                         <tr id="order_<?= $order['id'] ?>">
                             <td><?= htmlspecialchars($order['id'], ENT_QUOTES, 'UTF-8') ?></td>
+                            <td><?= htmlspecialchars($order['user_id'], ENT_QUOTES, 'UTF-8') ?></td> <!-- Hiển thị ID Người Dùng -->
+                            
                             <td>
                                 <?php
                                 // Hiển thị tổng tiền với định dạng VNĐ
