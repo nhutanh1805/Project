@@ -28,26 +28,14 @@
         <h2>Chọn Mục</h2>
 <ul class="nav nav-tabs" id="categoryTabs">
     <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#category1">Laptop</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#category2">Điện thoại</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#category3">Máy tính bảng</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#category4">Đồng hồ</a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link" href="/contacts/create/"><i class=""></i>Thêm Sản Phẩm</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/inventory"><i class=""></i>Kho Hàng</a>
+        <a class="nav-link" href="/inventory"><i class=""></i>Quản Lý Kho Hàng</a>
     </li>
     <!-- Thêm liên kết Tất cả Đơn hàng -->
     <li class="nav-item">
-        <a class="nav-link" href="/orders">Tất cả Đơn hàng</a>
+        <a class="nav-link" href="/orders">Quản Lý Đơn hàng</a>
     </li>
 </ul>
 

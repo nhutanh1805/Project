@@ -15,6 +15,7 @@
                         <th>Tổng Tiền</th>
                         <th>Trạng Thái</th>
                         <th>Ngày Tạo</th>
+                        <th>Tiến Trình</th>
                         <th>Thao Tác</th>
                     </tr>
                 </thead>
@@ -52,8 +53,65 @@
                                 ?>
                             </td>
                             <td><?= htmlspecialchars($order['created_at'], ENT_QUOTES, 'UTF-8') ?></td>
+                            
+                            <!-- Thanh tiến trình với Icon -->
+                            <td>
+                                <?php 
+                                // Xác định tiến trình của đơn hàng và icon đi kèm
+                                $progress = 0;
+                                $icon = '';
+                                switch ($order['status']) {
+                                    case 'Processing':
+                                        $progress = 33; 
+                                        $icon = '<i class="fas fa-cogs"></i> Đang xử lý';
+                                        break;
+                                    case 'Shipped':
+                                        $progress = 66;
+                                        $icon = '<i class="fas fa-truck" style="font-size: 24px; color: #0d6efd;"></i> Đang giao hàng'; // Icon xe tải ở đây
+                                        break;
+                                    case 'Delivered':
+                                        $progress = 100;
+                                        $icon = '<i class="fas fa-check-circle"></i> Đã giao';
+                                        break;
+                                    case 'Cancelled':
+                                        $progress = 0;
+                                        $icon = '<i class="fas fa-times-circle"></i> Đã hủy';
+                                        break;
+                                    default:
+                                        $progress = 0;
+                                        $icon = '<i class="fas fa-question-circle"></i> Chưa xác định';
+                                        break;
+                                }
+                                ?>
+
+                                <!-- Progress Bar -->
+                                <div class="d-flex align-items-center">
+                                    <!-- Icon nằm ngoài thanh tiến trình -->
+                                    <div class="me-3"><?= $icon ?></div>
+
+                                    <!-- Thanh tiến trình -->
+                                    <div class="progress" style="flex-grow: 1;">
+                                        <div class="progress-bar" role="progressbar" style="width: <?= $progress ?>%" aria-valuenow="<?= $progress ?>" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
                             <td>
                                 <a href="/order/view/<?= $order['id'] ?>" class="btn btn-info">Chi tiết</a>
+
+                         <!-- Hiển thị trường nhập bình luận nếu trạng thái là "Delivered" -->
+<?php if ($order['status'] == 'Delivered'): ?>
+    <form action="/order/comment/<?= $order['id'] ?>" method="post">
+        <div class="mb-3">
+            <label for="comment" class="form-label">Bình luận của bạn</label>
+            <textarea name="comment" id="comment" class="form-control" rows="3" placeholder="Nhập bình luận về đơn hàng của bạn..."></textarea>
+        </div>
+        <!-- Liên kết trực tiếp tới trang cmt.php -->
+        <a href="cmt.php" class="btn btn-primary">Gửi bình luận</a>
+    </form>
+<?php endif; ?>
+
 
                                 <!-- Xóa đơn hàng ở mọi trạng thái -->
                                 <!-- <a href="/order/delete/<?= $order['id'] ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?')">Xóa</a> -->

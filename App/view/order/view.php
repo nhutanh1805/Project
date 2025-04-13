@@ -10,7 +10,7 @@
         <h2 class="text-center">Đơn hàng #<?= htmlspecialchars($order[0]['id'] ?? 'Chưa có ID', ENT_QUOTES, 'UTF-8') ?></h2>
 
         <p class="text-center">Địa chỉ giao hàng: <?= htmlspecialchars($order[0]['address'] ?? 'Chưa có địa chỉ', ENT_QUOTES, 'UTF-8') ?></p>
-        <p class="text-center">Trạng thái: <?= htmlspecialchars($order[0]['status'] ?? 'Chưa có trạng thái', ENT_QUOTES, 'UTF-8') ?></p>
+        <!-- <p class="text-center">Trạng thái: <?= htmlspecialchars($order[0]['status'] ?? 'Chưa có trạng thái', ENT_QUOTES, 'UTF-8') ?></p> -->
 
         <h3>Chi tiết sản phẩm:</h3>
         <table class="table">
