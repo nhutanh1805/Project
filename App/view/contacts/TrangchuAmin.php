@@ -25,28 +25,35 @@
 
     <div class="container">
         <div class="text-center">
-            <h2>Chọn Mục</h2>
-            <ul class="nav nav-tabs" id="categoryTabs">
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#category1">Laptop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#category2">Điện thoại</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#category3">Máy tính bảng</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#category4">Đồng hồ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contacts/create/"><i class=""></i>Thêm Sản Phẩm</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/inventory"><i class=""></i>Kho Hàng</a>
-                </li>
-            </ul>
-        </div>
+        <h2>Chọn Mục</h2>
+<ul class="nav nav-tabs" id="categoryTabs">
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#category1">Laptop</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#category2">Điện thoại</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#category3">Máy tính bảng</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#category4">Đồng hồ</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/contacts/create/"><i class=""></i>Thêm Sản Phẩm</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/inventory"><i class=""></i>Kho Hàng</a>
+    </li>
+    <!-- Thêm liên kết quản lý đơn hàng -->
+    <li class="nav-item">
+        <a class="nav-link" href="/orders">Đơn hàng</a>
+    </li>
+    <!-- Thêm liên kết Tất cả Đơn hàng -->
+    <li class="nav-item">
+        <a class="nav-link" href="/orders/all">Tất cả Đơn hàng</a>
+    </li>
+</ul>
 
         <div class="col-12">
             <div id="laptops" class="brand row m-1">

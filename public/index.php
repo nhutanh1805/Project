@@ -156,6 +156,11 @@ $router->get('/order/details/(:num)', 'OrderDetailsController@view');
 
 $router->post('/order/updateStatus/[i:orderId]', 'OrderController@updateStatus');
 
+// Hiển thị tất cả đơn hàng
+$router->get('/orders/all', function() {
+    $orderController = new OrderController();
+    $orderController->indexAll();  // Hiển thị tất cả đơn hàng
+});
 
 // // Hiển thị danh sách đơn hàng của người dùng
 // $router->get('/orders', '\App\Controllers\OrderController@index');

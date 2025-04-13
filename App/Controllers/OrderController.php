@@ -74,7 +74,20 @@ class OrderController extends Controller
         // Hiển thị danh sách đơn hàng
         $this->sendPage('order/index', ['orders' => $orders]);
     }
-
+// Xem tất cả đơn hàng (Admin hoặc người có quyền quản trị)
+public function indexAll(): void
+{
+    try {
+        // Lấy tất cả đơn hàng từ model Order
+        $orders = Order::getAllOrders();
+        
+        // Hiển thị danh sách tất cả đơn hàng
+        $this->sendPage('order/indexAll', ['orders' => $orders]);
+    } catch (Exception $e) {
+        // Nếu có lỗi khi lấy tất cả đơn hàng, hiển thị lỗi
+        $this->sendPage('order/indexAll', ['error' => $e->getMessage()]);
+    }
+}
     // Cập nhật địa chỉ giao hàng cho đơn hàng
     public function updateAddress($orderId): void
     {
@@ -97,7 +110,6 @@ class OrderController extends Controller
         }
     }
 
-    // Cập nhật trạng thái đơn hàng
     // Cập nhật trạng thái đơn hàng
     public function updateStatus($orderId): void
     {

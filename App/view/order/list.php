@@ -1,31 +1,40 @@
-<!-- File: src/Views/order/list.php -->
-<h1>Danh sách đơn hàng</h1>
-<table>
-    <thead>
-        <tr>
-            <th>Mã đơn hàng</th>
-            <th>Địa chỉ</th>
-            <th>Tổng tiền</th>
-            <th>Ngày tạo</th>
-            <th>Trạng thái</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($orders as $order): ?>
-        <tr>
-            <td><?= $order['id'] ?></td>
-            <td><?= $order['address'] ?></td>
-            <td><?= number_format($order['total_amount'], 0, ',', '.') ?> VNĐ</td>
-            <td><?= $order['created_at'] ?></td>
-            <td><?= $order['status'] ?? 'Chưa xác nhận' ?></td>
-            <td>
-                <a href="/order/view/<?= $order['id'] ?>">Xem</a> |
-                <a href="/order/confirm/<?= $order['id'] ?>">Xác nhận</a> |
-                <a href="/order/cancel/<?= $order['id'] ?>">Hủy</a> |
-                <a href="/order/delete/<?= $order['id'] ?>">Xóa</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách đơn hàng</title>
+</head>
+<body>
+    <h1>Danh sách đơn hàng</h1>
+
+    <?php if (empty($orders)): ?>
+        <p>Không có đơn hàng nào.</p>
+    <?php else: ?>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID Đơn Hàng</th>
+                    <th>Địa chỉ</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Ngày tạo</th>
+                    <th>Ngày cập nhật</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($orders as $order): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($order['id']); ?></td>
+                        <td><?php echo htmlspecialchars($order['address']); ?></td>
+                        <td><?php echo number_format($order['total_amount'], 0, ',', '.'); ?> VND</td>
+                        <td><?php echo htmlspecialchars($order['status']); ?></td>
+                        <td><?php echo htmlspecialchars($order['created_at']); ?></td>
+                        <td><?php echo htmlspecialchars($order['updated_at']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+</body>
+</html>
