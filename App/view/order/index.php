@@ -17,6 +17,7 @@
                         <th>Ngày Tạo</th>
                         <th>Tiến Trình</th>
                         <th>Thao Tác</th>
+                        <th>Phản Hồi</th> <!-- Cột phản hồi -->
                     </tr>
                 </thead>
                 <tbody>
@@ -63,7 +64,7 @@
                                 switch ($order['status']) {
                                     case 'Processing':
                                         $progress = 33; 
-                                        $icon = '<i class="fas fa-cogs"></i> Đang xử lý';
+                                        $icon = '<i class="fas fa-cogs" style="font-size: 24px;"></i> Đang xử lý';
                                         break;
                                     case 'Shipped':
                                         $progress = 66;
@@ -71,15 +72,15 @@
                                         break;
                                     case 'Delivered':
                                         $progress = 100;
-                                        $icon = '<i class="fas fa-check-circle"></i> Đã giao';
+                                        $icon = '<i class="fas fa-check-circle" style="font-size: 24px; color: #28a745;"></i> Đã giao'; // Icon check-circle
                                         break;
                                     case 'Cancelled':
                                         $progress = 0;
-                                        $icon = '<i class="fas fa-times-circle"></i> Đã hủy';
+                                        $icon = '<i class="fas fa-times-circle" style="font-size: 24px; color: #dc3545;"></i> Đã hủy'; // Icon times-circle (hủy)
                                         break;
                                     default:
                                         $progress = 0;
-                                        $icon = '<i class="fas fa-question-circle"></i> Chưa xác định';
+                                        $icon = '<i class="fas fa-question-circle" style="font-size: 24px;"></i> Chưa xác định';
                                         break;
                                 }
                                 ?>
@@ -96,22 +97,8 @@
                                     </div>
                                 </div>
                             </td>
-
                             <td>
                                 <a href="/order/view/<?= $order['id'] ?>" class="btn btn-info">Chi tiết</a>
-
-                         <!-- Hiển thị trường nhập bình luận nếu trạng thái là "Delivered" -->
-<?php if ($order['status'] == 'Delivered'): ?>
-    <form action="/order/comment/<?= $order['id'] ?>" method="post">
-        <div class="mb-3">
-            <label for="comment" class="form-label">Bình luận của bạn</label>
-            <textarea name="comment" id="comment" class="form-control" rows="3" placeholder="Nhập bình luận về đơn hàng của bạn..."></textarea>
-        </div>
-        <!-- Liên kết trực tiếp tới trang cmt.php -->
-        <a href="cmt.php" class="btn btn-primary">Gửi bình luận</a>
-    </form>
-<?php endif; ?>
-
 
                                 <!-- Xóa đơn hàng ở mọi trạng thái -->
                                 <!-- <a href="/order/delete/<?= $order['id'] ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?')">Xóa</a> -->
@@ -127,6 +114,32 @@
                                     </form>
                                 <?php endif; ?>
                             </td>
+
+                            <!-- Phản hồi, chuyển phần bình luận vào cột này -->
+                            <td>
+                                <?php if ($order['status'] == 'Delivered'): ?>
+                                    <form action="/order/comment/<?= $order['id'] ?>" method="post">
+                                        <div class="mb-3">
+                                            <label for="comment" class="form-label">Bình luận của bạn</label>
+                                            <textarea name="comment" id="comment_<?= $order['id'] ?>" class="form-control" rows="3" placeholder="Nhập bình luận về đơn hàng của bạn..."></textarea>
+                                        </div>
+
+                                        <!-- Gợi ý bình luận -->
+                                        <div class="comment-suggestions">
+                                            <h6>Gợi ý bình luận:</h6>
+                                            <ul class="list-unstyled">
+                                                <li><button type="button" class="btn btn-link suggestion-btn" onclick="insertSuggestion('Sản phẩm rất tuyệt vời, tôi sẽ mua thêm lần sau!')">Sản phẩm rất tuyệt vời, tôi sẽ mua thêm lần sau!</button></li>
+                                                <li><button type="button" class="btn btn-link suggestion-btn" onclick="insertSuggestion('Dịch vụ giao hàng rất nhanh, tôi rất hài lòng!')">Dịch vụ giao hàng rất nhanh, tôi rất hài lòng!</button></li>
+                                                <li><button type="button" class="btn btn-link suggestion-btn" onclick="insertSuggestion('Sản phẩm bị lỗi, tôi muốn đổi trả.')">Sản phẩm bị lỗi, tôi muốn đổi trả.</button></li>
+                                                <li><button type="button" class="btn btn-link suggestion-btn" onclick="insertSuggestion('Cảm ơn shop, lần sau tôi sẽ tiếp tục mua hàng!')">Cảm ơn shop, lần sau tôi sẽ tiếp tục mua hàng!</button></li>
+                                            </ul>
+                                        </div>
+
+                                        <!-- Nút gửi bình luận -->
+                                        <button type="submit" class="btn btn-primary">Gửi bình luận</button>
+                                    </form>
+                                <?php endif; ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -134,4 +147,13 @@
         <?php endif; ?>
     </div>
 </main>
+
+<script>
+    // Hàm để chèn gợi ý vào trường nhập bình luận
+    function insertSuggestion(suggestion) {
+        var commentBox = document.querySelector('[id^="comment_"]');
+        commentBox.value = suggestion;
+    }
+</script>
+
 <?php $this->stop() ?>
