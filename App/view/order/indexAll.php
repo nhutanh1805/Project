@@ -31,7 +31,7 @@
                             </td>
                             <td id="status_<?= $order['id'] ?>">
                                 <?php
-                                // Sử dụng Bootstrap classes để tô màu cho trạng thái
+                                // Hiển thị trạng thái đơn hàng
                                 switch ($order['status']) {
                                     case 'Processing':
                                         echo '<span class="badge bg-warning">Đơn hàng đang được xử lý</span>';
@@ -58,8 +58,8 @@
                                 <!-- Xóa đơn hàng ở mọi trạng thái -->
                                 <a href="/order/delete/<?= $order['id'] ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?')">Xóa</a>
 
-                                <!-- Cập nhật trạng thái đơn hàng -->
-                                <?php if ($order['status'] == 'Processing'): ?>
+                                <!-- Cập nhật trạng thái đơn hàng, chỉ cho phép cập nhật khi đơn hàng không phải là 'Delivered' hoặc 'Cancelled' -->
+                                <?php if ($order['status'] != 'Delivered' && $order['status'] != 'Cancelled'): ?>
                                     <form action="/order/updateStatus/<?= $order['id'] ?>" method="post" class="status-form" style="display:inline;">
                                         <label for="status_<?= $order['id'] ?>" class="form-label">Trạng thái:</label>
                                         <select name="status" id="status_select_<?= $order['id'] ?>" class="form-select" onchange="this.form.submit()">

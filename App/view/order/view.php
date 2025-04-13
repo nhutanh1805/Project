@@ -7,17 +7,16 @@
 <?php $this->start("page") ?>
 <main>
     <div class="container">
-        <h2 class="text-center">Đơn hàng #<?= htmlspecialchars($order[0]['id']) ?></h2>
+        <h2 class="text-center">Đơn hàng #<?= htmlspecialchars($order[0]['id'] ?? 'Chưa có ID', ENT_QUOTES, 'UTF-8') ?></h2>
 
-        <p class="text-center">Địa chỉ giao hàng: <?= htmlspecialchars($order[0]['address']) ?></p>
-        <p class="text-center">Trạng thái: <?= htmlspecialchars($order[0]['status']) ?></p>
+        <p class="text-center">Địa chỉ giao hàng: <?= htmlspecialchars($order[0]['address'] ?? 'Chưa có địa chỉ', ENT_QUOTES, 'UTF-8') ?></p>
+        <p class="text-center">Trạng thái: <?= htmlspecialchars($order[0]['status'] ?? 'Chưa có trạng thái', ENT_QUOTES, 'UTF-8') ?></p>
 
         <h3>Chi tiết sản phẩm:</h3>
         <table class="table">
             <thead>
                 <tr>
                     <th>Tên sản phẩm</th>
-                    <!-- <th>Ảnh</th> -->
                     <th>Số lượng</th>
                     <th>Giá</th>
                     <th>Tổng tiền</th>
@@ -30,27 +29,14 @@
                 <?php if (isset($orderItems) && !empty($orderItems)): ?>
                     <?php foreach ($orderItems as $item): ?>
                         <tr>
-                            <td><?= htmlspecialchars($item['product_name'], ENT_QUOTES, 'UTF-8') ?></td>
-                            <!-- <td>
-                                <?php 
-                                    // Kiểm tra nếu hình ảnh hợp lệ, nếu không thì gán một ảnh mặc định
-                                    $productImage = !empty($item['product_img']) ? $item['product_img'] : '/images/default-image.jpg'; 
-                                    
-                                    // Kiểm tra đường dẫn hình ảnh tuyệt đối
-                                    if (strpos($productImage, 'http') === false) {
-                                        // Nếu không phải đường dẫn đầy đủ (không chứa http), thêm đường dẫn gốc
-                                        $productImage = '/path/to/your/images' . $productImage; // Thay đổi /path/to/your/images thành đường dẫn thực tế
-                                    }
-                                ?>
-                                <img src="<?= htmlspecialchars($productImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($item['product_name'], ENT_QUOTES, 'UTF-8') ?>" style="max-width:150px;">
-                            </td> -->
-                            <td><?= htmlspecialchars($item['quantity'], ENT_QUOTES, 'UTF-8') ?></td>
-                            <td><?= number_format($item['price'], 0, ',', '.') ?> VND</td>
-                            <td><?= number_format($item['quantity'] * $item['price'], 0, ',', '.') ?> VND</td>
+                            <td><?= htmlspecialchars($item['product_name'] ?? 'Không có tên sản phẩm', ENT_QUOTES, 'UTF-8') ?></td>
+                            <td><?= htmlspecialchars($item['quantity'] ?? 0, ENT_QUOTES, 'UTF-8') ?></td>
+                            <td><?= number_format($item['price'] ?? 0, 0, ',', '.') ?> VND</td>
+                            <td><?= number_format(($item['quantity'] ?? 0) * ($item['price'] ?? 0), 0, ',', '.') ?> VND</td>
                         </tr>
                         <?php 
                             // Cộng tổng tiền của từng sản phẩm vào tổng đơn hàng
-                            $totalAmount += $item['quantity'] * $item['price']; 
+                            $totalAmount += ($item['quantity'] ?? 0) * ($item['price'] ?? 0); 
                         ?>
                     <?php endforeach; ?>
                 <?php else: ?>

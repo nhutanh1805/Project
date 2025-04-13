@@ -163,7 +163,6 @@ public function indexAll(): void
             $this->sendPage('order/view', ['error' => $e->getMessage()]);
         }
     }
-    // Trong OrderController
  // Xóa đơn hàng
  public function delete($orderId): void
  {

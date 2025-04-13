@@ -116,13 +116,6 @@ class Order
 {
     self::initDb();
 
-    // Kiểm tra xem người dùng có quyền cập nhật trạng thái hay không (Ví dụ, kiểm tra quyền quản trị viên)
-    // Trong trường hợp này, bạn có thể muốn cho phép cập nhật trạng thái từ bất kỳ ai, nên bỏ qua quyền hạn
-    // Tuy nhiên, nếu bạn muốn kiểm tra quyền, bạn có thể thêm một đoạn như sau:
-    // if (!self::isUserAdmin($userId)) {
-    //     throw new Exception("Bạn không có quyền cập nhật trạng thái đơn hàng.");
-    // }
-
     // Cập nhật trạng thái của đơn hàng
     $stmt = self::$db->prepare("UPDATE orders SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
     $stmt->execute([$status, $orderId]);

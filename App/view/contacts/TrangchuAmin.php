@@ -45,10 +45,6 @@
     <li class="nav-item">
         <a class="nav-link" href="/inventory"><i class=""></i>Kho Hàng</a>
     </li>
-    <!-- Thêm liên kết quản lý đơn hàng -->
-    <li class="nav-item">
-        <a class="nav-link" href="/orders">Đơn hàng</a>
-    </li>
     <!-- Thêm liên kết Tất cả Đơn hàng -->
     <li class="nav-item">
         <a class="nav-link" href="/orders/all">Tất cả Đơn hàng</a>
