@@ -32,13 +32,12 @@ class OrderController extends Controller
     }
 
     // Xem chi tiết đơn hàng
-    // Xem chi tiết đơn hàng
     public function view($orderId): void
     {
         $userId = $_SESSION['user_id'];
     
         // Lấy thông tin đơn hàng từ model Order
-        $order = Order::getOrder($orderId);
+        $order = Order::getAllOrders($orderId);
     
         if (empty($order)) {
             // Nếu không tìm thấy đơn hàng, thông báo lỗi
@@ -62,18 +61,6 @@ class OrderController extends Controller
         ]);
     }
     
-
-    // Xem tất cả đơn hàng của người dùng
-    public function index(): void
-    {
-        $userId = $_SESSION['user_id'];
-
-        // Lấy tất cả đơn hàng của người dùng từ model Order
-        $orders = Order::getUserOrders($userId);
-
-        // Hiển thị danh sách đơn hàng
-        $this->sendPage('order/index', ['orders' => $orders]);
-    }
 // Xem tất cả đơn hàng (Admin hoặc người có quyền quản trị)
 public function indexAll(): void
 {
@@ -88,6 +75,18 @@ public function indexAll(): void
         $this->sendPage('order/indexAll', ['error' => $e->getMessage()]);
     }
 }
+    // Xem tất cả đơn hàng của người dùng
+    public function index(): void
+    {
+        $userId = $_SESSION['user_id'];
+
+        // Lấy tất cả đơn hàng của người dùng từ model Order
+        $orders = Order::getUserOrders($userId);
+
+        // Hiển thị danh sách đơn hàng
+        $this->sendPage('order/index', ['orders' => $orders]);
+    }
+
     // Cập nhật địa chỉ giao hàng cho đơn hàng
     public function updateAddress($orderId): void
     {
@@ -123,7 +122,7 @@ public function indexAll(): void
         }
     
         // Kiểm tra nếu người dùng có quyền cập nhật trạng thái đơn hàng (có thể chỉ admin hoặc người tạo đơn)
-        $order = Order::getOrder($orderId);
+        $order = Order::getAllOrders();
         if ($order[0]['user_id'] != $userId) {
             $this->sendPage('order/view', ['error' => 'Bạn không có quyền cập nhật trạng thái của đơn hàng này']);
             return;
@@ -148,7 +147,7 @@ public function indexAll(): void
         $userId = $_SESSION['user_id'];
 
         // Kiểm tra nếu người dùng có quyền hủy đơn hàng (có thể chỉ admin hoặc người tạo đơn)
-        $order = Order::getOrder($orderId);
+        $order = Order::getAllOrders();
         if ($order[0]['user_id'] != $userId) {
             $this->sendPage('order/view', ['error' => 'Bạn không có quyền hủy đơn hàng này']);
             return;

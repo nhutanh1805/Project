@@ -47,7 +47,7 @@
     </li>
     <!-- Thêm liên kết Tất cả Đơn hàng -->
     <li class="nav-item">
-        <a class="nav-link" href="/orders/all">Tất cả Đơn hàng</a>
+        <a class="nav-link" href="/orders">Tất cả Đơn hàng</a>
     </li>
 </ul>
 

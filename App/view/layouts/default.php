@@ -69,7 +69,7 @@
       <span class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle p-1">1</span>
     </a>
  <!-- Biểu tượng đơn hàng -->
- <a class="text-reset ms-3" href="/orders" title="Đơn hàng">
+ <a class="text-reset ms-3" href="/orders/index" title="Đơn hàng">
   <i class="fas fa-box fa-lg"></i>
 </a>
 

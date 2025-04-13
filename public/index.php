@@ -113,10 +113,10 @@ $router->post('/user/changepass', '\App\Controllers\UserController@changePasswor
 // Order routes
 use App\Controllers\OrderController;
 
-// Hiển thị danh sách đơn hàng của người dùng
+// Hiển thị danh sách tất cả đơn hàng 
 $router->get('/orders', function() {
     $orderController = new OrderController();
-    $orderController->index();  // Hiển thị danh sách đơn hàng
+    $orderController->indexAll();  // Hiển thị danh sách đơn hàng
 });
 
 // Hiển thị chi tiết đơn hàng
@@ -138,8 +138,6 @@ $router->post('/order/updateStatus/{orderId}', function($orderId) {
         // Nếu trạng thái không được cung cấp, trả về lỗi hoặc chuyển hướng
         return redirect("/order/view/{$orderId}");  // Quay lại trang đơn hàng với thông báo lỗi
     }
-
-
     $orderController = new OrderController();
     $orderController->updateStatus($orderId);  // Cập nhật trạng thái đơn hàng
 });
@@ -153,14 +151,14 @@ $router->get('/order/delete/{orderId}', function($orderId) {
 // Cập nhật route để hiển thị chi tiết đơn hàng
 $router->get('/order/details/(:num)', 'OrderDetailsController@view');
 
-
 $router->post('/order/updateStatus/[i:orderId]', 'OrderController@updateStatus');
 
-// Hiển thị tất cả đơn hàng
-$router->get('/orders/all', function() {
+// Hiển thị tất cả đơn hàng của người dùng
+$router->get('/orders/index', function() {
     $orderController = new OrderController();
-    $orderController->indexAll();  // Hiển thị tất cả đơn hàng
+    $orderController->index(); 
 });
+
 
 // // Hiển thị danh sách đơn hàng của người dùng
 // $router->get('/orders', '\App\Controllers\OrderController@index');
