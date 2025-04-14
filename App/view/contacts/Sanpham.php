@@ -4,13 +4,13 @@
 <link href="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-2.0.8/r-3.0.2/sp-2.3.1/datatables.min.css" rel="stylesheet">
 <style>
   .category-list {
-  top: 100%; /* Đẩy menu xuống dưới tiêu đề */
+  top: 100%; 
   left: 0;
-  z-index: 1050; /* Cao hơn để đè lên sản phẩm */
-  display: none; /* Ẩn mặc định */
+  z-index: 1050; 
+  display: none; 
 }
 
-/* Khi collapse mở ra */
+
 .category-list.show {
   display: block !important;
 }
@@ -27,7 +27,7 @@
       <h2 style="color: rgb(3, 41, 119);" class="font-weight-bold">SẢN PHẨM</h2>
     </div>
 
-    <!-- DANH MỤC & PHÂN LOẠI CHUNG 1 HÀNG -->
+    <!-- DANH MỤC & PHÂN LOẠI -->
 <div class="row mb-3">
   <!-- DANH MỤC -->
   <div class="col-md-6 position-relative">
@@ -165,10 +165,6 @@
     </div>
   </div>
 </div>
-
-
-
-
 
     <!-- Phân trang -->
     <nav aria-label="Page navigation example">

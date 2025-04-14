@@ -48,9 +48,9 @@
                 <label for="payment_method">Phương thức thanh toán</label>
                 <select class="form-control" id="payment_method" name="payment_method" required>
                     <option value="cod">Thanh toán khi nhận hàng</option>
-                    <option value="credit_card">Thẻ tín dụng</option>
+                    <!-- <option value="credit_card">Thẻ tín dụng</option>
                     <option value="paypal">PayPal</option>
-                    <option value="bank_transfer">Chuyển khoản ngân hàng</option>
+                    <option value="bank_transfer">Chuyển khoản ngân hàng</option> -->
                 </select>
             </div>
 

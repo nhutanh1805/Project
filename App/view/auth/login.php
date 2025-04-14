@@ -42,7 +42,7 @@
       <div class="col-12 text"></div>
 
       <div class="col-12 text mt-3">
-        <p>Chưa có tài khoản? <a href="/register">Đăng Ký</a> / <a href="/registerVIP">Đăng ký VIP</a></p>
+        <p>Chưa có tài khoản? <a href="/register">Đăng Ký</a> </p>
         <p>Quên mật khẩu? <a href="/loginFP">Lấy lại mật khẩu</a></p>
       </div>
     </form>

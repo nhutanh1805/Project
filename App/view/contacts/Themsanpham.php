@@ -3,7 +3,7 @@
 <link href="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-2.0.8/r-3.0.2/sp-2.3.1/datatables.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <style>
-    /* Your existing styles here */
+    
 </style>
 <?php $this->stop() ?>
 

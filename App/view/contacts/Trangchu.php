@@ -97,12 +97,12 @@
 }
 
 #customCarousel .carousel-item img {
-  object-fit: cover; /* Đảm bảo hình ảnh phủ đầy và không bị méo */
-  height: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều cao của carousel */
+  object-fit: cover; 
+  height: 100%;
 }
 .video-container video {
-  max-height: 350px; /* Giới hạn chiều cao */
-  object-fit: cover; /* Giữ tỷ lệ mà không làm méo */
+  max-height: 350px; 
+  object-fit: cover; 
 }
 
 </style>

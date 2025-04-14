@@ -53,49 +53,62 @@
                             </td>
                             <td><?= htmlspecialchars($order['created_at'], ENT_QUOTES, 'UTF-8') ?></td>
 
-                           <!-- Tiến trình -->
-<td>
-    <?php
-    $progress = 0;
-    $icon = '';
-    $progressBarClass = 'bg-secondary'; // Mặc định là màu xám (cho trường hợp không xác định)
+                            <!-- Tiến trình -->
+                            <td>
+                                <?php
+                                $progress = 0;
+                                $icon = '';
+                                $progressBarClass = 'bg-secondary'; // Mặc định là màu xám (cho trường hợp không xác định)
 
-    switch ($order['status']) {
-        case 'Processing':
-            $progress = 33;
-            $icon = '<i class="fas fa-cogs"></i> Đang xử lý';
-            $progressBarClass = 'bg-warning'; // Màu vàng cho tiến trình đang xử lý
-            break;
-        case 'Shipped':
-            $progress = 66;
-            $icon = '<i class="fas fa-truck"></i> Đang giao hàng';
-            $progressBarClass = 'bg-primary'; // Màu xanh dương cho đang giao hàng
-            break;
-        case 'Delivered':
-            $progress = 100;
-            $icon = '<i class="fas fa-check-circle"></i> Đã giao';
-            $progressBarClass = 'bg-success'; // Màu xanh lá cho đã giao
-            break;
-        case 'Cancelled':
-            $progress = 0;
-            $icon = '<i class="fas fa-times-circle"></i> Đã hủy';
-            $progressBarClass = 'bg-danger'; // Màu đỏ cho đã hủy
-            break;
-        default:
-            $progress = 0;
-            $icon = '<i class="fas fa-question-circle"></i> Chưa xác định';
-            break;
-    }
-    ?>
-    <div class="d-flex align-items-center">
-        <div class="me-3"><?= $icon ?></div>
-        <!-- Tiến trình sử dụng Bootstrap -->
-        <div class="progress" style="width: 100%; height: 20px;">
-            <div class="progress-bar <?= $progressBarClass ?>" role="progressbar" style="width: <?= $progress ?>%;" aria-valuenow="<?= $progress ?>" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-    </div>
-</td>
+                                switch ($order['status']) {
+                                    case 'Processing':
+                                        $progress = 33;
+                                        $icon = '<i class="fas fa-cogs"></i> Đang xử lý';
+                                        $progressBarClass = 'bg-warning'; // Màu vàng cho tiến trình đang xử lý
+                                        break;
+                                    case 'Shipped':
+                                        $progress = 66;
+                                        $icon = '<i class="fas fa-truck"></i> Đang giao hàng';
+                                        $progressBarClass = 'bg-primary'; // Màu xanh dương cho đang giao hàng
+                                        break;
+                                    case 'Delivered':
+                                        $progress = 100;
+                                        $icon = '<i class="fas fa-check-circle"></i> Đã giao';
+                                        $progressBarClass = 'bg-success'; // Màu xanh lá cho đã giao
+                                        break;
+                                    case 'Cancelled':
+                                        $progress = 0;
+                                        $icon = '<i class="fas fa-times-circle"></i> Đã hủy';
+                                        $progressBarClass = 'bg-danger'; // Màu đỏ cho đã hủy
+                                        break;
+                                    default:
+                                        $progress = 0;
+                                        $icon = '<i class="fas fa-question-circle"></i> Chưa xác định';
+                                        break;
+                                }
+                                ?>
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3"><?= $icon ?></div>
+                                    <!-- Tiến trình sử dụng Bootstrap -->
+                                    <div class="progress" style="width: 100%; height: 20px;">
+                                        <div class="progress-bar <?= $progressBarClass ?>" role="progressbar" style="width: <?= $progress ?>%;" aria-valuenow="<?= $progress ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </td>
 
+                            <!-- Cập nhật trạng thái đơn hàng -->
+                            <td>
+                                <?php if ($order['status'] == 'Processing'): ?>
+                                    <form action="/order/updateStatus/<?= $order['id'] ?>" method="post" class="status-form" style="display:inline;">
+                                        <label for="status_<?= $order['id'] ?>" class="form-label">Cập nhật trạng thái:</label>
+                                        <select name="status" id="status_select_<?= $order['id'] ?>" class="form-select" onchange="this.form.submit()">
+                                        <option value="Cancelled" <?= $order['status'] == 'Cancelled' ? 'selected' : '' ?>>Hủy đơn?</option>
+                                        <option value="Cancelled" <?= $order['status'] == 'Cancelled' ? 'selected' : '' ?>>Xác nhận hủy</option>
+                                        </select>
+                                    </form>
+                    
+                                <?php endif; ?>
+                            </td>
 
                             <!-- Thao tác -->
                             <td>

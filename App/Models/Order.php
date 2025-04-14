@@ -137,7 +137,6 @@ class Order
         $stmt->execute([$orderId]);
     }
      // Cập nhật bình luận cho đơn hàng
-     // Cập nhật bình luận cho đơn hàng
 public static function updateOrderComment(int $orderId, string $comment): void
 {
     self::initDb();
@@ -146,7 +145,6 @@ public static function updateOrderComment(int $orderId, string $comment): void
     $stmt = self::$db->prepare("UPDATE orders SET cmt = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
     $stmt->execute([$comment, $orderId]);
 }
-
 
 }
 ?>
