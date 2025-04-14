@@ -158,19 +158,19 @@ $router->get('/orders/index', function() {
     $orderController = new OrderController();
     $orderController->index(); 
 });
-
-
-// // Hiển thị danh sách đơn hàng của người dùng
-// $router->get('/orders', '\App\Controllers\OrderController@index');
-
-// // Hiển thị chi tiết đơn hàng
-// $router->get('/order/{id}', '\App\Controllers\OrderController@show');
-
-// // Cập nhật trạng thái đơn hàng
-// $router->post('/order/{id}/update-status', '\App\Controllers\OrderController@updateStatus');
-
-// // Xóa đơn hàng
-// $router->post('/order/{id}/delete', '\App\Controllers\OrderController@delete');
+// Route để cập nhật bình luận cho đơn hàng
+$router->post('/order/updateComment/{orderId}', function($orderId) {
+    $orderController = new OrderController();
+    $orderController->updateComment($orderId);  // Cập nhật bình luận cho đơn hàng
+});
+$router->post('/order/comment/{orderId}', function($orderId) {
+    $orderController = new OrderController();
+    $orderController->updateComment($orderId);  // Cập nhật bình luận cho đơn hàng
+});
+$router->get('/order/index', function() {
+    $orderController = new OrderController();
+    $orderController->index();  // Hiển thị danh sách đơn hàng của người dùng
+});
 
 
 use App\Controllers\InventoryController;

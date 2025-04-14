@@ -8,6 +8,7 @@ use App\Models\OrderDetail;
 
 class OrderController extends Controller
 {
+    
     // Tạo đơn hàng từ giỏ hàng
     public function create(): void
     {
@@ -180,6 +181,39 @@ public function indexAll(): void
          exit;
      }
  }
+// Cập nhật bình luận cho đơn hàng
+// Cập nhật bình luận cho đơn hàng
+public function updateComment($orderId): void
+{
+    $userId = $_SESSION['user_id'];  // Lấy ID người dùng từ session
+    $comment = isset($_POST['comment']) ? $_POST['comment'] : '';  // Lấy bình luận từ POST
+
+    if (empty($comment)) {
+        // Nếu bình luận trống, thông báo lỗi
+        $this->sendPage('order/view', ['error' => 'Bình luận không được để trống', 'orderId' => $orderId]);
+        return;
+    }
+
+    // Kiểm tra xem người dùng có quyền cập nhật bình luận này không
+    $order = Order::getAllOrders($orderId);
+    if (empty($order) || $order[0]['user_id'] != $userId) {
+        $this->sendPage('order/view', ['error' => 'Bạn không có quyền cập nhật bình luận cho đơn hàng này', 'orderId' => $orderId]);
+        return;
+    }
+
+    try {
+        // Cập nhật bình luận cho đơn hàng
+        Order::updateOrderComment($orderId, $comment);
+        
+        // Sau khi cập nhật thành công, chuyển hướng đến trang index của đơn hàng
+        redirect("/order/index");  // Chuyển hướng về danh sách đơn hàng thay vì chi tiết
+    } catch (Exception $e) {
+        // Nếu có lỗi khi cập nhật bình luận, hiển thị thông báo lỗi
+        $this->sendPage('order/view', ['error' => $e->getMessage(), 'orderId' => $orderId]);
+    }
+}
+
+
 
 }
 ?>

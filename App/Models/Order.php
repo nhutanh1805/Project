@@ -136,7 +136,17 @@ class Order
         $stmt = self::$db->prepare("DELETE FROM orders WHERE id = ?");
         $stmt->execute([$orderId]);
     }
+     // Cập nhật bình luận cho đơn hàng
+     // Cập nhật bình luận cho đơn hàng
+public static function updateOrderComment(int $orderId, string $comment): void
+{
+    self::initDb();
     
+    // Cập nhật bình luận vào cột `cmt` của bảng `orders`
+    $stmt = self::$db->prepare("UPDATE orders SET cmt = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
+    $stmt->execute([$comment, $orderId]);
+}
+
 
 }
 ?>

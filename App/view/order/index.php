@@ -26,14 +26,12 @@
                             <td><?= htmlspecialchars($order['id'], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
                                 <?php
-                                // Hiển thị tổng tiền với định dạng VNĐ
                                 $totalAmount = $order['total_amount'] ?? 0;
                                 echo number_format($totalAmount, 0, ',', '.') . ' VNĐ';
                                 ?>
                             </td>
                             <td id="status_<?= $order['id'] ?>">
                                 <?php
-                                // Hiển thị trạng thái đơn hàng
                                 switch ($order['status']) {
                                     case 'Processing':
                                         echo '<span class="badge bg-warning">Đơn hàng đang được xử lý</span>';
@@ -54,70 +52,68 @@
                                 ?>
                             </td>
                             <td><?= htmlspecialchars($order['created_at'], ENT_QUOTES, 'UTF-8') ?></td>
-                            
-                            <!-- Thanh tiến trình với Icon -->
-                            <td>
-                                <?php 
-                                // Xác định tiến trình của đơn hàng và icon đi kèm
-                                $progress = 0;
-                                $icon = '';
-                                switch ($order['status']) {
-                                    case 'Processing':
-                                        $progress = 33; 
-                                        $icon = '<i class="fas fa-cogs" style="font-size: 24px;"></i> Đang xử lý';
-                                        break;
-                                    case 'Shipped':
-                                        $progress = 66;
-                                        $icon = '<i class="fas fa-truck" style="font-size: 24px; color: #0d6efd;"></i> Đang giao hàng'; // Icon xe tải ở đây
-                                        break;
-                                    case 'Delivered':
-                                        $progress = 100;
-                                        $icon = '<i class="fas fa-check-circle" style="font-size: 24px; color: #28a745;"></i> Đã giao'; // Icon check-circle
-                                        break;
-                                    case 'Cancelled':
-                                        $progress = 0;
-                                        $icon = '<i class="fas fa-times-circle" style="font-size: 24px; color: #dc3545;"></i> Đã hủy'; // Icon times-circle (hủy)
-                                        break;
-                                    default:
-                                        $progress = 0;
-                                        $icon = '<i class="fas fa-question-circle" style="font-size: 24px;"></i> Chưa xác định';
-                                        break;
-                                }
-                                ?>
 
-                                <!-- Progress Bar -->
-                                <div class="d-flex align-items-center">
-                                    <!-- Icon nằm ngoài thanh tiến trình -->
-                                    <div class="me-3"><?= $icon ?></div>
+                           <!-- Tiến trình -->
+<td>
+    <?php
+    $progress = 0;
+    $icon = '';
+    $progressBarClass = 'bg-secondary'; // Mặc định là màu xám (cho trường hợp không xác định)
 
-                                    <!-- Thanh tiến trình -->
-                                    <div class="progress" style="flex-grow: 1;">
-                                        <div class="progress-bar" role="progressbar" style="width: <?= $progress ?>%" aria-valuenow="<?= $progress ?>" aria-valuemin="0" aria-valuemax="100">
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+    switch ($order['status']) {
+        case 'Processing':
+            $progress = 33;
+            $icon = '<i class="fas fa-cogs"></i> Đang xử lý';
+            $progressBarClass = 'bg-warning'; // Màu vàng cho tiến trình đang xử lý
+            break;
+        case 'Shipped':
+            $progress = 66;
+            $icon = '<i class="fas fa-truck"></i> Đang giao hàng';
+            $progressBarClass = 'bg-primary'; // Màu xanh dương cho đang giao hàng
+            break;
+        case 'Delivered':
+            $progress = 100;
+            $icon = '<i class="fas fa-check-circle"></i> Đã giao';
+            $progressBarClass = 'bg-success'; // Màu xanh lá cho đã giao
+            break;
+        case 'Cancelled':
+            $progress = 0;
+            $icon = '<i class="fas fa-times-circle"></i> Đã hủy';
+            $progressBarClass = 'bg-danger'; // Màu đỏ cho đã hủy
+            break;
+        default:
+            $progress = 0;
+            $icon = '<i class="fas fa-question-circle"></i> Chưa xác định';
+            break;
+    }
+    ?>
+    <div class="d-flex align-items-center">
+        <div class="me-3"><?= $icon ?></div>
+        <!-- Tiến trình sử dụng Bootstrap -->
+        <div class="progress" style="width: 100%; height: 20px;">
+            <div class="progress-bar <?= $progressBarClass ?>" role="progressbar" style="width: <?= $progress ?>%;" aria-valuenow="<?= $progress ?>" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+</td>
+
+
+                            <!-- Thao tác -->
                             <td>
                                 <a href="/order/view/<?= $order['id'] ?>" class="btn btn-info">Chi tiết</a>
-
-                                <!-- Xóa đơn hàng ở mọi trạng thái -->
-                                <!-- <a href="/order/delete/<?= $order['id'] ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?')">Xóa</a> -->
-
-                                <!-- Cập nhật trạng thái đơn hàng, chỉ cho phép hủy đơn nếu trạng thái là 'Processing' -->
-                                <?php if ($order['status'] == 'Processing'): ?>
-                                    <form action="/order/updateStatus/<?= $order['id'] ?>" method="post" class="status-form" style="display:inline;">
-                                        <label for="status_<?= $order['id'] ?>" class="form-label">Trạng thái:</label>
-                                        <select name="status" id="status_select_<?= $order['id'] ?>" class="form-select" onchange="this.form.submit()">
-                                            <option value="Cancelled" <?= $order['status'] == 'Cancelled' ? 'selected' : '' ?>>Hủy đơn?</option>
-                                            <option value="Cancelled" <?= $order['status'] == 'Cancelled' ? 'selected' : '' ?>>Xác nhận hủy</option>
-                                        </select>
-                                    </form>
-                                <?php endif; ?>
                             </td>
 
-                            <!-- Phản hồi, chuyển phần bình luận vào cột này -->
+                            <!-- Phản hồi -->
                             <td>
                                 <?php if ($order['status'] == 'Delivered'): ?>
+                                    <!-- Hiển thị bình luận hiện tại nếu có -->
+                                    <?php if (!empty($order['comment'])): ?>
+                                        <div class="alert alert-info">
+                                            <strong>Bình luận hiện tại:</strong><br>
+                                            <?= nl2br(htmlspecialchars($order['comment'], ENT_QUOTES, 'UTF-8')) ?>
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <!-- Form nhập bình luận -->
                                     <form action="/order/comment/<?= $order['id'] ?>" method="post">
                                         <div class="mb-3">
                                             <label for="comment" class="form-label">Bình luận của bạn</label>
