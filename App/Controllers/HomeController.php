@@ -7,17 +7,17 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
-    // Khởi tạo controller, kiểm tra xem người dùng đã đăng nhập chưa
-    public function __construct()
-    {
-        // Kiểm tra nếu người dùng chưa đăng nhập thì chuyển hướng đến trang đăng nhập
-        if (!AUTHGUARD()->isUserLoggedIn()) {
-            redirect('/login');
-        }
+    // // Khởi tạo controller, kiểm tra xem người dùng đã đăng nhập chưa
+    // public function __construct()
+    // {
+    //     // Kiểm tra nếu người dùng chưa đăng nhập thì chuyển hướng đến trang đăng nhập
+    //     if (!AUTHGUARD()->isUserLoggedIn()) {
+    //         redirect('/login');
+    //     }
 
-        // Gọi constructor của lớp cha (Controller)
-        parent::__construct();
-    }
+    //     // Gọi constructor của lớp cha (Controller)
+    //     parent::__construct();
+    // }
 
     // Phương thức tìm kiếm liên hệ (contacts) từ query string
     public function indexsearch()

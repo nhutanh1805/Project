@@ -300,3 +300,5 @@ INSERT INTO `comment` (`user_id`, `content`, `image_link`, `rate`, `date`, `orde
 VALUES
 (11, 'Sản phẩm này rất tuyệt vời, tôi rất hài lòng!', 'https://example.com/image1.jpg', 5, '2025-04-14 09:30:00', 366),
 (11, 'Chất lượng sản phẩm tốt nhưng giao hàng hơi chậm.', 'https://example.com/image2.jpg', 3, '2025-04-14 10:15:00', 366);
+
+ALTER TABLE `your_table_name` MODIFY `price` DECIMAL(15,2);
