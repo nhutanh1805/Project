@@ -302,3 +302,7 @@ VALUES
 (11, 'Chất lượng sản phẩm tốt nhưng giao hàng hơi chậm.', 'https://example.com/image2.jpg', 3, '2025-04-14 10:15:00', 366);
 
 ALTER TABLE `your_table_name` MODIFY `price` DECIMAL(15,2);
+
+
+
+composer require paypal/rest-api-sdk-php

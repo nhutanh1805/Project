@@ -23,11 +23,11 @@
 }
 
 .responsive-video {
-  width: 100%; /* Chiều ngang full trong div cha */
-  height: 50; /* Giữ tỷ lệ khung hình */
-  max-width: 100vw; /* Không vượt quá màn hình */
-  max-height: 90vh; /* Không vượt quá 90% chiều cao màn hình */
-  object-fit: cover; /* Đảm bảo video không bị méo */
+  width: 100%; 
+  height: 50; 
+  max-width: 100vw; 
+  max-height: 90vh; 
+  object-fit: cover;
 }
 
 </style>
